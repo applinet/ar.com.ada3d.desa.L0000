@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="46a" sequence="45" unid="D50CB6D5E1D1D6998325824200679EC0">
+<created><datetime dst="true">20180228T165148,48-02</datetime></created>
+<modified><datetime dst="true">20180302T100653,48-02</datetime></modified>
+<revised><datetime dst="true">20180228T200238,40-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100653,48-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100653,48-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>ar/com/ada3d/controller/PorcentualMasivoBean.java</text></item>
+
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>ar/com/ada3d/controller/PorcentualMasivoBean.java</text></item>
+
+</note>

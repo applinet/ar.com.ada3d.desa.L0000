@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoView var="viewAdministradores" viewName="v.UI.Administradores" />
+	</xp:this.data>
+
+	
+	
+	
+	
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="true">
+		<xp:this.facets>
+			<xp:panel id="PNL_container" xp:key="facetMiddle"
+				styleClass="container">
+
+				<xp:viewPanel value="#{viewAdministradores}"
+					id="viewPanel1"
+					dataTableStyleClass="table table-hover table-responsive">
+					<xp:viewColumn
+						columnName="admstdr_NombreAdministrador" id="viewColumn1"
+						displayAs="link" openDocAsReadonly="true">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="Nombre"
+								xp:key="header" id="viewColumnHeaderNombre">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_CUIT"
+						id="viewColumn2">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="CUIT"
+								xp:key="header" id="viewColumnHeaderCUIT">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_RPA"
+						id="viewColumn3">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="RPA"
+								xp:key="header" id="viewColumnHeaderRPA">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+						<xp:this.converter>
+							<xp:convertNumber type="number"
+								integerOnly="true">
+							</xp:convertNumber>
+						</xp:this.converter>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_DOMICILIO"
+						id="viewColumn4">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="Domicilio"
+								xp:key="header" id="viewColumnHeaderDomicilio">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_EMAIL"
+						id="viewColumn5">
+						<xp:this.facets>
+							<xp:viewColumnHeader xp:key="header"
+								id="viewColumnHeaderMail" value="Correo electrónico">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_TELEFONO"
+						id="viewColumn6">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="Telefono"
+								xp:key="header" id="viewColumnHeaderTelefono">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_SITUACIONFISCAL"
+						id="viewColumn7">
+						<xp:this.facets>
+							<xp:viewColumnHeader
+								value="Situación Fiscal" xp:key="header"
+								id="viewColumnHeaderFiscal">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:viewColumn columnName="admstdr_MEMBRETE"
+						id="viewColumn8">
+						<xp:this.facets>
+							<xp:viewColumnHeader value="Membrete"
+								xp:key="header" id="viewColumnHeaderMembrete">
+							</xp:viewColumnHeader>
+						</xp:this.facets>
+					</xp:viewColumn>
+					<xp:this.facets>
+						<xp:pager partialRefresh="true"
+							xp:key="footerPager" id="pager1" layout="Previous Group Next">
+						</xp:pager>
+					</xp:this.facets>
+				</xp:viewPanel>
+				<xp:button id="Agregar" value="Nuevo Administrador"
+					styleClass="btn-primary dashBtn">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action>
+							<xp:openPage
+								name="/frmDatosAdministrador.xsp">
+							</xp:openPage>
+						</xp:this.action>
+					</xp:eventHandler>
+				</xp:button>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

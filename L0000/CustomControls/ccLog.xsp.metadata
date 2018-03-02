@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="1d2" sequence="46" unid="0388C6ADD431A3FB832581A70050C026">
-<created><datetime dst="true">20170926T124200,70-02</datetime></created>
-<modified><datetime dst="true">20171110T133338,90-02</datetime></modified>
-<revised><datetime dst="true">20171110T111333,49-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171110T133338,90-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171110T133338,90-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="37a" sequence="11" unid="B75C423DF2529B16832582400061AB51">
+<created><datetime dst="true">20180226T154648,49-02</datetime></created>
+<modified><datetime dst="true">20180302T100652,28-02</datetime></modified>
+<revised><datetime dst="true">20180227T120540,52-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100652,28-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100652,28-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$TITLE"><text>ccLog.xsp</text></item>
-<item name="$Flags"><text>gC~4;</text></item>
-
-
+<item name="$Flags"><text>gC~4;P</text></item>
 
 
 <item name="$FileNames" sign="true"><text>ccLog.xsp</text></item>
+
+
 
 
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="452" sequence="2" unid="C8B42407A8B4BB148325824000646DCC">
+<created><datetime dst="true">20180226T161657,08-02</datetime></created>
+<modified><datetime dst="true">20180302T100653,36-02</datetime></modified>
+<revised><datetime dst="true">20180226T161702,68-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100653,36-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100653,36-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$TITLE"><text>ar/com/ada3d/utilidades/Validadores.java</text></item>
+
+
+
+<item name="$Flags"><text>34567Cg~[P</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>ar/com/ada3d/utilidades/Validadores.java</text></item></note>

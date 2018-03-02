@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
+		<xp:this.facets>
+			<xp:panel id="PNL_Principal" xp:key="facetMiddle">
+
+				<xp:panel id="PNL_Alta">
+
+				</xp:panel>
+				<xe:formTable id="formTableGastos" formTitle="Gastos"
+					disableErrorSummary="false" disableRowError="false"
+					style="padding-left:10.0%;padding-right:10.0%">
+					<xp:div>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowPrv_id" label="Proveedor"
+								labelPosition="right" styleClass="col-sm-10">
+								<xp:comboBox id="prv_razonSocial">
+									<xp:selectItem itemLabel="Electricidad 1"></xp:selectItem>
+									<xp:selectItem itemLabel="Ascensores 1"></xp:selectItem>
+									<xp:selectItem itemLabel="dos"></xp:selectItem>
+									<xp:selectItem itemLabel="tres"></xp:selectItem>
+									<xp:selectItem itemLabel="Ascensores 41"></xp:selectItem>
+								</xp:comboBox>
+							</xe:formRow>
+						</xe:formColumn>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowEdf_codigo" labelWidth="100px"
+								labelPosition="right" label="Edificio">
+								<xc:ccButtonEdificiosAutorizados></xc:ccButtonEdificiosAutorizados>
+							</xe:formRow>
+						</xe:formColumn>
+					</xp:div>
+					<xp:div>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowGst_texto" label="Detalle"
+								labelPosition="right" styleClass="col-sm-10">
+
+								<xp:inputTextarea id="gst_texto" rows="4">
+								</xp:inputTextarea>
+							</xe:formRow>
+						</xe:formColumn>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowGst_fechaFactura" labelWidth="100px"
+								labelPosition="right" label="Fecha">
+								<xp:inputText id="gst_fechaFactura">
+									<xp:this.validators>
+										<xp:validateRequired message="La fecha es un dato obligatorio">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</xe:formRow>
+						</xe:formColumn>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowGst_importe" labelWidth="100px"
+								labelPosition="right" label="Importe">
+								<xp:inputText id="gst_importe">
+									<xp:this.validators>
+										<xp:validateRequired message="El importe es un dato obligatorio">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</xe:formRow>
+						</xe:formColumn>
+					</xp:div>
+					<xp:div>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowGst_agrupamiento" label="Agrupamiento"
+								labelPosition="right" styleClass="col-sm-10">
+								<xp:comboBox id="gst_agrupamiento">
+									<xp:selectItem itemLabel="grupo 1">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="grupo 2">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="grupo 3">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="grupo 4">
+									</xp:selectItem>
+								</xp:comboBox>
+							</xe:formRow>
+						</xe:formColumn>
+						<xe:formColumn styleClass="form-group col-sm-6">
+							<xe:formRow id="rowGst_porcentual" labelWidth="100px"
+								labelPosition="right" label="Porcentual">
+								<xp:comboBox id="gst_porcentual">
+									<xp:selectItem itemLabel="GASTOS A">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="GASTOS B">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="GASTOS C">
+									</xp:selectItem>
+								</xp:comboBox>
+							</xe:formRow>
+						</xe:formColumn>
+					</xp:div>
+					<xe:this.facets>
+						<xp:div xp:key="footer">
+							<xp:button value="Guardar" id="btnSave">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+								</xp:eventHandler>
+							</xp:button>
+							<xp:button value="Pagar" id="buttonPagar">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete">
+								</xp:eventHandler>
+							</xp:button>
+						</xp:div>
+					</xe:this.facets>
+				</xe:formTable>
+
+
+
+				<xp:panel id="PN_frmGasto">
+					<xp:div styleClass="container form-inline form-group">
+
+						<xp:table title="Tabla" styleClass="table-hover">
+							<xp:repeat id="repeat1" rows="30" var="rowData" style="width:400px">
+								<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var javaClassQuery:QueryAS400 = new QueryAS400();
+return javaClassQuery.getSelectAS("_*_cursoDevuelvoTexto_PH_E01", null, false);}]]></xp:this.value>
+
+								<xp:this.facets>
+
+
+									<xp:text xp:key="header" escape="false">
+										<xp:this.value><![CDATA[#{javascript:"<thead><tr><th>Facturas</th></tr></thead><tbody>"}]]></xp:this.value>
+									</xp:text>
+									<xp:text xp:key="footer" escape="false">
+										<xp:this.value><![CDATA[#{javascript:"</tbody>"}]]></xp:this.value>
+									</xp:text>
+								</xp:this.facets>
+								<xp:tr>
+									<xp:td>
+										<xp:checkBox value="#{rptEdificiosPorUsuario.selected}"
+											id="checkBox1" text="#{rptEdificiosPorUsuario.descripcionEdificio}"
+											checkedValue="1" uncheckedValue="0">
+
+										</xp:checkBox>
+										<span class="glyphicon glyphicon-list-alt">
+										</span>
+										&#160;
+										<xp:text escape="true" id="computedField2" value="#{rowData}">
+										</xp:text>
+										<xp:button value="Pagar" id="button2">
+										</xp:button>
+										<br />
+									</xp:td>
+								</xp:tr>
+							</xp:repeat>
+						</xp:table>
+					</xp:div>
+				</xp:panel>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+
+</xp:view>

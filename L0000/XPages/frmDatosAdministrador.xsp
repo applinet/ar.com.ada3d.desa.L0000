@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoDocument formName="f.DatosAdministrador"
+			var="docAdministradores" />
+	</xp:this.data>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="true">
+		<xp:this.facets>
+
+			<xp:panel id="PNL_container" xp:key="facetMiddle"
+				styleClass="container">
+
+				<xe:formTable id="tblDatosAdministrador">
+					<xe:formRow id="rowNombre" label="Nombre"
+						labelPosition="left">
+						<xp:inputText id="admstdr_Nombre_des"
+							value="#{docAdministradores.admstdr_NombreAdministrador}"
+							required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El nombre es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowCuit" label="CUIT"
+						labelPosition="left">
+						<xp:inputText id="admstdr_CUIT_des"
+							value="#{docAdministradores.admstdr_CUIT}" required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El CUIT es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowRpa" label="RPA"
+						labelPosition="left">
+						<xp:inputText id="admstdr_RPA_des"
+							value="#{docAdministradores.admstdr_RPA}" required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El RPA es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+							<xp:this.converter>
+								<xp:convertNumber type="number"
+									integerOnly="true">
+								</xp:convertNumber>
+							</xp:this.converter>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowDomilicio" label="Domicilio"
+						labelPosition="left">
+						<xp:inputText id="admstdr_Domicilio_des"
+							value="#{docAdministradores.admstdr_DOMICILIO}"
+							required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El domicilio es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="formLocalidad" label="Localidad"
+						styleClass="form-inline" labelPosition="left">
+						<xp:div id="divLocalidad">
+
+							<xp:div styleClass="form-group col-xs-6">
+								<xp:comboBox id="comboBoxLocalidad"
+									styleClass="form-control"
+									readonly="#{javascript:!docAdministradores.isEditable()}">
+									<xp:selectItem
+										itemLabel="--Seleccione--" itemValue="0">
+									</xp:selectItem>
+									<xp:selectItem itemLabel="C.A.B.A."
+										itemValue="1">
+									</xp:selectItem>
+									<xp:selectItem
+										itemLabel="Fuera de C.A.B.A." itemValue="2">
+									</xp:selectItem>
+									<xp:eventHandler event="onchange"
+										submit="true" refreshMode="partial"
+										refreshId="divLocalidad">
+									</xp:eventHandler>
+								</xp:comboBox>
+							</xp:div>
+							<xp:div styleClass="form-group col-xs-6">
+								<xp:inputText
+									id="admstrdr_Localidad_des" styleClass="form-control"
+									value="#{docAdministradores.admstdr_LOCALIDAD}"
+									required="true">
+									<xp:this.validators>
+										<xp:validateRequired
+											message="La localidad es un campo requerido.">
+										</xp:validateRequired>
+									</xp:this.validators>
+									<xp:this.rendered><![CDATA[#{javascript:getComponent("comboBoxLocalidad").getValue() == "2"}]]></xp:this.rendered>
+									<xp:this.attrs>
+										<xp:attr
+											value="Ingrese localidad" name="placeHolder">
+										</xp:attr>
+									</xp:this.attrs>
+								</xp:inputText>
+							</xp:div>
+						</xp:div>
+					</xe:formRow>
+
+					<xe:formRow id="rowTelefono" label="Telefono"
+						labelPosition="left">
+						<xp:inputText id="admstdr_Telefono_des"
+							value="#{docAdministradores.admstdr_TELEFONO}" required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El teléfono es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowEmail" label="Correo electrónico"
+						labelPosition="left">
+						<xp:inputText id="admstdr_Email_des"
+							value="#{docAdministradores.admstdr_EMAIL}" required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El email es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowSituacionFiscal"
+						label="Situación Fiscal" labelPosition="left">
+						<xp:inputText id="admstdr_SituacionFiscal_des"
+							value="#{docAdministradores.admstdr_SITUACIONFISCAL}"
+							required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="La situación fiscal es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowMembrete" label="Membrete"
+						labelPosition="left">
+						<xp:inputText id="admstdr_Membrete_des"
+							value="#{docAdministradores.admstdr_MEMBRETE}" required="true">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El membrete es un campo requerido.">
+								</xp:validateRequired>
+							</xp:this.validators>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowLogo" label="Logo"
+						labelPosition="left">
+						<xp:panel id="PNL_LogoEdit">
+							<xp:fileUpload id="admstdr_Logo_rch"
+								value="#{docAdministradores.admstdr_LOGO}"
+								rendered="#{javascript:docAdministradores.isEditable()}"
+								mimetype="image/png" accept="image/png">
+							</xp:fileUpload>
+							<xp:repeat id="repeatImages" rows="1"
+								var="image">
+								<xp:this.value><![CDATA[#{javascript:docAdministradores.getAttachmentList("admstdr_LOGO");}]]></xp:this.value>
+								<xp:image
+									url="#{javascript:image.getHref()}" id="image1">
+								</xp:image>
+							</xp:repeat>
+						</xp:panel>
+
+
+					</xe:formRow>
+					<xe:formRow id="rowFirma" label="Firma"
+						labelPosition="left">
+					</xe:formRow>
+					<xp:this.facets>
+						<xp:panel id="PNL_Button" xp:key="footer">
+							<xp:button id="btnSave" value="Guardar">
+								<xp:this.rendered><![CDATA[#{javascript:return (userBean.accessLevel >= lotus.domino.ACL.LEVEL_EDITOR) && docAdministradores.isEditable()	 }]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete" immediate="false"
+									save="true" id="eventHandler1">
+									<xp:this.action>
+										<xp:actionGroup>
+											<xp:saveDocument
+												var="docAdministradores">
+											</xp:saveDocument>
+											<xp:openPage
+												name="/viewDatosAdministrador.xsp">
+											</xp:openPage>
+										</xp:actionGroup>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							<xp:button value="Editar" id="btnEdit">
+								<xp:this.rendered>
+									<![CDATA[#{javascript:return (userBean.accessLevel >= lotus.domino.ACL.LEVEL_EDITOR) && !docAdministradores.isEditable()}]]>
+								</xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action>
+										<xp:changeDocumentMode
+											mode="edit" var="docAdministradores">
+										</xp:changeDocumentMode>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							<xp:button id="btnClose" value="Cancelar">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete" immediate="true">
+									<xp:this.action>
+										<xp:openPage
+											name="/viewDatosAdministrador.xsp">
+										</xp:openPage>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:panel>
+					</xp:this.facets>
+				</xe:formTable>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

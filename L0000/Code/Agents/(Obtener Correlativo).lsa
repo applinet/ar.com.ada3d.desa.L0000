@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.9'
- replicaid='832581D4005579C9'>
-<noteinfo noteid='1f2' unid='1AFC14F373A47FA7832581A9006D0651' sequence='113'>
+ replicaid='8325824400428A77'>
+<noteinfo noteid='1ae' unid='1AFC14F373A47FA7832581A9006D0651' sequence='121'>
 <created><datetime dst='true'>20170928T175050,41-02</datetime></created>
-<modified><datetime dst='true'>20171110T133339,11-02</datetime></modified>
-<revised><datetime dst='true'>20171101T172914,14-02</datetime></revised>
-<lastaccessed><datetime dst='true'>20171110T133339,11-02</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20171110T133339,11-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst='true'>20180302T100649,40-02</datetime></modified>
+<revised><datetime dst='true'>20171114T112329,54-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20180302T100649,40-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20180302T100649,40-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name='$POID'><datetime>20150303T122809,33-03</datetime></item>
 <item name='$TITLE' sign='true'><text>(Obtener Correlativo)|a.ObtCorr</text></item>
 <item name='$AssistType' sign='true'><number>65413</number></item>
 <item name='$AssistLastRun' sign='true'>
@@ -34,11 +33,11 @@ gQYAAAAA
 <item name='$DesignerVersion'><text>8.5.3</text></item>
 <item name='$AssistRunInfo' summary='true'>
 <rawitemdata type='3'>
-BgAAAgAACADuAQAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAAtgAAAAAAAAAAAAAAAAAAABAAAAAA
-AAAAlPtAANSBJYMAAAAASzdSANCBJYOyNlIA0IElgwAAAAAAAAAAAAAAAAAAAAAAAAAAU3RhcnRl
-ZCBydW5uaW5nIGFnZW50ICcoT2J0ZW5lciBDb3JyZWxhdGl2byl8YS5PYnRDb3JyJyBvbiAxMS8x
-MC8yMDE3IDA4OjQ5OjQ3DQpSYW4gTG90dXNTY3JpcHQgY29kZQ0KRG9uZSBydW5uaW5nIGFnZW50
-ICcoT2J0ZW5lciBDb3JyZWxhdGl2byl8YS5PYnRDb3JyJyBvbiAxMS8xMC8yMDE3IDA4OjQ5OjQ3
+BgAAAgAACACqAQAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAAtgAAAAAAAAAAAAAAAAAAABAAAAAA
+AAAAsNluAECCJYMAAAAAajpgAECCJYPZGU8AA4IlgwAAAAAAAAAAAAAAAAAAAAAAAAAAU3RhcnRl
+ZCBydW5uaW5nIGFnZW50ICcoT2J0ZW5lciBDb3JyZWxhdGl2byl8YS5PYnRDb3JyJyBvbiAwMi8y
+Ni8yMDE4IDE3OjEwOjQ2DQpSYW4gTG90dXNTY3JpcHQgY29kZQ0KRG9uZSBydW5uaW5nIGFnZW50
+ICcoT2J0ZW5lciBDb3JyZWxhdGl2byl8YS5PYnRDb3JyJyBvbiAwMi8yNi8yMDE4IDE3OjEwOjQ2
 DQoADQoPiSzATiwYFwBolVWDJYGwFg9BOGd/bgCvgSWDCAEJ+/sP7FiQDwpa+sYMRvh7ct+ZljSc
 /DR6AeOwSqHyehKp15gZThFVydF95/rz6aSxIgM9Mik9iNYuLhCS2atqP6Bgv2AFLgyz2MZ5pv2Z
 hUD1Hu/QqgCwpIROCMnX1SOPHejoa14l9JzJoHyYyEIYkcuMDoENZkEFNsZkVtKx21nzf+KNMXKl
@@ -369,5 +368,6 @@ iA1K0ApiAygAIzEbOhEAG0uACiwsDH1YCyOFZAE6Pv8a9QBLcAos6A6FhYsCIzEa9wAcGvgAGvoA
 S5AKLGQMFBWYFpObIzEa+wAcGvwAHQIAAAARACAAAAAAAP//AQADACIAAAAoADgALgBYBV0AmASG
 ALQFvwAKAAAAKQ==
 </rawitemdata></item>
-<item name='$AssistVersion'><datetime>20171005T165312,47-03</datetime></item></note>
+<item name='$AssistVersion'><datetime>20171005T165312,47-03</datetime></item>
+<item name='$POID'><datetime dst='true'>20171114T112329,54-02</datetime></item></note>
 

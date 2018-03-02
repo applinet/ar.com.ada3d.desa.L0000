@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:messages id="messages1"></xp:messages>
+	<xp:inputTextarea id="inputTextarea1">
+					<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var javaClassQuery:QueryAS400 = new QueryAS400();
+javaClassQuery.getSelectAS("controllerGastos", null, true);}]]></xp:this.value>
+					<xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+				</xp:inputTextarea>
+
+</xp:view>

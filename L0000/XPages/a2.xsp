@@ -4,7 +4,7 @@
 	<xp:this.resources>
 		<xp:styleSheet href="/a2_docs.min.css"></xp:styleSheet>
 	</xp:this.resources>
-	<xc:ccLayoutBootstrap>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="true">
 		<xp:this.facets>
 			<xp:panel xp:key="facetMiddle">
 
@@ -21,12 +21,14 @@
 							href="http://getbootstrap.com/javascript/#dropdowns"
 							target="_blank">
 							Dropdown component
-						</a>y 
+						</a>
+						y 
 						<a href="http://daneden.github.io/animate.css/"
 							target="_blank">
 							animate.css
 						</a>
-						<xp:span style="font-weight:bold"></xp:span> para las animaciones.
+						<xp:span style="font-weight:bold"></xp:span>
+						para las animaciones.
 					</p>
 				</div>
 				<xp:panel styleClass="bs-callout bs-callout-info">
@@ -48,7 +50,8 @@
 					value="#{javascript:getListBoton()}">
 				</xp:text>
 				<br />
-				<xp:span style="font-weight:bold"></xp:span><br />
+				<xp:span style="font-weight:bold"></xp:span>
+				<br />
 				<xp:text id="computedField4" escape="false"
 					value="#{javascript:getList()}">
 				</xp:text>

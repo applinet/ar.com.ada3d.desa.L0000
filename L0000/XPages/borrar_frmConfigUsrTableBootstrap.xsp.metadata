@@ -1,23 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="35a" sequence="67" unid="7506B76A2108BA7E832581D2006104AB">
-<created><datetime dst="true">20171108T153941,87-02</datetime></created>
-<modified><datetime dst="true">20171110T133340,79-02</datetime></modified>
-<revised><datetime dst="true">20171110T111332,89-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171110T133340,79-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171110T133340,79-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="39e" sequence="6" unid="0AD5BADF2DE82F60832582400061B664">
+<created><datetime dst="true">20180226T154716,84-02</datetime></created>
+<modified><datetime dst="true">20180302T100652,46-02</datetime></modified>
+<revised><datetime dst="true">20180226T154740,72-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100652,46-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100652,46-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name="$Flags"><text>gC~4K</text></item>
-<item name="$TITLE" sign="true"><text>borrar_frmConfigUsrTableBootstrap.xsp</text></item>
-
+<item name="$Comment"><text>*** PRUEBA - BORRAR ***</text></item>
+<item name="$TITLE"><text>borrar_frmConfigUsrTableBootstrap.xsp</text></item>
+<item name="$Flags"><text>gC~4KP</text></item>
 
 
 
 <item name="$FileNames" sign="true"><text>borrar_frmConfigUsrTableBootstrap.xsp</text></item>
-
-
-<item name="$Comment" sign="true"><text>*** PRUEBA - BORRAR ***</text></item>
 <item name="$DesignerVersion"><text>9.0.1</text></item>
+
+
+
 
 
 

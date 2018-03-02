@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">  
+        
+        <xp:div role="alert" rendered="#{javascript:viewScope.MessageText!=null || sessionScope.MessageText!=null }">
+		<xp:this.styleClass><![CDATA[#{javascript:var msgtype = severity=viewScope.MessageType || sessionScope.MessageType || "";
+var result = null;
+switch (msgtype) {
+case "E": result = 'alert alert-danger alert-dismissable'; break;
+case "W": result = "alert alert-warning alert-dismissable"; break;
+case "I": result = "alert alert-info alert-dismissable"; break;
+case "S": result = "alert alert-success alert-dismissable"; break;
+default: result = 'unknown';
+}
+result;}]]>
+		</xp:this.styleClass>
+		
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&#215;</a>
+			<xp:repeat id="repeat1" rows="30" var="rptMessages" value="#{viewScope.MessageText}">
+			<xp:span >
+			<xp:this.styleClass><![CDATA[#{javascript:var msgtype = severity=viewScope.MessageType || sessionScope.MessageType || "";
+var result = null;
+switch (msgtype) {
+case "E": result = 'glyphicon glyphicon-remove'; break;
+case "W": result = "glyphicon glyphicon-alert"; break;
+case "I": result = "glyphicon glyphicon-info-sign"; break;
+case "S": result = "glyphicon glyphicon-ok"; break;
+default: result = 'unknown';
+}
+return result;}]]></xp:this.styleClass>
+		</xp:span>
+		<xp:span>
+				<xp:text escape="true" id="computedField4" disableTheme="true">
+				<xp:this.value>
+					<![CDATA[#{javascript:message=viewScope.MessageText || sessionScope.MessageText;
+viewScope.remove("MessageText");
+sessionScope.remove("MessageText");
+return rptMessages;}]]>
+				</xp:this.value>
+			</xp:text>
+			</xp:span>
+				<br />
+			</xp:repeat>
+		
+		
+			
+		
+	</xp:div>
+ </xp:view>

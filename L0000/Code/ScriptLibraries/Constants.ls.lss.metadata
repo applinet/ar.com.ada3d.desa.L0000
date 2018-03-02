@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="832581C5004DA004" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="22e" sequence="14" unid="F245BD7D189A4B08832581AF006638D3">
-<created><datetime dst="true">20171004T163632,19-02</datetime></created>
-<modified><datetime dst="true">20171026T120754,31-02</datetime></modified>
-<revised><datetime dst="true">20171005T120732,85-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171026T120754,31-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171026T120754,31-02</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Fernando Rodriguez/O=SASA</name><name>CN=ADMINISTRADOR DOMINO/O=SASA</name><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="402" sequence="1" unid="70245424748E51E98325824000624375">
+<created><datetime dst="true">20180226T155317,97-02</datetime></created>
+<modified><datetime dst="true">20180302T100652,96-02</datetime></modified>
+<revised><datetime dst="true">20180226T155320,06-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100652,96-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100652,96-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$PublicAccess" sign="true"><text>1</text></item>
-<item name="$Flags"><text>s34Q</text></item>
 <item name="$TITLE" sign="true"><text>Constants.ls</text></item>
 <item name="$DesignerVersion" sign="true"><text>8.5.3</text></item>
 
-</note>
+
+<item name="$Flags"><text>s34QP</text></item></note>

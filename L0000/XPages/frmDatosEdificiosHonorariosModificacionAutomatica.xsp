@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">	
+	<xc:ccFxPleaseWaitStandBy></xc:ccFxPleaseWaitStandBy>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
+		<xp:this.facets>
+			<xp:panel id="PNL_container" xp:key="facetMiddle">
+
+			<xe:widgetContainer id="widgetContainer1"
+				titleBarText="Modificación automática (aplica a todos los edificios)"
+				collapsible="true">
+				<xe:this.dropDownNodes>
+					<xe:basicLeafNode label="Confirmar cambios">
+						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnConfirmarMasivo}").click();]]></xe:this.onClick>
+					</xe:basicLeafNode>
+					<xe:basicLeafNode label="Restaurar a estado original">
+						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnRestaurarMasivo}").click();]]></xe:this.onClick>
+					</xe:basicLeafNode>
+				</xe:this.dropDownNodes>
+				<xp:table styleClass="table table-responsive">
+					<xp:tr valign="top">
+						<xp:td style="width:20.0%">
+							<xe:widgetContainer id="widgetContainer2"
+								titleBarText="Honorarios">
+								<xe:this.dropDownNodes>
+									<xe:basicLeafNode label="Aplicar">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicar1}").click();]]></xe:this.onClick>
+									</xe:basicLeafNode>
+								</xe:this.dropDownNodes>
+								<xp:inputText
+									id="importeInteresPunitorioDeudoresMasivo"
+									style="text-align:right; width:100.0px; display: inline;">
+									<xp:eventHandler event="onkeypress"	submit="false">
+										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
+if (key == 13) {
+    document.getElementById("#{id:btnAplicar1}").click();
+    return true;
+}
+							                    ]]>
+										</xp:this.script>
+									</xp:eventHandler>
+									<xp:this.attrs>
+										<xp:attr value="valor"
+											name="placeHolder">
+										</xp:attr>
+									</xp:this.attrs>
+									<xp:this.converter>
+										<xp:customConverter getAsString="#{javascript:value.toString()}">
+											<xp:this.getAsObject><![CDATA[#{javascript:parseFloat(value.replace(/,/g,"\."))}]]></xp:this.getAsObject>
+										</xp:customConverter>
+									</xp:this.converter>
+								</xp:inputText>
+								<xp:label value="%" id="label9"></xp:label>
+							</xe:widgetContainer>
+						</xp:td>
+					</xp:tr>
+				</xp:table>
+				<xp:messages id="messages1"
+					styleClass="alert alert-error">
+				</xp:messages>
+
+				<xc:ccFxServerSideJsMessages></xc:ccFxServerSideJsMessages>
+			</xe:widgetContainer>
+
+			<xp:dataTable id="edificiosTable" var="unPorcentual"
+					value="#{porcentualMasivoBean.listaHonorariosEdificiosTrabajo}" rows="1000"
+					styleClass="table table-responsive">
+					<xp:column id="porc_edf_codigoColumn">
+						<xp:this.facets>
+							<xp:label value="Codigo SASA" id="labelPorc_edf_codigo"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unPorcentual.porc_edf_codigo}" id="porc_edf_codigo">
+						</xp:text>
+					</xp:column>
+					<xp:column id="porc_tituloColumn">
+						<xp:this.facets>
+							<xp:label value="Titulo" id="labelPorc_titulo"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unPorcentual.porc_titulo}" id="porc_titulo">
+						</xp:text>
+					</xp:column>
+					<xp:column id="porc_porcentajeColumn">
+						<xp:this.facets>
+							<xp:label value="Porcentual" id="labelPorc_porcentaje"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unPorcentual.porc_porcentaje}" id="porc_porcentaje">
+						</xp:text>
+					</xp:column>
+					<xp:column
+						id="porc_importeHonorariosColumn"
+						style="text-align:center">
+						<xp:this.facets>
+							<xp:label value="Honorarios"
+								id="labelPorc_importeHonorarios" xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unPorcentual.porc_importeHonorarios}"
+							id="porc_importeHonorarios">
+						</xp:text>
+					</xp:column>
+					<xp:column
+						id="porc_posicionColumn"
+						style="text-align:center">
+						<xp:this.facets>
+							<xp:label value="Posicion"
+								id="labelPorc_posicion" xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unPorcentual.porc_posicion}"
+							id="porc_posicion">
+						</xp:text>
+					</xp:column>
+				</xp:dataTable>
+				<div id="divHiddenAplicar" style="display: none;">
+					<xp:button value="btnIntereses1" id="btnAplicar1">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("importeInteresPunitorioDeudoresMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnVto1" id="btnAplicar2">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaPrimerVtoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnIntereses2" id="btnAplicar3">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("recargoSegundoVencimientoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnVto1" id="btnAplicar4">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaSegundoVtoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnConfirmarMasivo"
+						id="btnConfirmarMasivo">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = edificioBean.saveMasivoEdificios();
+if(!msgValidacion.isEmpty()){
+	viewScope.MessageType="E";
+	viewScope.MessageText = [];
+	for (i=0;i<msgValidacion.size();i++) {
+		viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
+	}
+}}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnRestaurarMasivo" id="btnRestaurarMasivo">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript:DocLock.removeAllMyLocks();
+	context.redirectToPage("frmDatosEdificiosModificacionAutomatica");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</div>	
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

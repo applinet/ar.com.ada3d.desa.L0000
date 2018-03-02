@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<debug:toolbar defaultCollapsed="false" collapseTo="left"></debug:toolbar>
+	<xp:panel style="margin-left:20px;margin-top:20px">
+		<xp:label id="label1" value="Tabla de Lockeo de Documentos"
+			style="font-family:Comic Sans MS,sans-serif;font-size:18pt">
+		</xp:label>
+	</xp:panel>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:table border="0" style="width:auto">
+		<xp:tr>
+			<xp:td style="width:250px">
+				<xp:label value="Usuario" id="label2"
+					style="font-weight:bold">
+				</xp:label>
+			</xp:td>
+			<xp:td style="width:150px;text-align:center">
+				<xp:label value="Key" id="label3"
+					style="font-weight:bold">
+				</xp:label>
+			</xp:td>
+		</xp:tr>
+		<xp:repeat id="repeat2" rows="9999" var="mapaDocLock">
+			<xp:this.value><![CDATA[#{javascript:var map=DocLock.getMap().entrySet();
+return map;}]]></xp:this.value>
+			<xp:tr>
+				<xp:td>
+					<xp:text escape="true" id="computedField1"
+						value="#{javascript:mapaDocLock.getValue()}">
+					</xp:text>
+				</xp:td>
+				<xp:td>
+					<xp:text escape="true" id="computedField2"
+						value="#{javascript:mapaDocLock.getKey()}"
+						style="color:rgb(0,0,255)">
+					</xp:text>
+				</xp:td>
+			</xp:tr>
+		</xp:repeat>
+	</xp:table>
+
+</xp:view>

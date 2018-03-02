@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="382" sequence="6" unid="6E8983339C6A094E832581D4003DBB25">
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2c6" sequence="15" unid="6E8983339C6A094E832581D4003DBB25">
 <created><datetime dst="true">20171110T091416,05-02</datetime></created>
-<modified><datetime dst="true">20171110T133340,99-02</datetime></modified>
-<revised><datetime dst="true">20171110T091520,61-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171110T133340,99-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171110T133340,99-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst="true">20180302T100650,68-02</datetime></modified>
+<revised><datetime dst="true">20171114T112321,76-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100650,68-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100650,68-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$MimeType" sign="true"><text>text/css</text></item>
 <item name="$Flags"><text>34C=Q</text></item>
 <item name="$MimeCharSet" sign="true"><text>UTF-8</text></item>
-
-
-
-<item name="$FileNames" sign="true"><text>a1_docs.min.css</text></item>
 <item name="$TITLE" sign="true"><text>a2_docs.min.css</text></item>
-<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item></note>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+
+<item name="$FileNames" sign="true"><text>a2_docs.min.css</text></item></note>

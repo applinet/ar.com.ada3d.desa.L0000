@@ -6,7 +6,7 @@
 
 		<xp:styleSheet href="/home_Main.min.css"></xp:styleSheet>
 	</xp:this.resources>
-	<xc:ccLayoutBootstrap>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
 		<xp:this.facets>
 			<xp:panel xp:key="facetMiddle" id="PNL_Central">
 				<xp:panel id="PNL_UsuarioSeguridad">

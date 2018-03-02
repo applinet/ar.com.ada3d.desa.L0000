@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2ea" sequence="7" unid="DC003AD212FF917B032581E000756CB3">
+<created><datetime>20171122T182235,39-03</datetime></created>
+<modified><datetime dst="true">20180302T100651,60-02</datetime></modified>
+<revised><datetime>20171122T182235,39-03</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100651,60-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100651,60-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$TITLE"><text>favicon.ico</text></item>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$FlagsExt"><text>D</text></item>
+
+<item name="$FileModDT" sign="true"><datetime>20171122T182131,58-03</datetime></item>
+
+<item name="$FileNames" sign="true"><text>favicon.ico</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item></note>

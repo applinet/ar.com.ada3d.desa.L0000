@@ -1,10 +1,6 @@
 
-<theme
-	extends="Bootstrap3.2.0_flat"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<theme extends="Bootstrap3.2.0_flat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd">
-
-
 	<!-- needed for float thead demo -->
 	<resources>
 		<metaData>
@@ -12,12 +8,23 @@
 			<content>IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE</content>
 		</metaData>
 	</resources>
-
-
-	<!-- Bootstrap customizations: here I define additional CSS style I need/ want in this application -->
 	<resource>
 		<content-type>text/css</content-type>
 		<href>bootstrap-extended.css</href>
 	</resource>
-
+	<!--
+		Bootstrap customizations: here I define additional CSS style I need/
+		want in this application
+	-->
+	
+	<control>
+		<name>ViewRoot</name>
+		<property>
+			<name>pageIcon</name>
+			<value>/favicon.ico</value>
+		</property>
+	</control>
+	
+	
+	
 </theme>

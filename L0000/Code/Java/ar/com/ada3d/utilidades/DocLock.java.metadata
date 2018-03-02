@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581C5004DA004" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="216" sequence="9" unid="55D0A37334EECD79832581AA0039B2D2">
-<created><datetime dst="true">20170929T083013,30-02</datetime></created>
-<modified><datetime dst="true">20171026T120754,19-02</datetime></modified>
-<revised><datetime dst="true">20170929T084122,17-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171026T120754,19-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171026T120754,19-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="446" sequence="14" unid="8583363E2F424B6B8325824000646DC9">
+<created><datetime dst="true">20180226T161657,05-02</datetime></created>
+<modified><datetime dst="true">20180302T100653,30-02</datetime></modified>
+<revised><datetime dst="true">20180227T153948,85-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100653,30-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100653,30-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name="$Flags"><text>34567Cg~[</text></item>
 <item name="$TITLE"><text>ar/com/ada3d/utilidades/DocLock.java</text></item>
 
+<item name="$Flags"><text>34567Cg~[P</text></item>
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
 

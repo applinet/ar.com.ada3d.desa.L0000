@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+
+	<xp:this.resources>
+		<xp:dojoModule name="dojo.store.JsonRest"></xp:dojoModule>
+		<xp:dojoModule name="dojo.data.ObjectStore"></xp:dojoModule>
+		<xp:script src="/dojoAs400.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	
+	<xp:this.afterRestoreView><![CDATA[#{javascript:getJoinEdif();}]]></xp:this.afterRestoreView>
+	<xe:restService id="restService1" pathInfo="gridData">
+		<xe:this.service>
+			<xe:customRestService contentType="application/json"
+				requestVar="customData2" requestContentType="application/json">
+				<xe:this.doGet><![CDATA[#{javascript:var temp = viewScope.get("selectAS");
+return temp;}]]></xe:this.doGet>
+			</xe:customRestService>
+		</xe:this.service>
+
+
+	</xe:restService>
+
+
+	<script>
+		var pagina =
+		window.location.pathname.substring(window.location.pathname.lastIndexOf('/')+1);var
+		jsonStore = new dojo.store.JsonRest( {target:pagina
+		+"/gridData"} ); var dataStore =
+		dojo.data.ObjectStore({objectStore: jsonStore});
+	</script>
+	
+	
+	<xp:br />
+	<xp:label value="Update: " id="label1"></xp:label>
+	<xp:inputText id="update" style="height:auto; width:80.0%; display: inline;"></xp:inputText>
+	
+	<xp:button value="Ejecutar" id="ejecutarSTRSQL">
+		<xp:eventHandler event="onclick" submit="true"
+			refreshMode="complete">
+
+			<xp:this.action><![CDATA[#{javascript:var dummyDoc:NotesDocument = database.createDocument();
+
+dummyDoc.replaceItemValue("TestField",getComponent("update").getValue());
+dummyDoc.replaceItemValue("count","");
+var agent:NotesAgent = database.getAgent("a.update");
+if(agent!=null){
+		agent.runWithDocumentContext(dummyDoc);
+}
+}]]></xp:this.action>
+		</xp:eventHandler>
+	</xp:button>
+	<xp:br></xp:br>
+	<xp:label id="label4">
+		<xp:this.value><![CDATA[#{javascript:"Registros: " + viewScope.get("selectCount")}]]></xp:this.value>
+	</xp:label>
+	<xp:button value="Actualiza Count" id="button1">
+		<xp:eventHandler event="onclick" submit="true"
+			refreshMode="partial" refreshId="label4">
+		</xp:eventHandler></xp:button>
+	<xp:br />
+	<xe:djxDataGrid id="djxDataGrid1" store="dataStore" title="GridData"
+		autoHeight="25">
+		<xe:djxDataGridColumn id="djxDataGridColumn4" field="ADMI"
+			label="adm dep ADMI" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn23" field="E09A"
+			label="est proc E09A" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn3" field="EDIF"
+			label="EDIF" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn33" field="E20A"
+			label="cod visual E20A" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn5" field="DIRECC"
+			width="250" label="DIRECC">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn2" field="CUIT"
+			label="CUIT" width="100">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn22" field="ULQFEC"
+			label="ultima liquidacion ULQFEC">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE09B" field="E09B"
+			label="freq E09B" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumn1" field="ESTADO2"
+			label="prt estado ESTADO2" width="75">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnTOTP1" field="TOTP1"
+			label="% 1 Aplicado TOTP1">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnTOTP2" field="TOTP2"
+			label="% 2 Aplicado TOTP2">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnTOTP3" field="TOTP3"
+			label="% 3 Aplicado TOTP3">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnTOTP4" field="TOTP4"
+			label="% 4 Aplicado TOTP4">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnCTFJ1" field="CTFJ1"
+			label="$ 1 CF o Ppto. CTFJ1">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnCTFJ2" field="CTFJ2"
+			label="$ 2 CF o Ppto. CTFJ2">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnCTFJ3" field="CTFJ3"
+			label="$ 3 CF o Ppto. CTFJ3">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnCTFJ4" field="CTFJ4"
+			label="$ 4 CF o Ppto. CTFJ4">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE14B" field="E14B"
+			label="print titulos % E14B" width="60">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE12" field="E12"
+			label="Interes punit E12" width="60">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE08A" field="E08A"
+			label="Recargo 2do vto E08A" width="60">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnVTOEX1" field="VTOEX1"
+			label="fecha 1er vto VTOEX1" width="65">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnVTOEX2" field="VTOEX2"
+			label="fecha 2do vto VTOEX2" width="65">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE13A" field="E13A"
+			label="modal interes E13A" width="60">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE391" field="E391"
+			label="honor %1 E391" width="60">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE392" field="E392"
+			label="honor %2 E392" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE441" field="E441"
+			label="honor %3 E441" width="50">
+		</xe:djxDataGridColumn>
+		<xe:djxDataGridColumn id="djxDataGridColumnE442" field="E442"
+			label="honor %4 E442" width="50">
+		</xe:djxDataGridColumn>
+	</xe:djxDataGrid>
+
+</xp:view>

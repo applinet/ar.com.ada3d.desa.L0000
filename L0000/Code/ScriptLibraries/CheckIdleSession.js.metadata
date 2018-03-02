@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="3fe" sequence="1" unid="B83809F23C92F3E88325824000624374">
+<created><datetime dst="true">20180226T155317,96-02</datetime></created>
+<modified><datetime dst="true">20180302T100652,94-02</datetime></modified>
+<revised><datetime dst="true">20180226T155319,96-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100652,94-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100652,94-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$TITLE" sign="true"><text>CheckIdleSession</text></item>
+<item name="$PublicAccess" sign="true"><text>1</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+<item name="$Flags"><text>h534QP</text></item></note>

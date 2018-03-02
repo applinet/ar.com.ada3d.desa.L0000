@@ -7,7 +7,7 @@
 		<xp:script src="/MenuTools" clientSide="false"></xp:script>
 		<xp:script src="/General_SSJS.jss" clientSide="false"></xp:script>
 	</xp:this.resources>
-	<xc:ccLayoutBootstrap>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="true">
 		<xp:this.facets>
 			<xe:accordion id="accordion1"
 				style="width: 400px; height:600px" xp:key="facetMiddle">

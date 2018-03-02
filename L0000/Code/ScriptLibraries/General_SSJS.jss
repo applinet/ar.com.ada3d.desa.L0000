@@ -719,3 +719,41 @@ function getListAccordion() {
         return "no documents found";
     }
 }
+
+/*Para eliminar el mapa de scopes completo
+ * Ej: clearMap( applicationScope )
+ * */
+function clearMap( map:Map ){
+	 // Get iterator for the keys
+	 var iterator = map.keySet().iterator();
+	 
+	 // Remove all items
+	 while( iterator.hasNext() ){
+	  map.remove( iterator.next() );
+	 }
+}
+
+function btnAplicarMasivo(strKey:String){
+	if(getComponent(strKey).getValue() == null){
+		viewScope.MessageType="E";
+		viewScope.MessageText="Debe ingresar un valor";
+		return;		
+	}
+	
+	var msgValidacion:java.util.ArrayList = edificioBean.strValidacionMasivoEdificios(strKey, getComponent(strKey).getValue());
+	if(msgValidacion.isEmpty()){
+		viewScope.MessageType="S";
+		viewScope.MessageText = [];
+		viewScope.MessageText.push(["Se aplicaron los cambios solicitados."]);
+		viewScope.MessageText.push(["Para guardar estos cambios presione 'Confirmar cambios'"]);
+		getComponent(strKey).setValue('');
+	}else{
+		viewScope.MessageType="W";
+		viewScope.MessageText = [];
+		for (i=0;i<msgValidacion.size();i++) {
+			viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
+		}
+		getComponent(strKey).setValue('');
+		view.postScript("window.scrollTo(0,0)")
+	}
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xe:djFilteringSelect id="djFilteringSelect2"
+		queryExpr="#{javascript:return '*\$\{0\}*';}" autoComplete="false"
+		style="width:400.0px"
+		value="#{javascript:sessionScope.edificioWork}">
+
+		<xp:selectItems
+			value="#{javascript:edificioBean.getComboboxMyEdificiosTrabajo()}">
+
+		</xp:selectItems>
+		<xe:this.dojoAttributes>
+			<xp:dojoAttribute name="required" value="false">
+			</xp:dojoAttribute>
+
+		</xe:this.dojoAttributes>
+		<xp:eventHandler event="onChange" submit="true"
+			refreshMode="partial" refreshId="djFilteringSelect2">
+			<xe:this.action><![CDATA[#{javascript:sessionScope.edificioWork = this.getParent().getValue();}]]></xe:this.action>
+		</xp:eventHandler>
+	</xe:djFilteringSelect>
+</xp:view>

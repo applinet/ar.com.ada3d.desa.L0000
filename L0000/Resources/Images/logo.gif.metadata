@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D00051B8B0" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="1e6" sequence="16" unid="BA441F8F49361DC8832581A8006C2193">
-<created><datetime dst="true">20170927T174104,83-02</datetime></created>
-<modified><datetime dst="true">20171106T125238,60-02</datetime></modified>
-<revised><datetime dst="true">20171101T172910,16-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171106T125238,60-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171106T125238,60-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2ee" sequence="9" unid="7A945F2232E12431032581E100650851">
+<created><datetime>20171123T152332,65-03</datetime></created>
+<modified><datetime dst="true">20180302T100651,62-02</datetime></modified>
+<revised><datetime>20171123T152345,67-03</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100651,62-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100651,62-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$Flags"><text>34CiQ</text></item>
@@ -12,9 +12,10 @@
 <item name="$ImagesWide" sign="true"><number>1</number></item>
 <item name="$ImagesHigh" sign="true"><number>1</number></item>
 <item name="$ImagesColorize" sign="true"><number>0</number></item>
-<item name="$FileModDT" sign="true"><datetime>20170307T165946,00-03</datetime></item>
-<item name="$ImageNames" sign="true"><text>logo.gif</text></item>
-<item name="$TITLE" sign="true"><textlist><text>logo.gif</text><text>home1</text></textlist></item>
-<item name="$DesignerVersion"><text>8.5.3</text></item>
 
-</note>
+
+<item name="$MimeType" sign="true"><text>image/gif</text></item>
+<item name="$FileModDT" sign="true"><datetime>20171123T152305,66-03</datetime></item>
+<item name="$ImageNames" sign="true"><text>logo_crop 71x36.gif</text></item>
+<item name="$TITLE" sign="true"><textlist><text>logo.gif</text><text>home1</text></textlist></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item></note>

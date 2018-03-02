@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="832581CB0051C4E4" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="2b2" sequence="6" unid="B787942FA8677F9B832581CA0062C76D">
-<created><datetime dst="true">20171031T155855,81-02</datetime></created>
-<modified><datetime dst="true">20171101T125310,56-02</datetime></modified>
-<revised><datetime dst="true">20171101T113822,00-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171101T125310,56-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171101T125310,56-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="40a" sequence="1" unid="5D17A6B421F7622A8325824000624377">
+<created><datetime dst="true">20180226T155317,99-02</datetime></created>
+<modified><datetime dst="true">20180302T100653,00-02</datetime></modified>
+<revised><datetime dst="true">20180226T155320,27-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100653,00-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100653,00-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$TITLE" sign="true"><text>DojoDijitDialogXPagesCompatible.js</text></item>
-<item name="$Flags"><text>h534Q</text></item>
 <item name="$PublicAccess" sign="true"><text>1</text></item>
 <item name="$DesignerVersion"><text>8.5.3</text></item>
-</note>
+
+<item name="$Flags"><text>h534QP</text></item></note>

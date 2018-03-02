@@ -95,9 +95,9 @@ function getCodigoMenuSelected():java.util.Vector{
 function menuFull(menuName:string) {
 	try{
 		if (!viewScope.menuFull) {
-            viewScope.put("menuList", new java.util.HashMap());
+            viewScope.put("menuFull", new java.util.HashMap());
         }else{
-            return viewScope.menuList.get(menuName);
+            return viewScope.menuFull.get(menuName);
         }
         
         /* Devuelve las entradas de menú basandose en una vista que toma de configuración*/
@@ -110,7 +110,7 @@ function menuFull(menuName:string) {
         var viewNav:NotesViewNavigator = viewClave.createViewNav();
         var viewEntry = viewNav.getFirst();
         var result = [];
-
+        var cicloChild = false;
         
         while (viewEntry != null) {
         	/* Revisa los padres de la vista 'vModulosTreeview'*/
@@ -121,21 +121,39 @@ function menuFull(menuName:string) {
 	        lineResult.code = viewEntry.getColumnValues()[0];
        		result.push(lineResult);
        		lineResult = {};
-	        
+	        dBar.info("1-" + viewEntry.getColumnValues()[1]);
+       		
 	        //Solo va a cargar los hijos si el padre es autorizado
             var child = viewNav.getChild(viewEntry);
             while (child != null) {
-            	
             	/* Revisa los hijos de la vista 'vModulosTreeview'*/
-                var nextChild = viewNav.getNextSibling(child);
-                
+                                
+		        dBar.info("2-" + child.getColumnValues()[1]);
                 lineResult.name = child.getColumnValues()[1];
     	        lineResult.code = child.getColumnValues()[0];
            		result.push(lineResult);
            		lineResult = {};
-
-           		child.recycle();
-                child = nextChild;
+           		           		
+           		var subChild = viewNav.getChild(child);
+           		if (subChild == null){
+           			if (cicloChild){
+           				var nextChild = pendingChild;
+           				cicloChild = false;
+           			}else{
+		           		var nextChild = viewNav.getNextSibling(child);
+           			}
+	           		child.recycle();
+                	child = nextChild;
+           		}else{
+           			if(!cicloChild){
+	           			var pendingChild = viewNav.getNextSibling(child);
+           			}
+           			cicloChild = true;
+           			child.recycle();
+           			child = subChild;
+           		}
+           		
+           		
             }
             
             viewEntry.recycle();
@@ -151,5 +169,5 @@ function menuFull(menuName:string) {
 	}
   
     // Se guarda en cache
-	 viewScope.menuList.put(menuName, result);    
+	 viewScope.menuFull.put(menuName, result);    
 }   

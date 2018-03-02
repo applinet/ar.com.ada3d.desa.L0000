@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	
+	
+	<xp:this.resources>
+		<xp:script src="http://maps.google.com/maps/api/js?sensor=false"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
+
+
+
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if(!sessionScope.containsKey("edfObj"))
+	context.redirectToPage("ViewDatosEdificios");}]]></xp:this.beforePageLoad>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
+		<xp:this.facets>
+			
+			<xp:panel xp:key="facetMiddle"
+				style="background-image:url(edificios_blanco.png);background-repeat:no-repeat;background-position:top left">
+			
+				<xe:formTable id="tblEdificio" formTitle="Edificio"
+					formDescription="Código SASA: #{edfObj.edf_codigo}"
+					fieldHelp="true" disableErrorSummary="false"
+					disableRowError="false" 
+					style="padding-left:20.0%;padding-right:20.0%" >
+					
+					<xe:formRow id="rowDireccion" label="Domicilio"
+						labelPosition="left">
+						<xp:inputText id="edf_direccion"
+							value="#{edfObj.edf_direccion}" required="true"
+							readonly="#{edfObj.edf_isReadMode}">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="La dirección es un campo requerido.">
+								</xp:validateRequired>
+								<xp:validateLength minimum="1"></xp:validateLength>
+							</xp:this.validators>
+							<xp:eventHandler event="onkeyup"
+								submit="false">
+								<xp:this.script><![CDATA[var element = thisEvent.srcElement;
+if (element.value.length > 27) {
+    element.value = element.value.substring(0, 27);
+}]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="rowLocalidad" label="Localidad"
+						labelPosition="left">
+						<xp:inputText id="edf_localidad"
+							value="#{edfObj.edf_localidad}" required="true"
+							readonly="#{edfObj.edf_isReadMode}"
+							onblur="this.value=this.value.toUpperCase();">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="La localidad es un campo requerido.">
+								</xp:validateRequired>
+								<xp:validateLength minimum="1">
+								</xp:validateLength>
+							</xp:this.validators>
+							<xp:eventHandler event="onkeyup"
+								submit="false">
+								<xp:this.script><![CDATA[var element = thisEvent.srcElement;
+if (element.value.length > 27) {
+    element.value = element.value.substring(0, 27);
+}]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="rowCodigoVisual"
+						label="Código de reemplazo" labelPosition="left">
+						<xp:inputText id="edf_codigoVisual"
+							value="#{edfObj.edf_codigoVisual}" 
+							readonly="#{edfObj.edf_isReadMode}"
+							onblur="this.value=this.value.toUpperCase();">
+							<xp:this.validators>
+								
+								<xp:validateLength minimum="3"
+									maximum="3" message="El código debe ser de 3 caracteres">
+								</xp:validateLength>
+							</xp:this.validators>
+							<xp:eventHandler event="onkeyup"
+								submit="false">
+								<xp:this.script><![CDATA[var element = thisEvent.srcElement;
+if (element.value.length > 3) {
+    element.value = element.value.substring(0, 3);
+}]]></xp:this.script>
+							</xp:eventHandler>
+
+
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="rowCuit" label="CUIT"
+						labelPosition="left">
+						<xp:inputText id="edf_cuit" required="true"
+							value="#{edfObj.edf_cuit}" readonly="#{edfObj.edf_isReadMode}"
+							validator="#{validadorBean.validateCUIT}">
+							<xp:this.validators>
+								<xp:validateRequired
+									message="El CUIT es un campo requerido. Ingrese 0 (cero) si no ingresa el CUIT.">
+								</xp:validateRequired>
+
+								<xp:validateLength minimum="1"
+									message="Si no conoce el CUIT ingrese cero">
+								</xp:validateLength>
+							</xp:this.validators>
+							<xp:eventHandler event="onkeyup"
+								submit="false">
+								<xp:this.script><![CDATA[var element = thisEvent.srcElement;
+if (element.value.length > 11) {
+    element.value = element.value.substring(0, 11);
+}]]></xp:this.script>
+							</xp:eventHandler>
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="rowFechaUltimaLiquidacion"
+						label="Fecha última liquidación" labelPosition="left">
+						
+						<xp:text escape="true" id="edf_fechaUltimaLiquidacion"
+							value="#{edfObj.edf_fechaUltimaLiquidacion}" >
+						</xp:text>
+					</xe:formRow>
+
+					<xe:formRow id="rowFrecuenciaLiquidacion"
+						label="Frecuencia (meses 1, 2 o 3)" labelPosition="right">
+						<xe:djHorizontalSlider
+							id="djHorizontalSliderFrecuenciaLiquidacion"
+							value="#{edfObj.edf_frecuenciaLiquidacion}" maximum="3"
+							minimum="1" discreteValues="3" pageIncrement="3"
+							style="margin: 5px;width:200px; height: 20px;"
+							disabled="#{edfObj.edf_isReadMode}">
+
+							<xe:djSliderRule
+								id="djSliderRuleFrecuenciaLiquidacion" style="height:5px;"
+								count="3" container="bottomDecoration">
+							</xe:djSliderRule>
+							<xe:djSliderRuleLabels
+								id="djSliderRuleLabelsFrecuenciaLiquidacion"
+								container="bottomDecoration"
+								style="height:10px;font-size:75%;color:gray;">
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+							</xe:djSliderRuleLabels>
+							<xp:eventHandler event="onClick"
+								submit="true" refreshMode="partial"
+								refreshId="edf_fechaProximaLiquidacion"
+								disableValidators="true">
+								<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:edf_cuotaFijaDia}")]]></xp:this.onComplete>
+								<xe:this.action><![CDATA[#{javascript:edificioBean.onClickFrecuencia(sessionScope.get("edfObj"));}]]></xe:this.action>
+							</xp:eventHandler>
+						</xe:djHorizontalSlider>
+					</xe:formRow>
+
+					<xe:formRow id="rowFechaProximaLiquidacion"
+						label="Fecha próxima liquidación" labelPosition="left">
+						<xp:text escape="true" id="edf_fechaProximaLiquidacion"
+							value="#{edfObj.edf_fechaProximaLiquidacion}">
+							
+						</xp:text>
+					</xe:formRow>
+										
+					<xp:div id="divPorcentuales">
+						<!-- INI Valores a Prorratear en 3 columnas -->
+						<xe:formRow id="rowPorcentuales"
+							label="Valores a Prorratear" labelPosition="left" labelWidth="80%">
+						</xe:formRow>
+	
+	
+						<xe:formColumn styleClass="form-group col-sm-3"
+							style="margin-left:5.0%">
+							<xe:formRow id="rowProrrateoDescripcion"
+								label="" labelPosition="left" labelWidth="50%">
+								<xp:repeat id="repeatProrrateoTitulo"
+									value="#{edfObj.listaProrrateos}" var="rptProrrateoTitulo"
+									indexVar="idxRptProrrateoTitulo">
+									<xp:inputText id="prt_titulo" disabled="#{edfObj.edf_isReadMode}"
+										styleClass="row form-inline"
+										value="#{rptProrrateoTitulo.prt_titulo}">
+									<xp:this.validators>
+										<xp:validateLength maximum="15"
+											message="El largo no puede exceder 15 caracteres">
+										</xp:validateLength>
+									</xp:this.validators></xp:inputText>
+								</xp:repeat>
+							</xe:formRow>
+						</xe:formColumn>
+	
+						<xe:formColumn
+							styleClass="form-group col-sm-5">
+							<xe:formRow id="rowProrrateoTipo"
+								labelPosition="left" labelWidth="50%" styleClass="col-lg-12">
+								<xp:repeat id="repeat1"
+									value="#{edfObj.listaProrrateos}" var="rptProrrateoTipo"
+									indexVar="idxRptProrrateoTipo">
+									<xp:comboBox id="prt_tipo"
+										disabled="#{edfObj.edf_isReadMode}"
+										styleClass="row form-inline"
+										value="#{rptProrrateoTipo.prt_tipo}" >
+										<xp:selectItem
+											itemLabel="POR GASTOS" itemValue="G">
+										</xp:selectItem>
+										<xp:selectItem
+											itemLabel="CUOTA FIJA" itemValue="C">
+										</xp:selectItem>
+										<xp:selectItem
+											itemLabel="PRESUPUESTO" itemValue="P">
+										</xp:selectItem>
+										<xp:eventHandler
+											event="onchange" submit="true" refreshMode="partial"
+											refreshId="tblEdificio">
+											<xp:this.action><![CDATA[#{javascript:var msgValidacion:string = edificioBean.onChangeProrrateos(sessionScope.get("edfObj"), idxRptProrrateoTipo);
+if (!msgValidacion.equals("")){
+	var msg=new javax.faces.application.FacesMessage();
+	facesContext.addMessage(getComponent(msgValidacion.split("\~")[0]).getClientId(facesContext),msg(msgValidacion.split("\~")[1]));
+	view.postScript("window.scrollTo(0,0)");
+}		}]]></xp:this.action>
+
+
+										</xp:eventHandler></xp:comboBox>
+	
+	
+								</xp:repeat>
+							</xe:formRow>
+						</xe:formColumn>
+	
+						<xe:formColumn
+							styleClass="form-group col-sm-4">
+							<xe:formRow id="rowProrrateoImporte"
+								labelWidth="50%" styleClass="col-lg-8">
+								<xp:repeat id="repeatProrrateoImporte"
+									value="#{edfObj.listaProrrateos}" var="rptProrrateoImporte"
+									indexVar="idxRptProrrateoImporte">
+									<xp:inputText id="prt_importe"
+										styleClass="row form-inline"
+										value="#{rptProrrateoImporte.prt_importe}"
+										style="text-align:right"
+										
+										disabled="#{rptProrrateoImporte.prt_importe eq null or edfObj.edf_isReadMode}">
+										<xp:this.converter>
+											<xp:convertNumber
+												pattern="#,##0.00;(#,##0.00)">
+											</xp:convertNumber>
+										</xp:this.converter>
+										<xp:eventHandler
+											event="onchange" submit="true" refreshMode="partial" refreshId="prt_total">
+										</xp:eventHandler>
+									</xp:inputText>
+								</xp:repeat>
+							</xe:formRow>
+						</xe:formColumn>
+						<!-- FIN Valores a Prorratear -->
+	
+						<!-- Sumatoria total general, es computado  -->
+						<xe:formRow id="rowProrrateoTotal"
+							labelWidth="70%" label="Total general a prorratear"
+							labelPosition="left" rendered="#{edfObj.listaProrrateos[0].prt_importe + edfObj.listaProrrateos[1].prt_importe + edfObj.listaProrrateos[2].prt_importe + edfObj.listaProrrateos[3].prt_importe ne 0}"
+							style="font-weight:bold;background-color:rgb(244,244,255);margin-right:50.0%">
+							<xp:inputText id="prt_total"
+								value="#{edfObj.listaProrrateos[0].prt_importe + edfObj.listaProrrateos[1].prt_importe + edfObj.listaProrrateos[2].prt_importe + edfObj.listaProrrateos[3].prt_importe}"
+								style="width:auto;background-image:url(3.png)">
+								<xp:this.converter>
+									<xp:convertNumber
+										pattern="#,##0.00;(#,##0.00)">
+									</xp:convertNumber>
+								</xp:this.converter>
+							</xp:inputText>
+						</xe:formRow>
+	
+						<!-- Fecha prorrateo Cuota Fija -->
+						<xe:formRow id="rowCuotaFijaDia" label="Mes de prorrateo y recibos" labelPosition="left"
+							rendered="#{edfObj.edf_cuotaFijaDia eq 'N' || edfObj.edf_cuotaFijaDia eq 'B'}">
+							<xp:comboBox id="edf_cuotaFijaDia" disabled="#{edfObj.edf_isReadMode}"
+								value="#{edfObj.edf_cuotaFijaDia}" 
+								style="width:auto">
+								<xp:selectItems>
+										<xp:this.value><![CDATA[#{edfObj.edf_cuotaFijaDiaOpcionesCombo}]]></xp:this.value>
+									</xp:selectItems>
+								</xp:comboBox>
+						</xe:formRow>
+					</xp:div>
+					
+					<xe:formRow id="rowImprimeTitulosEnLiquidacion" 
+					label="Imprimir títulos de los porcentuales" labelPosition="left">
+						<xp:comboBox id="edf_imprimeTitulosEnLiquidacion" disabled="#{edfObj.edf_isReadMode}"
+							value="#{edfObj.edf_imprimeTitulosEnLiquidacion}"
+                           style="width:auto" defaultValue="0">
+                            <xp:selectItem itemLabel="SI"
+                                itemValue="1">
+                            </xp:selectItem>
+                            <xp:selectItem itemLabel="NO" itemValue="0">
+                            </xp:selectItem>
+                        </xp:comboBox>
+					</xe:formRow>
+
+					
+					
+					<xe:formRow id="rowInteresPunitorioDeudores" 
+						label="Interés punitorio a unidades deudoras" labelPosition="left">
+						<xp:inputText id="edf_importeInteresPunitorioDeudores" 
+							value="#{edfObj.edf_importeInteresPunitorioDeudores}"
+							disabled="#{edfObj.edf_isReadMode}" style="text-align:right; width:60.0px; display: inline;">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
+							<xp:this.validators>
+								<xp:validateLongRange minimum="0"
+									maximum="9999"
+									message="El % de interés no puede superar el 9999 %">
+								</xp:validateLongRange>
+							</xp:this.validators>
+							<xp:eventHandler event="onchange"
+								submit="true" refreshMode="partial" refreshId="edf_fechaPrimerVencimientoRecibos">
+							</xp:eventHandler>
+						</xp:inputText>
+						<xp:label value="%" id="Signo1"></xp:label>
+					</xe:formRow>
+	
+					<xe:formRow id="rowRecargoSegundoVencimiento"
+						label="Recargo para el 2° vto de expensas" labelPosition="left">
+						<xp:inputText id="edf_importeRecargoSegundoVencimiento"
+							value="#{edfObj.edf_importeRecargoSegundoVencimiento}" disabled="#{edfObj.edf_isReadMode}"
+							style="text-align:right; width:60.0px; display: inline;">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
+							<xp:this.validators>
+								<xp:validateLongRange minimum="0"
+									maximum="9999"
+									message="El % de interés no puede superar el 9999 %">
+								</xp:validateLongRange>
+							</xp:this.validators>
+							<xp:eventHandler event="onchange"
+								submit="true" refreshMode="partial" refreshId="edf_fechaSegundoVencimientoRecibos">
+							</xp:eventHandler>
+						</xp:inputText>
+						<xp:label value="%" id="Signo2"></xp:label>
+					</xe:formRow>
+					
+					<xe:formRow id="rowFechaPrimerVencimientoRecibos"
+						label="Fecha del 1° vto en recibos" labelPosition="left">
+						<xp:inputText
+							id="edf_fechaPrimerVencimientoRecibos"
+							value="#{edfObj.edf_fechaPrimerVencimientoRecibos}"
+							disabled="#{edfObj.edf_isReadMode or !(edfObj.edf_importeInteresPunitorioDeudores gt 0)}">
+							<xp:this.converter>
+								<xp:convertDateTime type="date"></xp:convertDateTime>
+							</xp:this.converter>
+							<xp:dateTimeHelper></xp:dateTimeHelper>
+						</xp:inputText>
+					</xe:formRow>
+
+					<xe:formRow id="rowFechaSegundoVencimientoRecibos"
+						label="Fecha del 2° vto en recibos" labelPosition="left">
+						<xp:inputText
+							id="edf_fechaSegundoVencimientoRecibos"
+							value="#{edfObj.edf_fechaSegundoVencimientoRecibos}"
+							disabled="#{edfObj.edf_isReadMode or !(edfObj.edf_importeRecargoSegundoVencimiento gt 0)}">
+							<xp:this.converter>
+								<xp:convertDateTime type="date"></xp:convertDateTime>
+							</xp:this.converter>
+							<xp:dateTimeHelper></xp:dateTimeHelper>
+						</xp:inputText>
+					</xe:formRow>
+					
+					<xe:formRow id="rowModalidadInteresesPunitorios"
+						label="Modalidad de intereses punitorios" labelPosition="left">
+						<xp:comboBox id="edf_modalidadInteresesPunitorios" disabled="#{edfObj.edf_isReadMode}"
+							value="#{edfObj.edf_modalidadInteresesPunitorios}"
+                           style="width:auto">
+                            <xp:selectItem itemLabel="Interés s/Capital"
+                                itemValue="SI">
+                            </xp:selectItem>
+                            <xp:selectItem itemLabel="Interés s/Interés"
+                                itemValue="NO">
+                            </xp:selectItem>
+                        </xp:comboBox>
+					</xe:formRow>
+
+<xe:formColumn styleClass="form-group col-sm-3"
+							style="margin-left:2.0%">
+							<xe:formRow id="rowPorcentualTitulo"
+								labelPosition="left" labelWidth="50%">
+								<xp:repeat id="repeatPorcentualTitulo"
+									value="#{edfObj.listaPorcentuales}" var="rptPorcentualTitulo"
+									indexVar="idxRptPorcentualTitulo" >
+
+									<xp:inputText id="porc_titulo"
+										rendered="#{rptPorcentualTitulo.porc_porcentaje gt 0}"
+										styleClass="row form-inline"
+										value="#{rptPorcentualTitulo.porc_titulo}"
+										style="font-weight:bold" disabled="true">
+									</xp:inputText>
+								</xp:repeat>
+							</xe:formRow>
+						</xe:formColumn>
+						
+						<xe:formColumn
+							styleClass="form-group col-sm-4">
+							<xe:formRow id="formRow1"
+								labelWidth="50%" styleClass="col-lg-8" >
+								<xp:repeat id="repeat2"
+									value="#{edfObj.listaPorcentuales}" var="rptPorcentualHonorarios"
+									indexVar="idxRptPorcentualHonorarios">
+									<xp:inputText id="porc_importeHonorarios"
+										styleClass="row form-inline"
+										value="#{rptPorcentualHonorarios.porc_importeHonorarios}"
+										style="text-align:right"
+										rendered="#{rptPorcentualHonorarios.porc_porcentaje gt 0}"
+										disabled="#{edfObj.edf_isReadMode}">
+										<xp:this.converter>
+											<xp:convertNumber
+												pattern="#,##0.00;(#,##0.00)">
+											</xp:convertNumber>
+										</xp:this.converter>
+										<xp:eventHandler
+											event="onchange" submit="true" refreshMode="partial" refreshId="prt_total">
+										</xp:eventHandler>
+									</xp:inputText>
+								</xp:repeat>
+							</xe:formRow>
+						</xe:formColumn>
+					
+					
+					<xe:formRow id="rowImporteFranqueo" 
+						label="Franqueo" labelPosition="left">
+						<xp:inputText id="edf_importeFranqueo" 
+							value="#{edfObj.edf_importeFranqueo}"
+							disabled="#{edfObj.edf_isReadMode}" style="text-align:right; width:60.0px; display: inline;">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:formRow id="rowImporteMultaDeudores" 
+						label="Multa a deudores" labelPosition="left">
+						<xp:inputText id="edf_importeMultaDeudores" 
+							value="#{edfObj.edf_importeMultaDeudores}"
+							disabled="#{edfObj.edf_isReadMode}" style="text-align:right; width:60.0px; display: inline;">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
+						</xp:inputText>
+					</xe:formRow>
+					<xe:this.facets>
+						<xp:div xp:key="footer">
+							<xc:ccFXdocLock></xc:ccFXdocLock>
+							<xp:button value="Modificar" id="btnEdit">
+
+								<xp:this.rendered><![CDATA[#{javascript:if(DocLock.isLocked("edf_" + edfObj.edf_codigo)){
+	if(!DocLock.getLock("edf_" + edfObj.edf_codigo).equals(session.getEffectiveUserName()))
+		return false;		
+}
+edfObj.edf_isReadMode; }]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="tblEdificio">
+									<xp:this.action><![CDATA[#{javascript:edificioBean.editEdificio(sessionScope.get("edfObj"));}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+
+							<xp:button value="Cerrar" id="btnClose">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete" immediate="true">
+
+									
+
+									<xp:this.script><![CDATA[if (XSP._isDirty()){
+  if (confirm ("Está seguro de salir?" + "\n" + "\n" +
+    "Sus cambios no serán guardados." + "\n" + 
+    "Presione Aceptar para salir sin guardar, o Cancelar para permanecer en la página.")) {
+    return true;
+  } else {
+    return false;
+  }
+} else {
+  return true;
+}]]></xp:this.script>
+									<xp:this.action>
+										<xp:actionGroup>
+											<xp:this.condition><![CDATA[#{javascript:if(!edfObj.edf_isReadMode)
+	DocLock.removeLock("edf_" + sessionScope.get("edfObj").edf_codigo)
+return true;	}]]></xp:this.condition>
+											<xp:openPage
+												name="/ViewDatosEdificios.xsp">
+											</xp:openPage>
+
+
+
+										</xp:actionGroup>
+									</xp:this.action></xp:eventHandler>
+							</xp:button>
+							<xp:button value="Confirmar" id="btnSave" styleClass="btn-success"
+								rendered="#{javascript:!edfObj.edf_isReadMode}">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="partial" refreshId="tblEdificio">
+									<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = edificioBean.strValidacionEdificio(sessionScope.get("edfObj"));
+if(msgValidacion.isEmpty()){
+	//print("validación ok");
+	edificioBean.saveEdificio(sessionScope.get("edfObj"));
+	context.redirectToPage("viewDatosEdificios")
+}else{
+	var msg=new javax.faces.application.FacesMessage();
+	for (i=0;i<msgValidacion.size();i++) {
+		facesContext.addMessage(getComponent(msgValidacion.get(i).split("\~")[0]).getClientId(facesContext),msg(msgValidacion.get(i).split("\~")[1]));
+	}
+	view.postScript("window.scrollTo(0,0)")
+	
+}}]]></xp:this.action>
+
+
+								</xp:eventHandler>
+							</xp:button>
+							<xp:messages id="messages1" styleClass="alert alert-error">
+							</xp:messages>
+						</xp:div>
+					</xe:this.facets>
+					</xe:formTable>
+				
+				<!-- 
+				<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+	src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl= en&amp;geocode=&amp;q=Mendoza+1509,+CAP+FED&amp;aq=0&amp;sspn=0.011584,0.022724&amp;ie=UTF8&amp;hq=&amp;hnear=Mendoza+1509,+CAP+FED&amp;t=r&amp;view=map&amp;z=16&amp;ll=-34.5559016,-58.4488057&amp;output=embed">
+	</iframe> -->
+			</xp:panel>
+
+
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+	
+
+	
+</xp:view>

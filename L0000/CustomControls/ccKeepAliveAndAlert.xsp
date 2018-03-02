@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+    <xp:div id="keepAliveAndAlert" style="display: none"></xp:div>
+    <xp:scriptBlock><xp:this.value><![CDATA[
+        window.__keepAliveAndAlert = setInterval(function() {
+            XSP.partialRefreshGet("#{id:keepAliveAndAlert}", {
+                onComplete: function() {
+                    // Good!
+                },
+                onError: function() {
+                    jQuery(dojo.byId("#{id:keepAliveAndAlertError}")).modal({
+                        backdrop: 'static'
+                    });
+                     
+                    clearInterval(window.__keepAliveAndAlert);
+                    window.__keepAliveAndAlert = null;
+                }
+            });
+        }, 10 * 1000);
+    ]]></xp:this.value></xp:scriptBlock>
+    <xp:div style="display: none" id="keepAliveAndAlertError" styleClass="modal fade error-modal" role="dialog">
+        <div class='modal-dialog'><div class='modal-content'>
+            <div class='modal-header'><h4 class='modal-title'>Page Session Expired</h4></div>
+            <div class='modal-body'>
+                <p>Your page session has expired.</p>
+                <p>Please&#160;<a href="javascript:location.reload()">reload</a>&#160;the page to continue working.</p>
+            </div>
+        </div></div>
+    </xp:div>
+</xp:view>

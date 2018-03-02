@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:text escape="true" id="computedField1">
+		<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var pepe:ar.com.ada3d.connect.QueryAS400 = new QueryAS400();	
+pepe.updateAS("updateEdificios", null)}]]></xp:this.value>
+	</xp:text>
+
+</xp:view>

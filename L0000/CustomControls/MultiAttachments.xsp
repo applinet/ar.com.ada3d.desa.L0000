@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:button id="button4" style="font-size:8pt" value="Add New Upload">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:save(true);
+fileUploadDb=compositeData.fileUploadDbName;
+uploadDB=session.getDatabase(null,fileUploadDb);
+currDoc=currentDocument;
+if (uploadDB.isOpen()){	
+	doc=currDoc.getDocument(); //get current document
+	
+	rdoc = uploadDB.createDocument();
+	rdoc.appendItemValue("Form", "Attachment");
+	rdoc.appendItemValue("ParentUNID",doc.getUniversalID());
+	rdoc.save();
+
+	//need to reload the document so the new controls are generated
+	context.reloadPage();
+}
+
+}]]></xp:this.action>
+					</xp:eventHandler></xp:button>
+	<xp:br></xp:br><xp:repeat rows="30" id="attrepeat" first="0" repeatControls="true" var="docid" indexVar="index">
+		<xp:this.value><![CDATA[#{javascript://we need to return an array of NoteIDs.  This could be 100% javascript but
+//I wanted to show how you can mix javascript and @Commands.  The @Explode 
+//returns a javascript array.
+fileUploadDb=compositeData.fileUploadDbName;
+currDoc=currentDocument;
+if(@IsNewDoc()!=1){
+	doc=currDoc.getDocument();
+	uploadDB=session.getDatabase(null,fileUploadDb);
+	if (uploadDB.isOpen()){
+
+		viewUploads=uploadDB.getView("vAttachmentLkUp");
+		docUNID=doc.getUniversalID();
+	
+		dc=viewUploads.getAllDocumentsByKey(docUNID);
+		if (dc!=null){
+			docIds="";
+			dcDoc = dc.getFirstDocument();
+			while(dcDoc != null) {
+				docIds=docIds+dcDoc.getNoteID()+";";
+				dcDoc = dc.getNextDocument();
+			}
+			return @Explode(docIds,";");
+		} 
+	}
+}}]]></xp:this.value><xp:panel style="width:100.0%" id="panel1">
+			<xp:this.data>
+				<xp:dominoDocument var="AttachDoc"
+					documentId="#{javascript:docid}" ignoreRequestParams="true"
+					formName="Attachment"
+					databaseName="#{javascript:compositeData.fileUploadDbName;}"
+					action="editDocument">
+				</xp:dominoDocument>
+			</xp:this.data>
+			<xp:table style="width:585.0px">
+
+				<xp:tr>
+					<xp:td colspan="3"><hr /></xp:td>
+					
+					
+				</xp:tr>
+				<xp:tr>
+					
+					<xp:td style="width:350.0px">
+
+
+
+
+						<xp:table>
+							<xp:tr>
+								<xp:td>
+								<xp:span style="font-size:8pt">
+							File Description:
+						</xp:span>
+								</xp:td>
+								<xp:td><xp:inputText id="inputText1" value="#{AttachDoc.Description}">
+							<xp:this.readonly><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return false;
+}else{
+	return true;
+}}]]></xp:this.readonly>
+						</xp:inputText></xp:td>
+							</xp:tr>
+							<xp:tr>
+								<xp:td>
+														<xp:label value="File to Upload:" id="label1" style="font-size:8pt">
+							<xp:this.rendered><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return true;
+}else{
+	return false;
+}}]]></xp:this.rendered>
+						</xp:label>
+								</xp:td>
+								<xp:td><xp:fileUpload id="fileUpload2" style="width:216.0px" value="#{AttachDoc.Attachments}">
+							<xp:this.rendered><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return true;
+}else{
+	return false;
+}}]]></xp:this.rendered>
+						</xp:fileUpload></xp:td>
+							</xp:tr>
+						</xp:table>
+						<xp:fileDownload rows="30" id="fileDownload1"
+							value="#{AttachDoc.Attachments}" hideWhen="#{javascript:compositeData.hideIfNoAttachments}"
+							displayLastModified="${javascript:compositeData.showModifiedDate}" style="font-size:8pt;text-align:left"
+							var="rowData" displaySize="${javascript:compositeData.showSize}" displayType="${javascript:compositeData.showType}" displayCreated="${javascript:compositeData.showCreatedDate}" allowDelete="false">
+							<xp:this.rendered><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return false;
+}else{
+	return true;
+}}]]></xp:this.rendered>
+							<xp:this.fileNameHrefValue><![CDATA[#{javascript:url = context.getUrl();
+host = url.getHost();
+db=AttachDoc.getDocument().getParentDatabase();
+if (host==""){
+	host="localhost";
+}
+return "http://"+host+"/"+db+"/0/" + AttachDoc.getDocument().getUniversalID()
+	 + "/$FILE/" +rowData.getName();
+
+
+}]]></xp:this.fileNameHrefValue>
+						</xp:fileDownload>
+					</xp:td>
+					<xp:td>
+
+					<xp:button value="Upload" id="button3">
+
+						<xp:this.rendered><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return true;
+}else{
+	return false;
+}}]]></xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete" id="eventHandler1">
+							<xp:this.action><![CDATA[#{javascript:save(true);}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					
+					<xp:link escape="true" text="Delete" id="link1">
+					<xp:this.rendered><![CDATA[#{javascript:if(@AttachmentLengths()==0){
+	return false;
+}else{
+	return true;
+}}]]></xp:this.rendered>
+
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:save(true);  //perform a save of all data sources prior to reloading page
+
+doc=AttachDoc.getDocument();
+doc.remove(true);
+
+//need to reload the document so the old controls are removed
+context.reloadPage();}]]></xp:this.action>
+					</xp:eventHandler>
+					</xp:link></xp:td>
+				</xp:tr>
+			</xp:table>
+</xp:panel></xp:repeat>
+
+&#160;&#160;
+
+
+
+	<xp:br></xp:br>
+	
+	</xp:view>

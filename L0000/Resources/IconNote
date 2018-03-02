@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
- maintenanceversion='1.9' replicaid='832581D4005579C9'>
-<noteinfo noteid='112' unid='85255A0A0010A6F0852556F00072875B' sequence='323'>
+ maintenanceversion='1.9' replicaid='8325824400428A77'>
+<noteinfo noteid='112' unid='85255A0A0010A6F0852556F00072875B' sequence='390'>
 <created><datetime dst='true'>19871019T165057,55-04</datetime></created>
-<modified><datetime dst='true'>20171110T133405,54-02</datetime></modified>
-<revised><datetime dst='true'>20171110T133405,53-02</datetime></revised>
-<lastaccessed><datetime dst='true'>20171110T133405,54-02</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20171110T133337,82-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst='true'>20180302T100653,54-02</datetime></modified>
+<revised><datetime dst='true'>20180302T100653,53-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20180302T100653,54-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20180302T100648,55-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name><name>CN=ADA3D/O=SASA</name><name
+>CN=Notes Standard Control/O=SASA</name><name>CN=ADA3D/O=SASA</name><name
 >CN=Notes Standard Control/O=SASA</name></updatedby>
 <item name='IconBitmap' summary='true'>
 <rawitemdata type='6'>
@@ -26,14 +27,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAA==
 </rawitemdata></item>
 <item name='$DefaultFrameset'><text>Principal</text></item>
 <item name='$DefaultXPage'><text>home.xsp</text></item>
-<item name='$TemplateServerName'><text>CN=Notes Standard Control/O=SASA</text></item>
-<item name='$TemplateFileName'><text>CN=ADA3D/O=SASA!!L0000.ntf</text></item>
-<item name='$PIRCRefreshModTime'><datetime>20171106T170624,67-03</datetime></item>
-<item name='$TemplateModTime'><datetime dst='true'>20171106T180527,80-02</datetime></item>
-<item name='$Daos'><text>0</text></item>
-<item name='$Flags'><text>fJz247qZFn!</text></item>
 <item name='$LaunchXPageRunOnServer'><text>0</text></item>
-<item name='$FlagsNoRefresh'><text>rv</text></item>
-<item name='$TITLE'><text>L0000 Diseño Base
-#1L0000v1r1</text></item></note>
+<item name='$FlagsNoRefresh'><text/></item>
+<item name='$TemplateServerName'><text>CN=Notes Standard Control/O=SASA</text></item>
+<item name='$LargeSummary'><text>0</text></item>
+<item name='$Flags'><text>fJz247qZFn!</text></item>
+<item name='$PIRCRefreshModTime'><datetime>20180227T101011,48-03</datetime></item>
+<item name='$TemplateModTime'><datetime>20180227T100825,88-03</datetime></item>
+<item name='$TemplateFileName'><text>c:\Program Files (x86)\IBM\Notes\Data\L8669_20180227.ntf</text></item>
+<item name='$Daos'><text>0</text></item>
+<item name='$TITLE'><text>L0000 Diseño Base</text></item></note>
 

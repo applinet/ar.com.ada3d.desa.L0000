@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" pageTitle="Curso">
+	<xp:this.resources>
+		<xp:script src="/viernes.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+
+	<xp:div styleClass="container form-inline form-group">
+	<div class="page-header">
+			<h1>Ejemplo java clase 'test' y Librería Script 'viernes.jss'.</h1>
+		</div>
+		<xp:div styleClass="row" style="background-color:rgb(0,255,64)">
+			<xp:label id="fecha1" styleClass="col-sm-2">
+				<xp:this.value><![CDATA[#{javascript:importPackage(test);
+var elnombrequequiera = new test();
+return elnombrequequiera.devolvemeunnumeroentexto();}]]></xp:this.value>
+			</xp:label>
+			<xp:label
+				value="Java: Importo un paquete y llamo a una funcion de la clase: test"
+				id="label2" styleClass="col-sm-4">
+			</xp:label>
+		</xp:div>
+		<xp:br />
+		<xp:div styleClass="row" style="background-color:rgb(0,255,255)">
+			<xp:label id="fecha2" value="#{javascript:getQuediaEsHoy();}"
+				styleClass="col-sm-2">
+			</xp:label>
+			<xp:label
+				value="SSJS: Llamo al codigo getQuediaEsHoy de la librería viernes "
+				id="label4" styleClass="col-sm-4">
+			</xp:label>
+		</xp:div>
+		<xp:br />
+		<xp:div styleClass="row">
+			<xp:label id="fecha3" styleClass="col-sm-2">
+				<xp:this.value><![CDATA[#{javascript:"La segunda fecha es:" + getComponent("fecha2").getValue()}]]></xp:this.value>
+			</xp:label>
+			<xp:label value="Obtengo el valor del segundo componente:"
+				id="label1" styleClass="col-sm-4">
+			</xp:label>
+		</xp:div>
+		<br />
+		<div class="page-header">
+			<h1>Consultas AS400.</h1>
+		</div>
+		<xp:div styleClass="row" style="background-color:rgb(255,128,192)">
+			<xp:label value="Listado de edificios AS400:" id="label5"
+				styleClass="col-sm-2">
+			</xp:label>
+			<xp:div styleClass="col-sm-5">
+				<xp:comboBox value="#{viewScope.listado}" id="listado"
+					styleClass="dropdown-toggle">
+					<xp:selectItems id="selectItems6">
+						<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var javaClassQuery:QueryAS400 = new QueryAS400();
+javaClassQuery.getSelectAS("_*_curso_PH_E01", null, false);}]]></xp:this.value>
+					</xp:selectItems>
+
+					<xp:eventHandler event="onchange" submit="true"
+						refreshMode="partial" refreshId="computedField3">
+					</xp:eventHandler>
+				</xp:comboBox>
+				<xp:text escape="true" id="computedField3">
+					<xp:this.value><![CDATA[#{javascript:"  - Dato real: " + viewScope.listado}]]></xp:this.value>
+				</xp:text>
+			</xp:div>
+		</xp:div>
+		<xp:br />
+		<xp:br />
+
+		<xp:div styleClass="row" style="background-color:rgb(192,192,192)">
+			<xp:label
+				value="Resultado Texto uno debajo del otro de: cursoDevuelvoTexto:"
+				id="labelDevuelvoTexto" styleClass="col-sm-2">
+			</xp:label>
+			<xp:div styleClass="col-sm-8">
+				<xp:inputTextarea id="inputTextarea1">
+					<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var javaClassQuery:QueryAS400 = new QueryAS400();
+javaClassQuery.getSelectAS("_*_cursoDevuelvoTextoOrdenado_PH_E01", null, false);}]]></xp:this.value>
+					<xp:this.multipleSeparator><![CDATA[#{javascript:"\n"}]]></xp:this.multipleSeparator>
+				</xp:inputTextarea>
+			</xp:div>
+
+		</xp:div>
+		<br />
+	</xp:div>
+	<div class="page-header">
+		<h1>Repeat Control.</h1>
+	</div>
+	<xp:div styleClass="container form-inline form-group">
+		<xp:label value="Repeat de cursoDevuelvoTexto" id="label3"></xp:label>
+		<xp:table title="Tabla" styleClass="table-hover">
+			<xp:repeat id="repeat1" rows="30" var="rowData" style="width:400px">
+				<xp:this.value><![CDATA[#{javascript:importPackage(ar.com.ada3d.connect);
+var javaClassQuery:QueryAS400 = new QueryAS400();
+return javaClassQuery.getSelectAS("_*_cursoDevuelvoTexto_PH_E01", null, false);}]]></xp:this.value>
+
+				<xp:this.facets>
+					<xp:text xp:key="header" escape="false">
+						<xp:this.value><![CDATA[#{javascript:"<thead><tr><th>Dirección</th></tr></thead><tbody>"}]]></xp:this.value>
+					</xp:text>
+					<xp:text xp:key="footer" escape="false">
+						<xp:this.value><![CDATA[#{javascript:"</tbody>"}]]></xp:this.value>
+					</xp:text>
+				</xp:this.facets>
+				<xp:tr>
+					<xp:td>
+						<span class="glyphicon glyphicon-list-alt"></span>
+						&#160;
+						<xp:text escape="true" id="computedField2" value="#{rowData}">
+						</xp:text>
+
+						<br />
+					</xp:td>
+				</xp:tr>
+			</xp:repeat>
+		</xp:table>
+	</xp:div>
+
+
+
+
+</xp:view>
+

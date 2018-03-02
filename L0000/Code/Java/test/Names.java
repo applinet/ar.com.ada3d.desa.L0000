@@ -1,8 +1,6 @@
 package test;
 
 import com.ibm.xsp.extlib.tree.impl.*;
-import com.ibm.xsp.extlib.util.ExtLibUtil;
-
 import lotus.domino.*;
 import javax.faces.context.FacesContext;
 import java.util.*;

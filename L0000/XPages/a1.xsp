@@ -2,31 +2,33 @@
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core"
 	xmlns:xc="http://www.ibm.com/xsp/custom"
 	xmlns:xe="http://www.ibm.com/xsp/coreex">
-	<xc:ccLayoutBootstrap>
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="true">
 		<xp:this.facets>
 			<xp:text escape="true" id="computedField1"
 				value="#{javascript:view.getPageName()}"
 				style="font-size:14pt;font-weight:bold" xp:key="facetLeft">
 			</xp:text>
-			
-			<xe:djTabContainer id="djTabContainer1" style="width:500px; height:100px; margin:5px;" xp:key="facetMiddle">
-	<xe:djTabPane id="djTabPane1" title="Title">
-		<xp:text escape="true" id="computedField4"
-			value="#{javascript:database.getTitle()}">
-		</xp:text>
-	</xe:djTabPane>
-	<xe:djTabPane id="djTabPane2" title="File path">
-		<xp:text escape="true" id="computedField2"
-			value="#{javascript:database.getFilePath()}">
-		</xp:text>
-	</xe:djTabPane>
-	<xe:djTabPane id="djTabPane3" title="Creation date">
-		<xp:text escape="true" id="computedField3"
-			value="#{javascript:database.getCreated().getLocalTime()}">
-		</xp:text>
-	</xe:djTabPane>
-</xe:djTabContainer>
-			
-			</xp:this.facets>
+
+			<xe:djTabContainer id="djTabContainer1"
+				style="width:500px; height:100px; margin:5px;"
+				xp:key="facetMiddle">
+				<xe:djTabPane id="djTabPane1" title="Title">
+					<xp:text escape="true" id="computedField4"
+						value="#{javascript:database.getTitle()}">
+					</xp:text>
+				</xe:djTabPane>
+				<xe:djTabPane id="djTabPane2" title="File path">
+					<xp:text escape="true" id="computedField2"
+						value="#{javascript:database.getFilePath()}">
+					</xp:text>
+				</xe:djTabPane>
+				<xe:djTabPane id="djTabPane3" title="Creation date">
+					<xp:text escape="true" id="computedField3"
+						value="#{javascript:database.getCreated().getLocalTime()}">
+					</xp:text>
+				</xe:djTabPane>
+			</xe:djTabContainer>
+
+		</xp:this.facets>
 	</xc:ccLayoutBootstrap>
 </xp:view>

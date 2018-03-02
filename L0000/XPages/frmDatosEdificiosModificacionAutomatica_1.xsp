@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+		
+	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
+		<xp:this.facets>
+			<xp:panel id="PNL_container" xp:key="facetMiddle">
+
+				<xc:ccFxTypeAhead></xc:ccFxTypeAhead>
+				<xp:dataTable id="edificiosTable" var="unEdificio"
+					value="#{edificioBean.listaEdificiosTrabajo}" rows="1000"
+					styleClass="table table-responsive">
+					<xp:column id="edf_codigoColumn">
+						<xp:this.facets>
+							<xp:label value="Codigo SASA" id="label1"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unEdificio.edf_codigo}" id="edf_codigo">
+						</xp:text>
+					</xp:column>
+					<xp:column id="edf_direccionColumn">
+						<xp:this.facets>
+							<xp:label value="Domicilio" id="label2"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:link escape="true"
+							text="#{unEdificio.edf_direccion}-#{unEdificio.edf_localidad}"
+							id="edf_direccion">
+							<xp:eventHandler event="onclick"
+								submit="true" refreshMode="complete" id="eventHandler1">
+								<xp:this.action><![CDATA[#{javascript:sessionScope.put("edfObj", unEdificio)
+context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
+							</xp:eventHandler>
+						</xp:link>
+					</xp:column>
+					<xp:column
+						id="edf_importeInteresPunitorioDeudoresColumn"
+						style="text-align:center">
+						<xp:this.facets>
+							<xp:label value="Interés 1er Vto"
+								id="label5" xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unEdificio.edf_importeInteresPunitorioDeudores}"
+							id="edf_importeInteresPunitorioDeudores">
+						</xp:text>
+						<xp:label value="%" id="Signo1"></xp:label>
+					</xp:column>
+					<xp:column
+						id="edf_fechaPrimerVencimientoRecibosColumn">
+						<xp:this.facets>
+							<xp:label value="1er Vto" id="label6"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unEdificio.edf_fechaPrimerVencimientoRecibos}"
+							id="edf_fechaPrimerVencimientoRecibos">
+						</xp:text>
+					</xp:column>
+					<xp:column
+						id="edf_importeRecargoSegundoVencimientoColumn"
+						style="text-align:center">
+						<xp:this.facets>
+							<xp:label value="Interés 2do Vto"
+								id="label7" xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unEdificio.edf_importeRecargoSegundoVencimiento}"
+							id="edf_importeRecargoSegundoVencimiento">
+						</xp:text>
+						<xp:label value="%" id="Signo2"></xp:label>
+					</xp:column>
+					<xp:column
+						id="edf_fechaSegundoVencimientoRecibosColumn">
+						<xp:this.facets>
+							<xp:label value="2do Vto" id="label8"
+								xp:key="header" style="font-weight:bold">
+							</xp:label>
+						</xp:this.facets>
+						<xp:text escape="true"
+							value="#{unEdificio.edf_fechaSegundoVencimientoRecibos}"
+							id="edf_fechaSegundoVencimientoRecibos">
+						</xp:text>
+					</xp:column>
+					
+				</xp:dataTable>
+				<div id="divHiddenAplicar" style="display: none;">
+					<xp:button value="btnHidden" id="btnAplicar1">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("importeInteresPunitorioDeudoresMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnHidden" id="btnAplicar2">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaPrimerVtoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnHidden" id="btnAplicar3">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("recargoSegundoVencimientoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnHidden" id="btnAplicar4">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaSegundoVtoMasivo");}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</div>	
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+	
+</xp:view>

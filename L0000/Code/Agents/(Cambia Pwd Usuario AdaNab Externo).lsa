@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.9'
- replicaid='832581D4005579C9'>
-<noteinfo noteid='282' unid='4A3D0F1198A46E94832581C9007E1892' sequence='17'>
+ replicaid='8325824400428A77'>
+<noteinfo noteid='212' unid='4A3D0F1198A46E94832581C9007E1892' sequence='25'>
 <created><datetime dst='true'>20171030T205718,26-02</datetime></created>
-<modified><datetime dst='true'>20171110T133339,77-02</datetime></modified>
-<revised><datetime dst='true'>20171101T172914,22-02</datetime></revised>
-<lastaccessed><datetime dst='true'>20171110T133339,77-02</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20171110T133339,77-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst='true'>20180302T100649,84-02</datetime></modified>
+<revised><datetime dst='true'>20171114T112329,64-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20180302T100649,84-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20180302T100649,84-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name='$TITLE' sign='true'><text>(Cambia Pwd Usuario AdaNab Externo)|a.PwdUserExt</text></item>
@@ -33,7 +33,7 @@ gQYAAAAA
 <item name='$DesignerVersion'><text>8.5.3</text></item>
 <item name='$AssistRunInfo' summary='true'>
 <rawitemdata type='3'>
-BgAAAgAACAB+AgAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAA2AAAAAAAAAAAAAAAAAAAABAAAAAA
+BgAAAgAACAAOAgAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAA2AAAAAAAAAAAAAAAAAAAABAAAAAA
 AAAAlFVRANCBJYMAAAAA/wtrAMuBJYPbq1EAxoElgwAAAAAAAAAAAAAAAAAAAAAAAAAAU3RhcnRl
 ZCBydW5uaW5nIGFnZW50ICcoQ2FtYmlhIFB3ZCBVc3VhcmlvIEFkYU5hYiBFeHRlcm5vKXxhLlB3
 ZFVzZXJFeHQnIG9uIDExLzA2LzIwMTcgMTE6NDg6MTENClJhbiBMb3R1c1NjcmlwdCBjb2RlDQpE
@@ -143,5 +143,6 @@ XrgCK/gBJKYaGQBeYAUqgAMjphodAF5EBku4Ai1kBiOmGh8AXnAFS2AFLJAGI6YaIABeWANLcAUs
 AAARABQAAAAAAP//AQADAA0AAAAQADgAEgAKAAAA
 </rawitemdata></item>
 <item name='$AssistVersion'><datetime>20171031T082642,79-03</datetime></item>
-<item name='$Flags'><text>fL3u</text></item></note>
+<item name='$Flags'><text>fL3u</text></item>
+<item name='$POID'><datetime dst='true'>20171114T112329,64-02</datetime></item></note>
 

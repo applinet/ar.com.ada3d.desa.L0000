@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="1be" sequence="87" unid="7CACF3F8A125D10C832581A6006E76ED">
-<created><datetime dst="true">20170925T180634,05-02</datetime></created>
-<modified><datetime dst="true">20171110T133338,80-02</datetime></modified>
-<revised><datetime dst="true">20171110T111333,51-02</datetime></revised>
-<lastaccessed><datetime dst="true">20171110T133338,80-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20171110T133338,80-02</datetime></addedtofile></noteinfo>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="37e" sequence="11" unid="C686267ABB8FAECA832582400061AB9F">
+<created><datetime dst="true">20180226T154649,27-02</datetime></created>
+<modified><datetime dst="true">20180302T100652,30-02</datetime></modified>
+<revised><datetime dst="true">20180227T120540,50-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180302T100652,30-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180302T100652,30-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name="$Flags"><text>gC~4;</text></item>
-<item name="$TITLE" sign="true"><text>ccRolDesarrollo_Debug.xsp</text></item>
-
-
-
-
-
+<item name="$TITLE"><text>ccRolDesarrollo_Debug.xsp</text></item>
+<item name="$Flags"><text>gC~4;P</text></item>
 
 
 <item name="$FileNames" sign="true"><text>ccRolDesarrollo_Debug.xsp</text></item>
+
+
+
+
+
 <item name="$Comment" sign="true"><text>Para ver DebugToolbar solo si tengo el rol Desarrollo</text></item>
 <item name="$DesignerVersion"><text>9.0.1</text></item>
 

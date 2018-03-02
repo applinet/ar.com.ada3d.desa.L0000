@@ -5,21 +5,23 @@ package ar.com.ada3d.utilidades;
  * <managed-bean-name>DocLock</managed-bean-name> 
  * con una beanScope de Aplicacion 
  * ------COMO FUNCIONA---------------------------------------------------------------------------
- * Agregar un lockeo: DocLock.addLock(ID,Info) --> ID = UNID del documento, Info = UserName(txt)
- * Quitar un lockeo: DocLock.removeLock(ID) --> ID = UNID del documento
+ * Agregar un lockeo: DocLock.addLock(ID,Info) --> ID = Key del documento, valor = UserName(txt)
+ * Quitar un lockeo: DocLock.removeLock(ID) --> ID = Key del documento
  * Preguntar estado: DocLock.isLocked(ID) --> return true/false
- * Preguntar quien lo tiene: DocLock.getLock(ID) --> return Info(txt)
+ * Preguntar quien lo tiene: DocLock.getLock(ID) --> return valor(txt)
  * ------EJEMPLO---------------------------------------------------------------------------------
  * Agregar Lockeo a un documento que tomo el Id de un parametro de la url
  * var ID=context.getUrlParameter("documentId");
  * var Info=@Name("[CN]",@UserName());
- * DocLock.addLock(ID,Info)
+ * DocLock.addLock(Key,valor)
  */
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.*;
 
-import com.ibm.xsp.designer.context.XSPContext;
+import org.openntf.domino.Session;
+
 
 public class DocLock implements Serializable {
 	private static final long serialVersionUID = 2L;
@@ -32,47 +34,45 @@ public class DocLock implements Serializable {
 	}
 
 	// ---------------------------------------------------------
-	public boolean isLocked(String UNID) {
+	public boolean isLocked(String Key) {
 		boolean ret = false;
 		synchronized (this._map) {
-			ret = this._map.containsKey(UNID);
+			ret = this._map.containsKey(Key);
 		}
 		return ret;
 	}
 
-	public void setCurrentUserName(String UNID, String Key) {
-		XSPContext ctx = JSFUtil.getContext();
-		if (ctx != null) {
-			com.ibm.designer.runtime.directory.DirectoryUser user = ctx
-					.getUser();
-			if (user.isAnonymous()) {
-				ctx.redirectToPage(ctx.getUrl() + "?OpenXpage&Login");
-			} else {
-				synchronized (this._map) {
-					this._map.put(UNID, Key);
-				}
-			}// end if user is anonymous
-		}// end if ctx is not null
-	}// end SetCurrentUserName
-
-	public void addLock(String UNID, String Key) {
-		synchronized (this._map) {
-			this._map.put(UNID, Key);
+	public void addLock(String Key, String valor) {
+		if(!isLocked(Key)){
+			synchronized (this._map) {
+				this._map.put(Key, valor);
+			}
 		}
 	}
 
-	public String getLock(String UNID) {
+	public String getLock(String Key) {
 		String ret;
-		ret = this._map.get(UNID);
+		ret = this._map.get(Key);
 		return ret;
 	}
 
-	public void removeLock(String UNID) {
-		synchronized (this._map) {
-			this._map.remove(UNID);
+	public void removeLock(String Key) {
+		Session session = JSFUtil.getSession();
+		if(this._map.get(Key).equals(session.getEffectiveUserName())){
+			synchronized (this._map) {
+				this._map.remove(Key);
+			}
 		}
 	}
 
+	/**
+	 * Elimina todos los lockeos de un usuario
+	 * */
+	public void removeAllMyLocks() {
+		Session session = JSFUtil.getSession();
+		this._map.values().removeAll(Collections.singleton(session.getEffectiveUserName()));
+	}
+	
 	public void setMap(HashMap<String, String> map) {
 		synchronized (this._map) {
 			this._map = map;

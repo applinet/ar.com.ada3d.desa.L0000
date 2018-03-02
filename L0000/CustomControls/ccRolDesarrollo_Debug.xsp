@@ -4,10 +4,11 @@
 	<xp:panel>
 		<xp:this.rendered><![CDATA[#{javascript:var v:Array = database.queryAccessRoles(session.getEffectiveUserName());
 @IsMember("[Desarrollo]", v)}]]></xp:this.rendered>
-		<xc:ccDebugToolbar defaultCollapsed="false" collapseTo="left" rendered="#{javascript:sessionScope.showDebugToolbar}"></xc:ccDebugToolbar>
+		<debug:toolbar defaultCollapsed="false" collapseTo="left"
+			rendered="#{javascript:sessionScope.showDebugToolbar}"></debug:toolbar>
 	</xp:panel>
-	
-<xp:panel loaded="true" id="dbgPanel" style="padding-left:20px">
+
+	<xp:panel loaded="true" id="dbgPanel" style="padding-left:20px">
 			<xp:this.rendered><![CDATA[#{javascript:var v:Array = database.queryAccessRoles(session.getEffectiveUserName());
 @IsMember("[Desarrollo]", v)}]]></xp:this.rendered>
 			<xp:link escape="true" id="link1">
