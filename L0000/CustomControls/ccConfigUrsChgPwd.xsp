@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:div id="divDialogChangePassword">
+		<xe:formTable id="tblUsrSeg">
+			<xe:this.formTitle><![CDATA[#{javascript:return "Cambio de contraseña de: " + compositeData.strNombre + " (" + compositeData.strUsrMask + ")";}]]></xe:this.formTitle>
+			<!-- Ini Contraseña -->
+			<xe:formRow id="rowChangeUserPassword" label="Contraseña"
+				labelPosition="left">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-lock"></i>
+					</span>
+					<xp:inputText id="usr_ChangeUserPassword_des"
+						required="true" disableClientSideValidation="true"
+						password="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="Debe establecer una contraseña">
+							</xp:validateRequired>
+							<xp:validateExpression
+								message="Las contraseñas deben coincidir">
+								<xp:this.expression><![CDATA[#{javascript:if (getComponent("usr_ChangeUserPassword_des").getSubmittedValue() != getComponent("ChangeConfirmPassword").getSubmittedValue()){ 
+  return false; 
+}else{ 
+  return true; 
+}      }]]></xp:this.expression>
+							</xp:validateExpression>
+							<xp:validateConstraint>
+								<xp:this.message><![CDATA[Debe ser de 7 a 20 caracteres. Permitidos: [a-z][A-Z][0-9]]]></xp:this.message>
+								<xp:this.regex><![CDATA[[a-zA-Z0-9]{7,20}]]></xp:this.regex>
+							</xp:validateConstraint>
+						</xp:this.validators>
+						<xp:this.attrs>
+							<xp:attr value="Password"
+								name="placeHolder">
+							</xp:attr>
+						</xp:this.attrs>
+					</xp:inputText>
+				</div>
+			</xe:formRow>
+			<!-- Confirmación de cambio de contraseña -->
+			<xe:formRow id="rowChangeConfirmUserPassword"
+				label="Confirmar Contraseña" labelPosition="left">
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-lock"></i>
+					</span>
+					<xp:inputText id="ChangeConfirmPassword"
+						password="true" required="true">
+						<xp:this.validators>
+							<xp:validateRequired
+								message="Debe confirmar la contraseña">
+							</xp:validateRequired>
+						</xp:this.validators>
+						<xp:this.attrs>
+							<xp:attr value="Password"
+								name="placeHolder">
+							</xp:attr>
+						</xp:this.attrs>
+					</xp:inputText>
+				</div>
+			</xe:formRow>
+			<!-- Fin Contraseña -->
+		</xe:formTable>
+		<xp:panel id="buttonPanelRow" styleClass="buttonPanel">
+			<xp:button value="Cambiar" id="btnConfirmChange"
+				styleClass="btn-success" style="font-weight:bold">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="partial">
+					<xp:this.action><![CDATA[#{javascript:try{
+	var tempName:String = compositeData.strUsuario;
+	var tempPwd:String = getComponent('usr_ChangeUserPassword_des').getValueAsString();
+	var docDummy:NotesDocument = database.createDocument();
+	docDummy.appendItemValue("userName", tempName);
+	docDummy.appendItemValue("userPwd", tempPwd);
+	session.getCurrentDatabase().getAgent("a.PwdUserExt").runWithDocumentContext(docDummy);
+	context.redirectToPage(getOpcionesClave("VIEW_UI_USUARIOS_HOME", "codigo")[0]);
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+ }}]]></xp:this.action>
+
+				</xp:eventHandler>
+			</xp:button>
+			<xp:button value="Cancelar" id="btnClose"
+				styleClass="btn">
+				<xp:eventHandler event="onclick" submit="true"
+					refreshMode="complete" immediate="true">
+					<xp:this.action>
+						<xp:openPage name="$$PreviousPage">
+
+						</xp:openPage>
+					</xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+		</xp:panel>
+	</xp:div>
+</xp:view>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.resources>
+		<xp:styleSheet href="/a2_docs.min.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle">
+
+				<div class="bs-callout bs-callout-danger">
+					<h4>Dependencias</h4>
+					<p>
+						Requiere jQuery,
+						<a href="http://getbootstrap.com/"
+							target="_blank">
+							Bootsrap 3.x
+						</a>
+						CSS y JavaScript . Depende de Bootstrap
+						<a
+							href="http://getbootstrap.com/javascript/#dropdowns"
+							target="_blank">
+							Dropdown component
+						</a>y 
+						<a href="http://daneden.github.io/animate.css/"
+							target="_blank">
+							animate.css
+						</a>
+						<xp:span style="font-weight:bold"></xp:span> para las animaciones.
+					</p>
+				</div>
+				<xp:panel styleClass="bs-callout bs-callout-info">
+					<xp:text escape="true" id="computedField1"
+						value="#{javascript:view.getPageName()}"
+						style="font-size:14pt;font-weight:bold">
+					</xp:text>
+				</xp:panel>
+
+
+				<br />
+				<xp:text id="computedField2" escape="false"
+					value="#{javascript:getList2()}">
+				</xp:text>
+				<br />
+				<br />
+				<br />
+				<xp:text id="computedField3" escape="false"
+					value="#{javascript:getListBoton()}">
+				</xp:text>
+				<br />
+				<xp:span style="font-weight:bold"></xp:span><br />
+				<xp:text id="computedField4" escape="false"
+					value="#{javascript:getList()}">
+				</xp:text>
+				<br />
+				<br />
+				<br />
+				<xp:text id="computedField5" escape="false"
+					value="#{javascript:getListOriginal()}">
+				</xp:text>
+
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+
+
+</xp:view>

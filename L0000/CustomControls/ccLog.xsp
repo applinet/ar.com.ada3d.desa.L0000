@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Control utilizado para mostrar el Log del documento 
+compositeData.docToEditCCLog = Es el documento que paso como datasource al control -->
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+<xp:panel id="PNL_History" styleClass="Panel"
+					style="margin-top:10.0px;border-style:dotted;border-color:rgb(192,192,192);border-width:1px;padding-bottom:5.0px;padding-top:5.0px;padding-left:5.0px;width:100.0%">
+					<xp:this.rendered><![CDATA[#{javascript:if (compositeData.docToEditCCLog.getDocument().getItemValueString("log_des").equals("")) return false;
+return true;}]]></xp:this.rendered>
+					<xp:text escape="true" id="computedField5"
+						value="#{compositeData.docToEditCCLog.log_des}" styleClass="FieldHistory">
+						<xp:this.rendered><![CDATA[#{javascript:return compositeData.docToEditCCLog.getDocument().getItemValue("log_des").size() < 2}]]></xp:this.rendered>
+					</xp:text>
+					<xp:panel id="PNL_History_MasDe1" styleClass="Panel"
+						style="padding-left:5.0px;padding-top:5.0px;width:98.0%;padding-right:5.0px">
+						<xp:this.rendered><![CDATA[#{javascript:return compositeData.docToEditCCLog.getDocument().getItemValue("log_des").size() >= 2}]]></xp:this.rendered>
+						<xp:panel id="PNL_History_Pager"
+							styleClass="PanelPager" style="margin-right:5.0px">
+							<xp:this.rendered><![CDATA[#{javascript:return compositeData.docToEditCCLog.getDocument().getItemValue("log_des").size() > 8}]]></xp:this.rendered>
+							<xp:pager partialRefresh="true"
+								id="pagerLog" for="repeatLog" layout="Previous Group Next">
+
+							</xp:pager>
+						</xp:panel>
+						<xp:panel id="PNL_History_Repeater"
+							styleClass="Panel">
+							<xp:repeat id="repeatLog" rows="8"
+								value="#{compositeData.docToEditCCLog.log_des}" var="logRepeat"
+								indexVar="logIndex">
+
+								<xp:panel id="PNL_Log"
+									styleClass="FieldHistory">
+									<xp:text escape="true"
+										id="computedField4">
+										<xp:this.value><![CDATA[#{compositeData.docToEditCCLog.log_des[logIndex]}]]></xp:this.value>
+									</xp:text>
+								</xp:panel>
+
+							</xp:repeat>
+						</xp:panel>
+					</xp:panel>
+				</xp:panel>
+</xp:view>

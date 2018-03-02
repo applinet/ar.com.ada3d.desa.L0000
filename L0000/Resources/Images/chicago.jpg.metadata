@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D00051B8B0" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="35a" sequence="4" unid="B64B3AEB8C18D56E832581D000554823">
+<created><datetime dst="true">20171106T133130,27-02</datetime></created>
+<modified><datetime dst="true">20171106T133927,92-02</datetime></modified>
+<revised><datetime dst="true">20171106T133927,91-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171106T133927,92-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171106T133130,60-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$FlagsExt" sign="true"><text>D</text></item>
+<item name="$ImagesWide" sign="true"><number>1</number></item>
+<item name="$ImagesHigh" sign="true"><number>1</number></item>
+<item name="$ImagesColorize" sign="true"><number>0</number></item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<item name="$MimeType" sign="true"><text>image/jpeg</text></item>
+<item name="$FileModDT" sign="true"><datetime>20171106T123148,76-03</datetime></item>
+<item name="$ImageNames" sign="true"><text>chicago.jpg</text></item>
+<item name="$TITLE" sign="true"><textlist><text>chicago.jpg</text><text>chicago.jpg</text></textlist></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item>
+<item name="$Flags"><text>34CiQ&amp;</text></item></note>

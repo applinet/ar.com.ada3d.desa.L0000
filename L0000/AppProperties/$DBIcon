@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='form' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.9'
+ replicaid='832581D4005579C9'>
+<noteinfo noteid='19e' unid='C6D8ABCC93BF360E832581A10064AEDD' sequence='11'>
+<created><datetime dst='true'>20170920T161943,65-02</datetime></created>
+<modified><datetime dst='true'>20171110T133338,64-02</datetime></modified>
+<revised><datetime dst='true'>20171101T172914,34-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20171110T133338,64-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20171110T133338,64-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name='$TITLE'><text>$DBIcon</text></item>
+<item name='$Flags'><text>34Ci~Q</text></item>
+<item name='$ImagesWide' sign='true'><number>1</number></item>
+<item name='$ImagesHigh' sign='true'><number>1</number></item>
+<item name='$ImagesColorize' sign='true'><number>0</number></item>
+<item name='$FileSize' sign='true'><number>2005</number></item>
+<item name='$ImageData' sign='true'>
+<rawitemdata type='1'>
+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
+tCwp73zd9wAAAABJRU5ErkJgggA=
+</rawitemdata></item>
+<item name='$MimeType' sign='true'><text>image/png</text></item>
+<item name='$FileModDT' sign='true'><datetime>20170920T161349,47-03</datetime></item>
+<item name='$ImageNames' sign='true'><text>C:\Users\Sleekbook\Downloads\ddc-icon-32x32.png</text></item>
+<item name='$DesignerVersion'><text>8.5.3</text></item></note>
+

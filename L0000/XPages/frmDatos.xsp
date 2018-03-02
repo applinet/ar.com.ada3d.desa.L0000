@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+
+	<xp:this.resources>
+		<xp:script src="/MenuTools" clientSide="false"></xp:script>
+		<xp:script src="/General_SSJS.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xe:accordion id="accordion1"
+				style="width: 400px; height:600px" xp:key="facetMiddle">
+				<xe:this.treeNodes>
+					<xe:repeatTreeNode loaded="true" var="tree"
+						indexVar="index">
+						<xe:this.children>
+							<xe:basicContainerNode style="menu-item">
+								<xe:this.label><![CDATA[#{javascript:requestScope.currNode = tree; tree.name}]]></xe:this.label>
+								<xe:this.children>
+									<xe:repeatTreeNode loaded="true"
+										var="subtree" indexVar="subindex"
+										value="#{javascript:requestScope.currNode.items}">
+										<xe:this.children>
+											<xe:basicLeafNode
+												label="#{subtree}"
+												href="#{javascript:requestScope.currPage = tree; tree.page[subindex]}">
+											</xe:basicLeafNode>
+										</xe:this.children>
+									</xe:repeatTreeNode>
+								</xe:this.children>
+							</xe:basicContainerNode>
+						</xe:this.children>
+						<xe:this.value><![CDATA[#{javascript:var dbConf:NotesDatabase = getDbCfg();//base configuracion
+if (dbConf != null){
+	menuTools.getMenu(dbConf,'Menu');
+}}]]></xe:this.value>
+					</xe:repeatTreeNode>
+				</xe:this.treeNodes>
+			</xe:accordion>
+
+
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+
+
+</xp:view>

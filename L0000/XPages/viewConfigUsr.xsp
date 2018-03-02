@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		Datasource - Vista: v.UI.Menu.porEstadoUsuario - Form asociado:
+		frmConfigUsr.xsp
+	-->
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:cargarUsuariosEnCarpeta();
+if (!viewScope.categoriaEstadoUsuarios) {
+	viewScope.put("categoriaEstadoUsuarios", "1");
+}}]]></xp:this.beforePageLoad>
+
+	<xp:this.resources>
+		<xp:script src="/General_SSJS.jss" clientSide="false"></xp:script>
+	</xp:this.resources>
+	<xc:ccLayoutBootstrap>
+
+		<xp:this.facets>
+			<xe:navigator id="navMenu" xp:key="facetLeft">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode label="Activos" submitValue="1"
+						selected="#{javascript:viewScope.categoriaEstadoUsuarios.equals('1')}">
+					</xe:basicLeafNode>
+					<xe:basicLeafNode label="Inactivos" submitValue="0"
+						selected="#{javascript:viewScope.categoriaEstadoUsuarios.equals('0')}">
+					</xe:basicLeafNode>
+					<xe:basicLeafNode label="Todos" submitValue="-"
+						selected="#{javascript:viewScope.categoriaEstadoUsuarios.equals('-')}">
+					</xe:basicLeafNode>
+				</xe:this.treeNodes>
+				<xp:eventHandler event="onItemClick" submit="true"
+					refreshMode="partial" refreshId="PNL_Content">
+					<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:navMenu}");]]></xp:this.onComplete>
+					<xe:this.action><![CDATA[#{javascript:viewScope.categoriaEstadoUsuarios =context.getSubmittedValue()}]]></xe:this.action>
+				</xp:eventHandler>
+			</xe:navigator>
+			<xp:panel id="PNL_Content" xp:key="facetMiddle"
+				style="padding-right:20.0%">
+				<xe:dataView id="usuariosDataView"
+					openDocAsReadonly="true" collapsibleDetail="false"
+					expandedDetail="false" showCheckbox="true"
+					showHeaderCheckbox="true" columnTitles="true" rows="10"
+					rendered="true" var="viewEntry">
+					<xe:this.data>
+						<xp:dominoView var="viewMenuPorEstadoUsuario"
+							viewName="FolderUsuarios">
+							<xp:this.categoryFilter><![CDATA[#{javascript:if(!viewScope.categoriaEstadoUsuarios || viewScope.categoriaEstadoUsuarios == '-')
+return "";
+viewScope.get("categoriaEstadoUsuarios");}]]></xp:this.categoryFilter>
+
+						</xp:dominoView>
+					</xe:this.data>
+					<xe:this.summaryColumn>
+						<xe:viewSummaryColumn columnTitle="Nombre"
+							columnName="usr_NombreApellido_des">
+
+							<xe:this.href><![CDATA[#{javascript:var usrSeg = viewEntry.getColumnValue('usr_UserName_des');
+if(usrSeg == session.getEffectiveUserName()){
+	return "#";
+}	
+return "frmConfigUsr.xsp?documentId=" + viewEntry.getUniversalID();}]]></xe:this.href>
+							<xe:this.value><![CDATA[#{javascript:var usrSeg = viewEntry.getColumnValue('usr_UserName_des');
+if(usrSeg == session.getEffectiveUserName()){
+	return "Usuario Actual (No puede modificar sus atributos)";
+}	}]]></xe:this.value>
+						</xe:viewSummaryColumn>
+					</xe:this.summaryColumn>
+					<xe:this.extraColumns>
+						<xe:viewExtraColumn
+							columnName="usr_UserMaskName_des" columnTitle="Usuario">
+						</xe:viewExtraColumn>
+						<xe:viewExtraColumn columnName="usr_USRSEG_opt"
+							columnTitle="Usuario Seguridad" style="text-align:center">
+							<xe:this.value><![CDATA[#{javascript:var usrSeg = viewEntry.getColumnValue('usr_USRSEG_opt');
+if(usrSeg == "1") {return "Si"}
+return ""
+}]]></xe:this.value>
+						</xe:viewExtraColumn>
+						<xe:viewExtraColumn columnTitle="Actualizó">
+						</xe:viewExtraColumn>
+					</xe:this.extraColumns>
+					<xp:this.facets>
+						<xp:panel id="PNL_noRows" xp:key="noRows">
+							<xp:button value="Alta de nuevo usuario"
+								id="btnAltaUsuario" styleClass="btn-primary dashBtn">
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action>
+										<xp:openPage
+											name="/frmConfigUsr.xsp" target="newDocument">
+										</xp:openPage>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							<xp:div
+								style="margin: 10px 0px 40px 0px;">
+								<xp:label id="lblSinUsuariosEnGrilla"
+									value="No existen usuarios, presionar alta de usuario.">
+								</xp:label>
+							</xp:div>
+						</xp:panel>
+						<xp:panel id="PNL_icon" xp:key="icon">
+							<xp:div id="icon">
+								<xp:this.styleClass>
+									<![CDATA[#{javascript:var base = "glyphicon glyphicon-";
+var currentUsr = viewEntry.getColumnValue('usr_UserName_des');
+if(currentUsr == session.getEffectiveUserName())
+	return base + "ban-circle red";
+var usrSeg = viewEntry.getColumnValue('usr_USRSEG_opt');
+if(usrSeg == "1")
+	return base + "star-empty";
+return viewEntry.getColumnValue('usr_Status_des') == '0' ? base + "user red" : base + "user blue";								}]]>
+								</xp:this.styleClass>
+							</xp:div>
+						</xp:panel>
+						<xp:panel id="PNL_authorCol" xp:key="extra2">
+							<xp:text id="author">
+								<xe:this.value><![CDATA[#{javascript:
+								var author = viewEntry.getColumnValue("autor");
+								
+								if(null != author) {
+									if (typeof author === "string") {
+										return @RightBack(author,4);
+									}else if (typeof author === "java.util.Vector") {
+										return @RightBack(author.get(0),4);
+									}
+								}
+								return "";
+								}]]>
+								</xe:this.value>
+							</xp:text>
+						</xp:panel>
+						<xp:pager layout="Previous Group Next"
+							id="overduePager" xp:key="pagerBottomRight" partialRefresh="true"
+							partialExecute="true" styleClass="dashPager">
+						</xp:pager>
+						<xp:div xp:key="detail" id="divDetail">
+							<xp:div id="description"
+								style="padding:4px 8px;">
+								<xp:text id="descriptionText"
+									escape="true"
+									value="#{javascript:viewEntry.getColumnValue('Description')}">
+								</xp:text>
+							</xp:div>
+						</xp:div>
+						<xp:panel id="innerButtonPanel"
+							styleClass="buttonPanel" xp:key="pagerBottomLeft">
+							<xp:button value="Nuevo Usuario"
+								id="btnAltaUsuario2" styleClass="btn-primary dashBtn">
+								<xp:this.rendered><![CDATA[#{javascript:
+				return userBean.canCreateDocs;
+			}]]></xp:this.rendered>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action>
+										<xp:openPage
+											name="/frmConfigUsr.xsp" target="newDocument">
+										</xp:openPage>
+									</xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+							<xp:button id="btnHabilitar_Deshabilitar"
+								styleClass="btn-danger dashBtn">
+								<xp:this.value><![CDATA[#{javascript:return viewScope.categoriaEstadoUsuarios.equals('0') ? "Habilitar Usuarios": "Inhabilitar Usuarios";}]]></xp:this.value>
+								<xp:eventHandler event="onclick"
+									submit="true" refreshMode="complete">
+									<xp:this.action><![CDATA[#{javascript:try{	
+	var viewPanel=getComponent("usuariosDataView");
+	var docIDArray=viewPanel.getSelectedIds();
+	var valor = viewScope.categoriaEstadoUsuarios.equals('0')? '1':'0';
+	//Si valor es 0 lo paso a inactivo y saco la marca de seguridad
+	for(i=0; i < docIDArray.length; i++){
+		var docId = docIDArray[i];
+		var doc:NotesDocument = database.getDocumentByID(docId);
+		doc.replaceItemValue("usr_Status_des", valor) ;
+		if(valor.equals('0')){
+			doc.replaceItemValue("usr_USRSEG_opt", "0");
+			setLog (doc, "El usuario se ha inhabilitado y se le ha quitado el atributo de seguridad", "log_des");
+		}else{ 
+			setLog (doc, "El usuario se ha habilitado", "log_des");
+		}
+		doc.save();
+	}
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+ }}]]></xp:this.action>
+								</xp:eventHandler>
+							</xp:button>
+						</xp:panel>
+					</xp:this.facets>
+				</xe:dataView>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:xc="http://www.ibm.com/xsp/custom" pageTitle="Home | ADA3D">
+	<xp:this.resources>
+		<xp:script src="/General_SSJS.jss" clientSide="false"></xp:script>
+
+		<xp:styleSheet href="/home_Main.min.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle" id="PNL_Central">
+				<xp:panel id="PNL_UsuarioSeguridad">
+					<xp:this.rendered><![CDATA[#{javascript:if(userBean == null)
+	return false;
+userBean.accessRoles.toString().contains('[usrInitial]')}]]></xp:this.rendered>
+					<div class="jumbotron jumbotron-ad hidden-print">
+						<div class="container">
+							<h1>
+								<i styleclass="fa fa-flag"></i>
+								Bienvenido a ADA3D
+							</h1>
+						</div>
+					</div>
+					<div class="bs-callout bs-callout-danger">
+						<h4>Primeros pasos</h4>
+						<p>
+							Como primer paso, deberá crear su usuario de
+							seguridad
+							<div
+								styleclass="row fontawesome-icon-list">
+								<xp:link escape="true"
+									text="Crear usuario de Seguridad" id="link1"
+									value="/frmConfigUsr.xsp">
+								</xp:link>
+							</div>
+						</p>
+					</div>
+				</xp:panel>
+				<xp:panel id="PNL_Home">
+					<xp:messages id="errorMessages"></xp:messages>
+					<xp:this.rendered><![CDATA[#{javascript:if(userBean == null)
+	return true;
+!userBean.accessRoles.toString().contains('[usrInitial]')}]]></xp:this.rendered>
+
+					<div class="jumbotron">
+						<div class="container">
+							<h1>Bienvenido. Comencemos.</h1>
+							<p>
+								Estas son opciones para iniciar. Por
+								donde comenzamos?
+							</p>
+							<br />
+							<p>
+								<a class="btn btn-primary btn-lg"
+									href="#" role="button">
+									Cuentas Corrientes »
+								</a>
+								<a class="btn btn-primary btn-lg"
+									href="#" role="button">
+									Administraciones »
+								</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="container">
+						<div class="flex-container">
+							<div class="card">
+								<div class="card-image"
+									style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/3c/Skyline_from_Millennium_Park.jpg)">
+								</div>
+								<div class="card-content">
+
+									<h1>La segunda Ciudad</h1>
+									<div class="subtitle">
+										Es una ciudad excitante que
+										destaca por su costa y por su
+										skyline, considerado por muchos
+										como el más pintoresco del mundo
+									</div>
+									<p>
+										Chicago es una gran ciudad
+										situada en la costa del Lago
+										Michigan en el Condado de Cook,
+										que está en el estado de
+										Illinois. Es la tercera ciudad
+										de los Estados Unidos,
+										incluyendo su área
+										metropolitana, después de Nueva
+										York y de Los Ángeles.
+									</p>
+
+									<div class="card-details">
+										<div
+											class="card-details-inner">
+											<div class="read-more">
+												<a class="button"
+													href="https://en.wikivoyage.org/wiki/Chicago">
+													Leer Artículo
+												</a>
+											</div>
+											<div class="options">
+												<div class="comments">
+													<a href="#!">
+														<i
+															class="fa fa-comments-o">
+														</i>
+														16 comentarios
+													</a>
+												</div>
+												<div class="likes">
+													<a href="#!">
+														<i
+															class="fa fa-heart-o">
+														</i>
+														22 likes
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card">
+								<div class="card-image"
+									style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Tyn_Church_Prague.jpg)">
+								</div>
+								<div class="card-content">
+
+									<h1>The Mother City</h1>
+									<div class="subtitle">
+										City of a Hundred Spires
+									</div>
+									<p>
+										Prague is the capital and
+										largest city of the Czech
+										Republic. The city's historic
+										buildings and narrow, winding
+										streets are testament to its
+										centuries-old role as capital of
+										the historic region of Bohemia.
+									</p>
+
+									<div class="card-details">
+										<div
+											class="card-details-inner">
+											<div class="read-more">
+												<a class="button"
+													href="https://en.wikivoyage.org/wiki/Prague">
+													Leer Artículo
+												</a>
+											</div>
+											<div class="options">
+												<div
+													class="comentarios">
+													<a href="#!">
+														<i
+															class="fa fa-comments-o">
+														</i>
+														16 comments
+													</a>
+												</div>
+												<div class="likes">
+													<a href="#!">
+														<i
+															class="fa fa-heart-o">
+														</i>
+														322 likes
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</xp:panel>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

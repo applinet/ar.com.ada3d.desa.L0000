@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.data>
+		<xp:dominoDocument var="docUsuario" formName="f.CfgUserMenu"
+			action="openDocument">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccFXstandBy></xc:ccFXstandBy>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle" style="padding-left:20.0%;padding-right:20.0%">
+				<xc:ccConfigUrsChgPwd
+					strUsrMask="#{javascript:return docUsuario.getItemValueString('usr_UserMaskName_des');}"
+					strUsuario="#{javascript:return docUsuario.getItemValueString('usr_UserName_des');}"
+					strNombre="#{javascript:return docUsuario.getItemValueString('usr_Nombre_des') + ' ' + docUsuario.getItemValueString('usr_Apellido_des');}">
+
+
+				</xc:ccConfigUrsChgPwd>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

@@ -1,0 +1,128 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+Option Public
+Option Declare
+Use "Constants.ls"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Class cfg
+Declare Sub Initialize
+Declare Function FilePath( db As NotesDatabase ) As String
+Declare Function getDataSourceDoc(key As String) As NotesDocument
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+%REM
+	Clase cfg
+	Description:
+		Es la clase para obtener de la base de Configuracion
+		@Return: NotesDatabase. Me.db es la base de configuracion
+		@Return: NotesView. Me.view es la vista con las claves de configuracion
+%END REM
+
+Class cfg
+	Private db As NotesDatabase
+	Private view As NotesView
+	Private doc As NotesDocument
+	
+	Sub New
+		Dim session As New NotesSession
+		Dim dbCurrent As NotesDatabase
+		Dim Path As String, TEMP As String
+		Dim nPos As Integer
+		Set dbCurrent = session.currentDatabase
+		
+		Path$ = FilePath( dbCurrent )
+		Set Me.db = New NotesDatabase( ServerConfig$, PathConfig$ )
+		Set Me.view = Me.db.GetView( ViewCfgPorClave$ )
+	End Sub
+	
+	%REM
+		Function GetDbConfig
+		@Return: NotesDabase
+	%END REM
+	Function GetDbConfig()
+			Set getDbConfig = Me.db
+	End Function
+	
+	Function GetValue( code ) 
+		getValue = ""
+		
+		If code = "" Then
+			Exit Function
+		End If
+		
+		Set Me.doc = Me.view.GetDocumentByKey( code , true)
+		If Not ( Me.doc Is Nothing ) Then
+			Select Case Me.doc.opt_TipoDato_des(0)
+			Case "T" 
+				getValue = Me.doc.opt_Codigo_des(0)
+			Case "N"
+				getValue = Cint(Me.doc.opt_Codigo_des(0))
+			Case "S"
+				getValue = Csng(Me.doc.opt_Codigo_des(0))
+			End Select
+		End If
+		
+	End Function
+	
+End Class
+'++LotusScript Development Environment:2:2:Initialize:1:10
+Sub Initialize
+	
+End Sub
+
+
+'++LotusScript Development Environment:2:1:FilePath:9:8
+%REM
+	Function FilePath
+	Description:
+		@Param: NotesDatabase.
+		La vista de DataSource es una Constante
+		@Return: String. Path de una NotesDatabase
+%END REM
+
+Function FilePath( db As NotesDatabase ) As String
+	Dim nPos As Integer
+	
+	FilePath = ""
+	nPos = Instr( db.FilePath, db.FileName )
+	If nPos <> 0 Then
+		FilePath = Left( db.FilePath, nPos -1 )
+	End If
+	
+End Function
+
+
+
+
+'++LotusScript Development Environment:2:1:getDataSourceDoc:8:8
+%REM
+	Function getDataSource
+	Description:
+		@Param: Text. Recibe una clave a buscar de los documentos de DataSource
+		La vista de DataSource es una Constante
+		@Return: Solo un NotesDocument o Nothing
+%END REM
+Function getDataSourceDoc(key As String) As NotesDocument
+	Dim ns As New NotesSession
+	Dim cfgDb As NotesDatabase
+	Dim viewDS As NotesView
+	Dim collDS As NotesDocumentCollection
+	
+	Set cfgDb = ns.Currentdatabase
+	Set viewDS = cfgDb.Getview(ViewCfgDataSource$)
+	Set collDS = viewDS.Getalldocumentsbykey(key, True)
+	If collDS.Count = 1 Then
+		Set getDataSourceDoc = collDS.Getfirstdocument()
+	Else
+		Set getDataSourceDoc = Nothing
+	End If	
+End Function
+
+
+
+
+
+
+
+
+

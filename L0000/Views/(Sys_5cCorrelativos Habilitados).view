@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.9'
+ replicaid='832581D4005579C9'>
+<noteinfo noteid='1fa' unid='D5797B801572BE85832581A9006E4E0E' sequence='24'>
+<created><datetime dst='true'>20170928T180449,42-02</datetime></created>
+<modified><datetime dst='true'>20171110T133339,15-02</datetime></modified>
+<revised><datetime dst='true'>20171101T172909,54-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20171110T133339,15-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20171110T133339,15-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name='$FORMULACLASS' sign='true'><text>1</text></item>
+<item name='TmpViewDesignCollation' sign='true'><text>es-AR</text></item>
+<item name='$TITLE' sign='true'><text>(Sys\Correlativos Habilitados)|v.Sys.CorrHab</text></item>
+<item name='$Index' sign='true'><text/></item>
+<item name='$FORMULA' summary='true' sign='true'><formula compiled='true'>
+ngACABoAAgAkMwUACQBGb3JtX0NvcnIAYQEDAAUALgAqAAQAAgAPAAkABAAkM1VsdE5yb0FzaWdf
+Q29yciRDb25mbGljdCRSRUYEAAQAAAA6AAUABABGb3JtAQAJAGYuQ2ZnQ29ycgAKAgUADgBIYWJp
+bGl0YXJfQ29ycgEAAQAxAAoCHAIDAAcAFgAQAAlMMVMyUzNTNFM1UzZTN1M=
+</formula></item>
+<item name='$COLLATION' summary='true'>
+<rawitemdata type='2'>
+DwABAABECGYAAAACACQz
+</rawitemdata></item>
+<item name='$VIEWFORMAT' summary='true' sign='true'>
+<rawitemdata type='5'>
+AQACAAQAiAQAAFZDAQACAAoAJgAAAFAABQAKCAABAAAAAAAAAAICAAAAVkMAAA8ACwAAAAAAUAAG
+AAAIAAAAAAAAAAAAAgIAAAAkM0Zvcm11bGFyaW8mAAIAGgACACQzBQAJAEZvcm1fQ29ycgBhAQMA
+BwAKAAMACTFTAFVsdE5yb0FzaWdfQ29yckNvcnJlbGF0aXZvJgABAAAAAQEACQEAAAoBAQ4KAAAV
+AK0rAQABAAEAAAAAAAAAAABXQwcBAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAA
+AAAAAAAAV0MBAQAJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAAAAAAAAAAAEIAAAAA
+AAEA////AAEA4P/fAAEAAAAAAAAAAAAAAAAAAQD///8AAQCI/64AAAABAAAAAAABAAAAAAABAAAA
+AAAAAAgAAAAAAAEA
+</rawitemdata></item>
+<item name='$Fonts' sign='true'><textlist><text>5</text><text>38</text><text
+>Verdana</text><text>6</text><text>38</text><text>Verdana</text><text>7</text><text
+>38</text><text>Verdana</text></textlist></item>
+<item name='$Comment' sign='true'><text/></item>
+<item name='$DesignerVersion'><text>8.5.3</text></item>
+<item name='$V5ACTIONS' sign='true'>
+<rawitemdata type='1'>
+vRyVAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABAACcMwABAAAAAAAJAAAAAAABAN3/6QAA
+AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC+/0oAAAABAB4AngEAAAUAAAAAAAAATnVldm9fLgAAACAA
+AgDoAwAAAAAAAAEACQBmLkNmZ0NvcnIA7QIDAAcADAAFAAkxUzRTAA==
+</rawitemdata></item>
+<item name='$Flags'><text>Y</text></item></note>
+

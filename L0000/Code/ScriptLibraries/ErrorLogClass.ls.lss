@@ -1,0 +1,139 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+Option Public
+Use "CfgClass.ls"
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Class ErrorLog
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Class ErrorLog
+
+	Private session As NotesSession
+	Private db As NotesDatabase
+	Private agent As NotesAgent
+	Private agentLog As NotesLog
+	Private cfg As cfg
+	Private init As Integer
+	Private DbServer As String
+	Private PathDbLog As String
+	
+	Public agentName As String
+	
+	Sub new( cAgent )
+		
+		Me.init = False
+		Me.agentName = cAgent
+		
+	End Sub
+	
+	Sub Initialize
+		Set Me.session = New NotesSession
+		Set Me.db = Me.session.currentDatabase		
+		Set Me.agent = Me.session.currentAgent
+		
+		If Trim( Me.agentName ) = "" Then
+			Me.agentName = Me.agent.Name
+		End If
+		
+		Set Me.agentLog = New NotesLog( Me.db.title & ": " & Me.agentName )
+		
+		Set Me.cfg = New cfg
+		Me.PathDbLog = Me.cfg.GetValue( "DB_LOG" )
+		Me.DbServer = cfg.GetValue( "ADA3D_SERVER" )
+		Call Me.agentLog.OpenNotesLog( Me.DbServer, Me.PathDbLog )
+		Me.init = True
+		
+	End Sub
+	
+	Sub LogError( nError, cString )
+		
+		If Not Me.Init Then
+			Call Me.Initialize
+		End If
+		
+		Call Me.agentLog.LogError( nError, cString ) 
+		
+	End Sub
+	
+	Sub LogAction( cString )
+		
+		If Not Me.init Then
+			Call Me.initialize
+		End If
+		Call Me.agentLog.LogAction( cString )
+	End Sub
+	
+	Private Sub SaveError( nError As Integer, nLine As Double, cMessage As String )
+		
+		If Not Me.init Then
+			Call Me.initialize
+		End If
+		
+		If nError = 0 Then
+			nError = Err()
+		End If
+		
+		If nLine = 0 Then
+			nLine = Erl()
+		End If
+		
+		If cMessage = "" Then
+			cMessage = Error()
+		End If
+		
+		Call Me.agentLog.LogError( nError, cMessage & " at line " & Erl() )
+		
+	End Sub
+	
+	' Esto no funciona en la web. No imprime desde un sub. Pero igual se puede
+	' invocar y utilizar el return value.
+	Function PrintError( nError As Integer, nLine As Double, cMessage As String ) As String
+		
+		If Not Me.init Then
+			Call Me.initialize
+		End If
+		
+		If nError = 0 Then
+			nError = Err()
+		End If
+		
+		If nLine = 0 Then
+			nLine = Erl()
+		End If
+		
+		If cMessage = "" Then
+			cMessage = Error()
+		End If
+		
+		Call Me.saveError( nError, nLine, cMessage )
+		
+		PrintError = Me.ReturnPrintError( nError, nLine, cMessage )
+		Print PrintError
+		
+	End Function
+	
+	Private Function ReturnPrintError( nError, nLine, cMessage ) As String
+		ReturnPrintError = "Error " & nError & " at line " & nLine & ": " & cMessage
+	End Function
+	
+	%REM
+		Sub ConfigError
+		Description: NO ES UN ERROR sino ara Loguear segun la configuracion
+		Si recibe 1 loguea por la consola domino
+		Si recibe 2 en la base de Log
+		
+	%END REM
+	Sub ConfigError(nError As String, cString As String)
+		If nError = "0" Then Exit Sub
+		If Not Me.init Then
+			Call Me.initialize
+		End If
+		Select Case nError
+			Case "1":
+				MessageBox cString
+			Case "2":
+				LogAction( cString )
+		End Select
+		
+	End Sub
+End Class

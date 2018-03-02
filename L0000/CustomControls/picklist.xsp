@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+	<xp:panel style="width:500px">
+		<xp:button value="Select" id="button1">
+			<xp:eventHandler event="onclick" submit="true"
+				refreshMode="partial" refreshId="field11">
+				<xp:this.action><![CDATA[#{javascript:function printToLog(stuff) {
+    _dump("\r\nPRINT START\r\n");
+    _dump(stuff);
+    _dump("\r\nPRINT END\r\n");
+}
+
+var database = session.getDatabase(session.getServerName(), "Temp\\Picklist Example.nsf")
+
+var viewPanel=getComponent("viewPanel1"); //get the componet of viewPanel
+var docIDArray=viewPanel.getSelectedIds(); //get the array of document ids
+
+printToLog('got ids') 
+
+for(i=0;
+i  <  docIDArray.length;
+i++){
+var docId=docIDArray[i];
+printToLog(docId) 
+
+ var doc=database.getDocumentByID(docId); 
+printToLog(doc) 
+
+if(doc != null){
+	var pickthis1 = doc.getItemValueString("listitem")
+printToLog(pickthis1)
+}
+ 
+
+}
+
+if(pickthis1 != null){
+	dominoDocument1.replaceItemValue("field1", pickthis1)
+}
+
+
+
+
+}]]></xp:this.action>
+			<xp:this.handlers>
+				<xp:handler type="text/javascript">
+					<xp:this.script><![CDATA[dijit.byId('picklist').hide()]]></xp:this.script>
+				</xp:handler></xp:this.handlers></xp:eventHandler></xp:button>
+		<xp:viewPanel rows="30" id="viewPanel1" viewStyle="width:100%">
+			<xp:this.facets>
+				<xp:pager layout="Previous Group Next"
+					xp:key="headerPager" id="pager1">
+				</xp:pager>
+			</xp:this.facets>
+			<xp:this.data>
+				<xp:dominoView var="pciklistView"
+					viewName="Pciklist view">
+				</xp:dominoView>
+			</xp:this.data>
+			<xp:viewColumn columnName="#" id="viewColumn1" showCheckbox="true">
+				<xp:viewColumnHeader value="#" id="viewColumnHeader1"></xp:viewColumnHeader>
+			</xp:viewColumn>
+		</xp:viewPanel></xp:panel></xp:view>

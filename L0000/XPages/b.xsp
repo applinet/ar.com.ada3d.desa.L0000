@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:this.resources>
+		<xp:script src="/test.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+	
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:panel id="PNL">
+		<xp:label value="Submitted value: " id="label1"></xp:label>
+		<xp:text escape="true" id="computedField1"
+			value="#{sessionScope.svalue}" style="font-weight:bold">
+		</xp:text>
+		<xp:label value="Context value: " id="label2"></xp:label>
+		<xp:text escape="true" id="computedField2"
+			value="#{javascript:context.getSubmittedValue();}">
+		</xp:text>
+	</xp:panel>
+	<xp:button value="Refresh" id="button1">
+		<xp:eventHandler event="onclick" submit="true"
+			refreshMode="partial" refreshId="PNL">
+			<xp:this.script><![CDATA[alert('hola');
+alert(XSP.getSubmitValue());
+]]></xp:this.script>
+		</xp:eventHandler>
+	</xp:button>
+	<xe:navigator expandable="true" expandEffect="wipe" id="navigator1"
+		binding="#{javascript:sessionScope.test}">
+		<xe:this.treeNodes>
+			<xe:beanTreeNode nodeBean="test.Names" />
+		</xe:this.treeNodes>
+	</xe:navigator>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:br></xp:br>
+	<xp:eventHandler event="onClientLoad" submit="true"
+		refreshMode="norefresh">
+		<xp:this.action><![CDATA[#{javascript:sessionScope.test = ""}]]></xp:this.action>
+	</xp:eventHandler>
+</xp:view>

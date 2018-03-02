@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+
+<!-- 
+	$.bootstrapGrowl("another message, yay!", {
+  ele: 'body', // which element to append to
+  type: 'info', // (null, 'info', 'error', 'success')
+  offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+  align: 'right', // ('left', 'right', or 'center')
+  width: 250, // (integer, or 'auto')
+  delay: 4000,
+  allow_dismiss: true,
+  stackup_spacing: 10 // spacing between consecutively stacked growls.
+}); -->
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle">
+			<xp:text escape="true" id="computedField1" value="#{javascript:view.getPageName()}"
+				style="font-size:14pt;font-weight:bold" >
+			</xp:text>
+			<br/>
+			<xp:label value="Estos botones muestran mensajes con growl"
+				id="label1">
+			</xp:label>
+			<br/>
+			<xp:button value="Mostrame un mensaje" id="btn1">
+				<xp:eventHandler event="onclick" submit="false">
+					<xp:this.script><![CDATA[$.bootstrapGrowl("1 Mensaje");]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:button>
+			<br/>
+			<xp:button value="Mostrame timeout mensaje" id="btn2">
+				<xp:eventHandler event="onclick" submit="false">
+					<xp:this.script><![CDATA[setTimeout(function(){
+	$.bootstrapGrowl("Procesando...un momento por favor", {
+		type: 'success',
+		align: 'center'
+	});
+}, 50);]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:button>
+			<br/>
+			<xp:button value="Mostrame un mensaje" id="btn3">
+				<xp:eventHandler event="onclick" submit="false">
+					<xp:this.script><![CDATA[setTimeout(function() {
+	$.bootstrapGrowl("Danger, Danger!", {
+		type: 'error',
+		align: 'center',
+		stackup_spacing: 10}
+	);
+}, 3000);]]></xp:this.script>
+				</xp:eventHandler>
+			</xp:button>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+
+
+</xp:view>

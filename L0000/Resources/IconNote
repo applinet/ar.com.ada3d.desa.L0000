@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
+ maintenanceversion='1.9' replicaid='832581D4005579C9'>
+<noteinfo noteid='112' unid='85255A0A0010A6F0852556F00072875B' sequence='323'>
+<created><datetime dst='true'>19871019T165057,55-04</datetime></created>
+<modified><datetime dst='true'>20171110T133405,54-02</datetime></modified>
+<revised><datetime dst='true'>20171110T133405,53-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20171110T133405,54-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20171110T133337,82-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name><name>CN=ADA3D/O=SASA</name><name
+>CN=Notes Standard Control/O=SASA</name></updatedby>
+<item name='IconBitmap' summary='true'>
+<rawitemdata type='6'>
+AiAgAgYA/8P+P/+D/D//A/g//gD4D/gAMAPwAAAB4AAAAeAAAAHgAAAB4AABw+AAAcfhAAH/4wAB
+//8AAcP+AAGB/AABAfgAAAHwAAAD8AAAB+AAAAfgAAAP4AAQP+AAGD/gABh/4AAY//AAH//wAD//
++AB///wD////B////w////////8AAAAAAP//AAAAAA//AAAAAAAAAA7u7wAAAADu7wAAAAAAAADA
+AO8AAAANAO8AAAAAAAAPwWDv/wAADXDv/wAAAAAP7sFg7u//AO3w7u//AAAA4ADBYADu7/ANcADu
+7/AADAxmYWZsAO799/f9AO7wAAwWZsFsZmwO/39/ER0O8AAMFmzBYMxmDu/3/d3RDvAADBbMwWD8
+ZsDvf9AA0Q4AAAwWzsFg/GZg7/3wAN3QAAAMHMDBYMxmYO8O8AAAAAAADMwAwWDGZmDvDvAAAAAA
+AAAAAMFsZmZg7w7wAP//AAAAAA7BZmZmYOcO8A7u7/AAAAAAxmZmZsB/DvAAAO7wAAAAxmZmZmbO
+9w799/cO8AAAzGZmZmZswX8OHX9/DgAAAMFmZmZszNH3Du339wAAAAzBZmZmzP/9/3B9fx3QAAAM
+FmZmbM/u7t0R9xHdAAAADBZmwWDvwA7w3R3dAAAAAAwWbMFg7MYO8A0Q7wAAAAAMFmzxYOxmDvAN
+EOAAAAAADMFs8WDMZg7wDd0AAAAAAADBbMFgxmYO8AAAAAAAAAAAzBbBbGYRDgAAAAAAAAAAAAzB
+EWEczMAAAAAAAAAAAAAAzMFgzAAAAAAAAAAAAAAAAADBEOAAAAAAAAAAAAAAAAAAzMwAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAA==
+</rawitemdata></item>
+<item name='$DefaultFrameset'><text>Principal</text></item>
+<item name='$DefaultXPage'><text>home.xsp</text></item>
+<item name='$TemplateServerName'><text>CN=Notes Standard Control/O=SASA</text></item>
+<item name='$TemplateFileName'><text>CN=ADA3D/O=SASA!!L0000.ntf</text></item>
+<item name='$PIRCRefreshModTime'><datetime>20171106T170624,67-03</datetime></item>
+<item name='$TemplateModTime'><datetime dst='true'>20171106T180527,80-02</datetime></item>
+<item name='$Daos'><text>0</text></item>
+<item name='$Flags'><text>fJz247qZFn!</text></item>
+<item name='$LaunchXPageRunOnServer'><text>0</text></item>
+<item name='$FlagsNoRefresh'><text>rv</text></item>
+<item name='$TITLE'><text>L0000 Diseño Base
+#1L0000v1r1</text></item></note>
+

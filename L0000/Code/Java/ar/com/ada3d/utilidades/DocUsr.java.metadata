@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581C5004DA004" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="21e" sequence="128" unid="D7D6884E92DF7585832581AA003AF612">
+<created><datetime dst="true">20170929T084400,82-02</datetime></created>
+<modified><datetime dst="true">20171026T120754,23-02</datetime></modified>
+<revised><datetime dst="true">20171025T201030,38-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171026T120754,23-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171026T120754,23-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name><name>CN=ADMINISTRADOR DOMINO/O=SASA</name><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>ar/com/ada3d/utilidades/DocUsr.java</text></item>
+
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>ar/com/ada3d/utilidades/DocUsr.java</text></item>
+
+</note>

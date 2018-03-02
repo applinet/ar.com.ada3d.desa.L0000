@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.resources>
+		<xp:script src="/JQueryXSnippet.js" clientSide="true"></xp:script>
+	</xp:this.resources>
+	<script type="text/javascript" src="bootstrapconfirmation/bootstrap-confirmation.js">
+	</script>
+	<xp:scriptBlock id="scriptBlock2">
+		<xp:this.value><![CDATA[
+$(document).ready(
+function() {
+x$( "#{id:button1}" ).popover();
+}
+);
+]]></xp:this.value>
+	</xp:scriptBlock>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle">
+				<xp:br></xp:br>
+				<button type="button" id="example" class="btn btn-lg btn-danger"
+					data-toggle="popover" title="Bootstrap Popover"
+					data-content="And here's some amazing content. It's very engaging. Right?">
+					Bootstrap Popover
+</button>
+				<xp:br></xp:br>
+				<xp:br></xp:br>
+				<h2>Bootstrap Popover</h2>
+				<xp:br></xp:br>
+				<xp:br></xp:br>
+				<xp:button value="Bootstrap Popover" id="button1"
+					styleClass="btn btn-primary btn-lg" style="color:rgb(255,255,255)">
+					<xp:this.attrs>
+						<xp:attr name="data-toggle" value="popover"></xp:attr>
+						<xp:attr name="title" value="Bootstrap Popover"></xp:attr>
+						<xp:attr name="data-content"
+							value="Add small overlays of content, like those on the iPad, to any element for housing secondary information."></xp:attr>
+					</xp:this.attrs>
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</xp:button>
+			</xp:panel>
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+	<script>$('#example').popover()</script>
+</xp:view>

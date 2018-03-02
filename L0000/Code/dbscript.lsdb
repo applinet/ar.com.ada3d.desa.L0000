@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.9'
+ replicaid='832581D4005579C9'>
+<noteinfo noteid='29a' unid='DA31E53C1F9A3B43832581CA0058486E' sequence='10'>
+<created><datetime dst='true'>20171031T140417,10-02</datetime></created>
+<modified><datetime dst='true'>20171110T133339,89-02</datetime></modified>
+<revised><datetime dst='true'>20171101T172912,68-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20171110T133339,89-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20171110T133339,89-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name='$TITLE' sign='true'><text>Database Script</text></item>
+<item name='$Flags'><text>t34Q</text></item>
+<item name='$PublicAccess'><text>1</text></item>
+<item name='$DesignerVersion'><text>8.5.3</text></item></note>
+

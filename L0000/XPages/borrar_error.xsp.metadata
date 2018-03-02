@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="26a" sequence="51" unid="D1756A62DDFBA6C0832581BC0053208D">
+<created><datetime dst="true">20171017T130758,21-02</datetime></created>
+<modified><datetime dst="true">20171110T133339,69-02</datetime></modified>
+<revised><datetime dst="true">20171110T111332,86-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171110T133339,69-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171110T133339,69-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$Flags"><text>gC~4K</text></item>
+
+
+<item name="$FileNames" sign="true"><text>error.xsp</text></item>
+<item name="$Comment" sign="true"><text>*** PRUEBA - BORRAR ***</text></item>
+<item name="$TITLE" sign="true"><text>borrar_error.xsp</text></item>
+<item name="$DesignerVersion"><text>9.0.1</text></item>
+
+
+
+
+</note>

@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		Datasource - Vista: v.UI.Menu.porEstadoUsuario - Document asociado:
+		f.CfgUserMenu
+	-->
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:if(docUsuario.isNewNote()){
+	requestScope.put("isUsrSeg","0")
+}else{
+	requestScope.put("isUsrSeg", docUsuario.getItemValueString("usr_USRSEG_opt"))
+}}]]></xp:this.beforePageLoad>
+	<xp:this.data>
+		<xp:dominoDocument var="docUsuario" formName="f.CfgUserMenu"
+			action="#{javascript: null == param.documentId ? 'newDocument' : 'openDocument';}"
+			documentId="#{javascript: null != param.documentId ? param.documentId : null;}"
+			computeWithForm="onsave">
+		</xp:dominoDocument>
+	</xp:this.data>
+	<xc:ccFXstandBy></xc:ccFXstandBy>
+	<xc:ccLayoutBootstrap>
+		<xp:this.facets>
+			<xp:panel xp:key="facetMiddle" style="padding-left:20.0%;padding-right:20.0%">
+				<xp:panel styleClass="alert alert-info" role="alert">
+					<xp:this.rendered><![CDATA[#{javascript:userBean.accessRoles.toString().contains('[usrInitial]')}]]></xp:this.rendered>
+					<xp:label id="label1">
+						<xp:this.value><![CDATA[#{javascript:"El usuario actual es temporal y no podrá utilizarlo nuevamente."}]]></xp:this.value>
+					</xp:label>
+					<br />
+					<xp:label id="label2">
+						<xp:this.value><![CDATA[#{javascript:"Como primer paso deberá crear su usuario de seguridad."}]]></xp:this.value>
+					</xp:label>
+					<br />
+					<xp:label id="label3">
+						<xp:this.value><![CDATA[#{javascript:"Una vez creado este nuevo usuario, le solicitará nuevamente el ingreso."}]]></xp:this.value>
+					</xp:label>
+				</xp:panel>
+				<xp:tabbedPanel id="tabbedPanel1" selectedTab="tabForm">
+					<xp:tabPanel id="tabForm">
+						<xp:this.label><![CDATA[#{javascript:return docUsuario.isNewNote() ? "Alta de Usuario" : "Usuario: " + docUsuario.getItemValueString("usr_UserMaskName_des");}]]></xp:this.label>
+						<xe:formTable id="tblUsrSeg">
+							<xe:this.formTitle><![CDATA[#{javascript:return docUsuario.getItemValueString("usr_Status_des") == '0'? "Usuario Inactivo" : "";}]]></xe:this.formTitle>
+							<xe:formRow id="rowNombre" label="Nombre"
+								labelPosition="left">
+								<xp:inputText id="usr_Nombre_des" value="#{docUsuario.usr_Nombre_des}"
+									required="true">
+									<xp:this.validators>
+										<xp:validateRequired message="El nombre es un campo requerido.">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</xe:formRow>
+							<xe:formRow id="rowApellido" label="Apellido"
+								labelPosition="left">
+								<xp:inputText id="usr_Apellido_des" value="#{docUsuario.usr_Apellido_des}"
+									required="true">
+									<xp:this.validators>
+										<xp:validateRequired message="El apellido es un campo requerido.">
+										</xp:validateRequired>
+									</xp:this.validators>
+								</xp:inputText>
+							</xe:formRow>
+							<xe:formRow id="rowEmail" label="E-mail"
+								labelPosition="left">
+								<xp:inputText id="usr_Mail_des" value="#{docUsuario.usr_Mail_des}"
+									required="true">
+									<xp:this.validators>
+										<xp:validateRequired
+											message="La direción de correo es un campo requerido.">
+										</xp:validateRequired>
+										<xp:validateConstraint message="Debe ingresar un e-mail válido.">
+											<xp:this.regex><![CDATA[^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$]]></xp:this.regex>
+										</xp:validateConstraint>
+									</xp:this.validators>
+								</xp:inputText>
+							</xe:formRow>
+
+							<!--
+								En el alta le muestro el campo usuario pero al grabar le agrego
+								al principio el codigo de administracion. Una vez creado solo va
+								a ver el campo userMask que es el nombre ingresado por el
+								usuario
+							-->
+							<xe:formRow id="rowUserName" label="Usuario"
+								labelPosition="left" rendered="#{javascript:docUsuario.isNewNote();}">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-user">
+										</i>
+									</span>
+									<xp:inputText id="usr_UserName_des" value="#{docUsuario.usr_UserName_des}"
+										required="true" onblur="this.value=this.value.toLowerCase();">
+										<xp:this.validators>
+											<xp:validateRequired
+												message="El nombre de usuario es un campo requerido.">
+											</xp:validateRequired>
+											<xp:validateConstraint>
+												<xp:this.message><![CDATA[El nombre de usuario debe ser de 5 a 20 caracteres (letras o números) y sin espacios]]></xp:this.message>
+												<xp:this.regex><![CDATA[[a-z0-9]{5,20}]]></xp:this.regex>
+											</xp:validateConstraint>
+										</xp:this.validators>
+										<xp:this.attrs>
+											<xp:attr value="Usuario" name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+									</xp:inputText>
+								</div>
+							</xe:formRow>
+							<xe:formRow id="rowUserMaskName" label="Usuario"
+								labelPosition="left" rendered="#{javascript:!docUsuario.isNewNote();}">
+								<xp:inputText id="usr_UserMaskName_des"
+									value="#{docUsuario.usr_UserMaskName_des}" readonly="true">
+								</xp:inputText>
+							</xe:formRow>
+							<!-- La contraseña solo por primera vez -->
+							<xe:formRow id="rowUserPassword" label="Contraseña"
+								labelPosition="left" rendered="#{javascript:docUsuario.isNewNote();}">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock">
+										</i>
+									</span>
+									<xp:inputText id="usr_UserPassword_des"
+										value="#{docUsuario.usr_UserPassword_des}" required="true"
+										disableClientSideValidation="true" password="true">
+										<xp:this.validators>
+											<xp:validateRequired message="Debe establecer una contraseña">
+											</xp:validateRequired>
+											<xp:validateExpression message="Las contraseñas deben coincidir">
+												<xp:this.expression><![CDATA[#{javascript:if (getComponent("usr_UserPassword_des").getSubmittedValue() != getComponent("ConfirmPassword").getSubmittedValue()){ 
+  return false; 
+}else{ 
+  return true; 
+}      }]]></xp:this.expression>
+											</xp:validateExpression>
+											<xp:validateConstraint>
+												<xp:this.message><![CDATA[Debe ser de 7 a 20 caracteres. Permitidos: [a-z][A-Z][0-9]]]></xp:this.message>
+												<xp:this.regex><![CDATA[[a-zA-Z0-9]{7,20}]]></xp:this.regex>
+											</xp:validateConstraint>
+										</xp:this.validators>
+										<xp:this.attrs>
+											<xp:attr value="Password" name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+									</xp:inputText>
+								</div>
+							</xe:formRow>
+							<!-- Confirmación de contraseña solo por primera vez -->
+							<xe:formRow id="rowConfirmUserPassword" label="Confirmar Contraseña"
+								labelPosition="left" rendered="#{javascript:docUsuario.isNewNote();}">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock">
+										</i>
+									</span>
+									<xp:inputText id="ConfirmPassword" password="true"
+										required="true">
+										<xp:this.validators>
+											<xp:validateRequired message="Debe confirmar la contraseña">
+											</xp:validateRequired>
+										</xp:this.validators>
+										<xp:this.attrs>
+											<xp:attr value="Password" name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+									</xp:inputText>
+								</div>
+							</xe:formRow>
+							<!-- Fin Contraseña -->
+							<xe:formRow id="authorRow" label="Crea este documento"
+								labelPosition="left">
+								<xe:this.rendered><![CDATA[#{javascript:if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return false;
+return true;}]]></xe:this.rendered>
+								<xp:text id="author" value="#{javascript:return DocUsr.getUserMask();}">
+								</xp:text>
+							</xe:formRow>
+							<!-- Esto es el boton Si/No de usuario de seguridad -->
+							<xe:formRow id="rowUsrSeg" label="Es Usuario de Seguridad?"
+								labelPosition="left">
+								<xe:this.rendered><![CDATA[#{javascript:if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return false;
+return true;}]]></xe:this.rendered>
+								<div id="switch" class="btn-group span4" data-toggle="buttons-radio">
+									<xp:button id="btnNo" value="No"
+										disabled="#{javascript:!docUsuario.isEditable()}">
+										<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "0" ? "btn-success active" : "";}]]></xp:this.styleClass>
+										<xp:eventHandler event="onclick" submit="true"
+											refreshMode="partial" refreshId="PNL_HiddenFields">
+											<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("0");}]]></xp:this.action>
+											<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+										</xp:eventHandler>
+									</xp:button>
+									<xp:button id="btnSi" value="Si"
+										disabled="#{javascript:!docUsuario.isEditable()}">
+										<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "1" ? "btn-success active" : "";}]]></xp:this.styleClass>
+										<xp:eventHandler event="onclick" submit="true"
+											refreshMode="partial" refreshId="PNL_HiddenFields">
+											<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("1");}]]></xp:this.action>
+											<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+										</xp:eventHandler>
+									</xp:button>
+								</div>
+								<xp:scriptBlock id="scriptBlockBtnSiNo">
+									<xp:this.value><![CDATA[$("#switch .btn").on("click", function() {$(this)	.addClass("btn-success")	.siblings()	.removeClass("btn-success");});]]></xp:this.value>
+								</xp:scriptBlock>
+							</xe:formRow>
+						</xe:formTable>
+						<!-- Panel con campos temporales, no se visualizan -->
+						<xp:panel id="PNL_HiddenFields" rendered="#{javascript:docUsuario.isEditable()}">
+							<xp:inputText id="usrSeg" value="#{docUsuario.usr_USRSEG_opt}"
+								defaultValue="0" style="display:none">
+							</xp:inputText>
+						</xp:panel>
+
+					</xp:tabPanel>
+					<xp:tabPanel label="Menú" id="tabMenu">
+						<!-- CheckBox de menues -->
+						<xp:this.rendered><![CDATA[#{javascript:if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return false;
+if(docUsuario.usr_USRSEG_opt == '1')
+	return false;	
+return true;}]]></xp:this.rendered>
+						<xe:formRow id="checkMenues" label="Menues"
+							labelPosition="left">
+							<xp:div id="divCheckMenuSeguridad">
+								<xp:this.rendered><![CDATA[#{javascript:getComponent("usrSeg").getValue().equals('1')}]]></xp:this.rendered>
+								<xp:panel styleClass="alert alert-info" role="alert">
+									<xp:label id="label6">
+										<xp:this.value><![CDATA[#{javascript:"El usuario es Responsable de Seguridad. Están hablitados todos los modulos."}]]></xp:this.value>
+									</xp:label>
+								</xp:panel>
+							</xp:div>
+
+
+							<xp:div id="divCheckBoxGroup">
+								<xp:this.rendered><![CDATA[#{javascript:!getComponent("usrSeg").getValue().equals('1')}]]></xp:this.rendered>
+
+								<xp:panel id="PNL_repeatMenu">
+									<xp:this.data>
+										<xp:dominoView var="view1" viewName="vModulosCheckBox"
+											databaseName="ADA3D/ada_config.nsf">
+										</xp:dominoView>
+									</xp:this.data>
+									
+									<!-- INI repeat con los menues y en cada columna un boton tipo Switch -->
+									
+									<xp:repeat id="repeatMenu" rows="30" var="menuRowData"
+										value="#{view1}">
+										<xp:this.facets>
+											<xp:text xp:key="header"
+												escape="false">
+												<xp:this.value>
+													<![CDATA[<div class="table-responsive"><table class='table'><th>Menu</th><th align="center">Visualización</th><th align="center">Altas</th><th align="center">Actualizaciones</th><th align="center">Bajas</th>]]>
+												</xp:this.value>
+											</xp:text>
+											<xp:text xp:key="footer"
+												escape="false">
+												<xp:this.value>
+													<![CDATA[</table></div>]]>
+												</xp:this.value>
+											</xp:text>
+										</xp:this.facets>
+										<xp:tr>
+											<xp:this.styleClass><![CDATA[#{javascript:var largoCodigoModulo = @Length(menuRowData.getColumnValue("modulo_OrdenConcatenado_des"));
+
+if (largoCodigoModulo.equals(15))
+	return "danger"
+if (largoCodigoModulo.equals(12))
+	return "warning"
+if (largoCodigoModulo.equals(9))
+	return "info"
+if (largoCodigoModulo.equals(6))
+	return "active"
+return "success"}]]></xp:this.styleClass>
+											<xp:td>
+												<xp:text escape="true"
+													id="computedField1">
+													<xp:this.value><![CDATA[#{javascript:menuRowData.getColumnValue("Modulos")}]]>
+													</xp:this.value>
+												</xp:text>
+											</xp:td>
+											<xp:td>
+												<xp:link escape="true"
+													text="download ..." id="link2" rendered="false">
+													<xp:this.value>
+														<![CDATA[#{javascript:"/" +
+                        menuRowData.getUniversalID()}]]>
+													</xp:this.value>
+												</xp:link>
+
+												<!-- Inicio de Boton Ver -->
+												<div id="div1"
+													class="btn-group span4" data-toggle="buttons-radio">
+													<xp:button
+														id="button1" value="No Ver"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "0" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("0");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+													<xp:button
+														id="button2" value="Ver"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "1" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("1");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+												</div>
+												<xp:scriptBlock
+													id="scriptBlock1">
+													<xp:this.value><![CDATA[$("#switch .btn").on("click", function() {$(this)	.addClass("btn-success")	.siblings()	.removeClass("btn-success");});]]></xp:this.value>
+												</xp:scriptBlock>
+												<!-- Fin de Boton Ver -->
+											</xp:td>
+											<xp:td>
+											<!-- Inicio de Boton Crear -->
+												<div id="div2"
+													class="btn-group span4" data-toggle="buttons-radio">
+													<xp:button
+														id="button3" value="Sin Acceso"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "0" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("0");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+													<xp:button
+														id="button4" value="Permitido"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "1" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("1");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+												</div>
+												<xp:scriptBlock
+													id="scriptBlock2">
+													<xp:this.value><![CDATA[$("#switch .btn").on("click", function() {$(this)	.addClass("btn-success")	.siblings()	.removeClass("btn-success");});]]></xp:this.value>
+												</xp:scriptBlock>
+												<!-- Fin de Boton Crear -->
+											</xp:td>
+											<xp:td>
+											<!-- Inicio de Boton Actualizar -->
+												<div id="div3"
+													class="btn-group span4" data-toggle="buttons-radio">
+													<xp:button
+														id="button5" value="No Actualizar"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "0" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("0");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+													<xp:button
+														id="button6" value="Puede Actualizar"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "1" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("1");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+												</div>
+												<xp:scriptBlock
+													id="scriptBlock3">
+													<xp:this.value><![CDATA[$("#switch .btn").on("click", function() {$(this)	.addClass("btn-success")	.siblings()	.removeClass("btn-success");});]]></xp:this.value>
+												</xp:scriptBlock>
+												<!-- Fin de Boton Actualizar -->
+											</xp:td>
+											<xp:td>
+											<!-- Inicio de Boton Eliminar -->
+												<div id="div4"
+													class="btn-group span4" data-toggle="buttons-radio">
+													<xp:button
+														id="button7" value="No permitido"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "0" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("0");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+													<xp:button
+														id="button8" value="Puede Eliminar"
+														disabled="#{javascript:!docUsuario.isEditable()}">
+														<xp:this.styleClass><![CDATA[#{javascript:return requestScope.get("isUsrSeg") == "1" ? "btn-success active btn-xs" : "btn-xs";}]]></xp:this.styleClass>
+														<xp:eventHandler
+															event="onclick" submit="true" refreshMode="partial"
+															refreshId="PNL_HiddenFields">
+															<xp:this.action><![CDATA[#{javascript:getComponent("usrSeg").setValue("1");}]]></xp:this.action>
+															<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:tabMenu}");]]></xp:this.onComplete>
+														</xp:eventHandler>
+													</xp:button>
+												</div>
+												<xp:scriptBlock
+													id="scriptBlock4">
+													<xp:this.value><![CDATA[$("#switch .btn").on("click", function() {$(this)	.addClass("btn-success")	.siblings()	.removeClass("btn-success");});]]></xp:this.value>
+												</xp:scriptBlock>
+												<!-- Fin de Boton Eliminar -->
+											</xp:td>
+										</xp:tr>
+									</xp:repeat>
+									<!-- FIN repeat con los menues y en cada columna un boton tipo Switch -->
+								</xp:panel>
+
+
+								<xp:checkBoxGroup id="checkBoxGroup1"
+									layout="pageDirection"
+									value="#{docUsuario.usr_MenuSelected_cod}" rendered="false">
+									<xp:selectItems id="itemSelected">
+										<xp:this.value><![CDATA[#{javascript:var confDb:NotesDatabase = getDbCfg();
+var dbConf = new Array(@DbName()[0], confDb.getFilePath());
+@DbColumn(dbConf, "vModulosCheckBox", 2)}]]></xp:this.value>
+									</xp:selectItems>
+									<xp:eventHandler event="onchange"
+										submit="true" refreshMode="partial"
+										refreshId="checkBoxGroup1">
+										<xp:this.action><![CDATA[#{javascript:print("valores:" + getComponent("checkBoxGroup1").getValue())}]]></xp:this.action>
+									</xp:eventHandler>
+								</xp:checkBoxGroup>
+
+
+							</xp:div>
+						</xe:formRow>
+					</xp:tabPanel>
+					<xp:tabPanel label="Log" id="tabLog"
+						rendered="#{javascript:!docUsuario.isNewNote()}">
+						<xc:ccLog docToEditCCLog="#{javascript:docUsuario}">
+						</xc:ccLog>
+					</xp:tabPanel>
+				</xp:tabbedPanel>
+
+				<!-- PANEL DE BOTONES  -->
+				<xp:panel id="buttonPanelRow" styleClass="buttonPanel">
+					<xp:button value="Grabar" id="btnSave" styleClass="btn-success">
+						<xp:this.rendered><![CDATA[#{javascript:if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return docUsuario.isEditable() 
+
+if (docUsuario.isEditable() && docUsuario.isNewNote()){ //Solo lo muestro en el segundo panel
+	var panel:com.ibm.xsp.component.xp.XspTabbedPanel = getComponent('tabbedPanel1');
+	if (panel.getSelectedTab().equals('tabForm'))
+		return false;
+}
+return docUsuario.isEditable() }]]>
+						</xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial">
+							<xp:this.action><![CDATA[#{javascript:try{
+	var isNew:boolean = docUsuario.isNewNote(); 
+	if (isNew){
+		if(userBean.accessRoles.toString().contains('[usrInitial]'))
+			docUsuario.setValue("usr_USRSEG_opt","1");
+		setLog (docUsuario, "Creación del usuario " + docUsuario.getItemValueString("usr_UserMaskName_des"), "log_des");
+		docUsuario.setValue("usr_UserName_des", DocUsr.getUserDB() + docUsuario.getItemValueString("usr_UserName_des"));
+		
+	}
+	if(docUsuario.getItemValueString("usr_USRSEG_opt").equals("1")){
+		setLog (docUsuario, "El usuario se guardó con atribuciones de seguridad", "log_des");
+	}else{
+		setLog (docUsuario, "Cambios guardados, el usuario no tiene atribuciones de seguridad", "log_des");
+	}
+	
+	docUsuario.save();
+	if (isNew){
+		session.getCurrentDatabase().getAgent("a.ObtCorr").runWithDocumentContext(docUsuario.getDocument());
+		session.getCurrentDatabase().getAgent("a.NewUserExt").runWithDocumentContext(docUsuario.getDocument());
+	}
+	
+	if(userBean.accessRoles.toString().contains('[usrInitial]')){
+		var docDummy:NotesDocument = database.createDocument();
+		docDummy.appendItemValue("acl_usrInit", session.getEffectiveUserName());
+		session.getCurrentDatabase().getAgent("a.NaUsrInit").runWithDocumentContext(docDummy);
+		/*Fuerzo un logOut*/
+		sessionScope.remove("menuList");
+		var appUrl = facesContext.getExternalContext().getRequest().getContextPath();
+		var url = appUrl + "?logout&redirectto=" + appUrl ;
+		facesContext.getExternalContext().redirect(url);
+		facesContext.getExternalContext().getSession(false).invalidate();
+	}else{
+		context.redirectToPage(getOpcionesClave("VIEW_UI_USUARIOS_HOME", "codigo")[0]);
+	
+	}
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+ }}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="Editar" id="btnEdit">
+						<xp:this.rendered>
+							<![CDATA[#{javascript:return (userBean.accessLevel >= lotus.domino.ACL.LEVEL_EDITOR) && !docUsuario.isEditable() &&
+!docUsuario.getItemValueString("usr_Status_des").equals('0');}]]>
+						</xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action>
+								<xp:changeDocumentMode mode="edit" var="docUsuario">
+								</xp:changeDocumentMode>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="Cerrar" id="btnClose" styleClass="btn">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete" immediate="true">
+							<xp:this.action>
+								<xp:openPage>
+									<xp:this.name><![CDATA[#{javascript:return getOpcionesClave("VIEW_UI_USUARIOS_HOME", "codigo")[0];}]]></xp:this.name>
+								</xp:openPage>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="Inhabilitar Usuario" id="btnInhabilitar"
+						styleClass="btn-danger">
+						<xp:this.rendered>
+							<![CDATA[#{javascript:return !viewScope.isNew && docUsuario.getItemValueString("usr_Status_des").equals("1")}]]>
+						</xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript:try{	
+	docUsuario.replaceItemValue("usr_Status_des", "0");
+	docUsuario.replaceItemValue("usr_USRSEG_opt", "0");
+	setLog (docUsuario, "El usuario se ha inhabilitado y se le ha quitado el atributo de seguridad", "log_des");
+	docUsuario.save();
+	context.redirectToPage(getOpcionesClave("VIEW_UI_USUARIOS_HOME", "codigo")[0]);
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+ }}]]></xp:this.action>
+							<xp:this.script><![CDATA[return confirm("Con esta acción ademas de inhabilitarlo le quitará los permisos de seguridad. Confirma?")]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="Habilitar Usuario" id="btnHabilitar"
+						styleClass="btn-info">
+						<xp:this.rendered>
+							<![CDATA[#{javascript:return !viewScope.isNew && docUsuario.getItemValueString("usr_Status_des").equals("0")}]]>
+						</xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action><![CDATA[#{javascript:try{
+	docUsuario.replaceItemValue("usr_Status_des", "1");
+	setLog (docUsuario, "El usuario se ha habilitado", "log_des");
+	docUsuario.save();
+	context.redirectToPage(getOpcionesClave("VIEW_UI_USUARIOS_HOME", "codigo")[0]);
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+ }}]]></xp:this.action>
+							<xp:this.script><![CDATA[return confirm("Si el usuario que habilita era un usuario de seguridad, deberá marcar nuevamente sus privilegios de seguridad ya que fueron quitados al inhabilitarlo");]]></xp:this.script>
+						</xp:eventHandler>
+					</xp:button>
+
+					<xp:button value="Continuar" id="btnContinuar"
+						styleClass="btn-success">
+						<xp:this.rendered><![CDATA[#{javascript:if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return false;
+var panel:com.ibm.xsp.component.xp.XspTabbedPanel = getComponent('tabbedPanel1');
+if (panel.getSelectedTab().equals('tabMenu'))
+	return false;
+docUsuario.isNewNote()}]]></xp:this.rendered>
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="tabbedPanel1">
+							<xp:this.action><![CDATA[#{javascript:try{
+	var user = DocUsr.getUserDB() + docUsuario.getItemValueString("usr_UserName_des");
+	if(isUserNameAvailable(user)){
+		//Si el usuario está disponible paso al siguiente panel
+		var panel:com.ibm.xsp.component.xp.XspTabbedPanel = getComponent('tabbedPanel1');
+		panel.setSelectedTab('tabMenu');
+	}else{
+		addFacesMessage( "El nombre de usuario " + docUsuario.getItemValueString("usr_UserName_des") + " se encuentra activo, verificar en la lista de usuario.", getComponent('usr_UserName_des'), 'FATAL' );
+	}
+} catch(e) {
+        addFacesMessage(e.toString(), null, "FATAL")
+}}]]></xp:this.action>
+							<xp:this.onComplete><![CDATA[XSP.partialRefreshGet("#{id:buttonPanelRow}");]]></xp:this.onComplete>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="Cambiar contraseña" id="btnChangePassword"
+						styleClass="btn-warning">
+						<xp:this.rendered><![CDATA[#{javascript:if(docUsuario.isNewNote())
+	return false;
+if(userBean.accessRoles.toString().contains('[usrInitial]'))
+	return false;
+if(docUsuario.isEditable())
+	return false;	
+return true;}]]></xp:this.rendered>
+
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="complete">
+							<xp:this.action>
+								<xp:openPage name="/frmConfigUsrChgPwd.xsp" target="openDocument"
+									documentId="#{javascript:docUsuario.getDocument().getUniversalID()}">
+								</xp:openPage>
+							</xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+				</xp:panel><!-- FIN PANEL DE BOTONES  -->
+			</xp:panel><!-- FIN PANEL MIDDLE  -->
+		</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+</xp:view>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+<xp:div id="keepSessionAlive"></xp:div>
+<!-- keepSessionAlive=2280000 Milliseconds (38 Minutes) / Session TimeOut=40 min / Application TimeOut=40min -->
+<xp:scriptBlock id="scriptBlock1">
+    <xp:this.value>
+    <![CDATA[  
+        XSP.addOnLoad(function(){
+            setInterval(function(){
+                XSP.partialRefreshPost("#{id:keepSessionAlive}", {});  
+            }, 2280000)
+        })]]>
+    </xp:this.value>
+</xp:scriptBlock>
+</xp:view>

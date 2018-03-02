@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D00051B8B0" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="35e" sequence="1" unid="20291237DD2DDD6E832581D000554B39">
+<created><datetime dst="true">20171106T133138,17-02</datetime></created>
+<modified><datetime dst="true">20171106T133138,28-02</datetime></modified>
+<revised><datetime dst="true">20171106T133138,27-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171106T133138,28-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171106T133138,28-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$TITLE"><text>prague.jpg</text></item>
+<item name="$Flags"><text>34CiQ</text></item>
+<item name="$FlagsExt"><text>D</text></item>
+<item name="$ImagesWide" sign="true"><number>1</number></item>
+<item name="$ImagesHigh" sign="true"><number>1</number></item>
+<item name="$ImagesColorize" sign="true"><number>0</number></item>
+
+
+
+
+
+
+
+
+
+
+
+
+<item name="$MimeType" sign="true"><text>image/jpeg</text></item>
+<item name="$FileModDT" sign="true"><datetime>20171106T123155,33-03</datetime></item>
+<item name="$ImageNames" sign="true"><text>prague.jpg</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item></note>

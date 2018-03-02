@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xf="http://www.ibm.com/xsp/xflow"
+	xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
+	<xp:panel>
+		<xp:this.rendered><![CDATA[#{javascript:var v:Array = database.queryAccessRoles(session.getEffectiveUserName());
+@IsMember("[Desarrollo]", v)}]]></xp:this.rendered>
+		<xc:ccDebugToolbar defaultCollapsed="false" collapseTo="left" rendered="#{javascript:sessionScope.showDebugToolbar}"></xc:ccDebugToolbar>
+	</xp:panel>
+	
+<xp:panel loaded="true" id="dbgPanel" style="padding-left:20px">
+			<xp:this.rendered><![CDATA[#{javascript:var v:Array = database.queryAccessRoles(session.getEffectiveUserName());
+@IsMember("[Desarrollo]", v)}]]></xp:this.rendered>
+			<xp:link escape="true" id="link1">
+				<xp:this.text><![CDATA[#{javascript:(sessionScope.showDebugToolbar) ? "Hide Debug Toolbar" : "Show Debug Toolbar";}]]></xp:this.text>
+				<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+					<xp:this.action><![CDATA[#{javascript:sessionScope.showDebugToolbar = (sessionScope.showDebugToolbar) ? false : true;}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+			&#160;&#160;
+			<xp:link escape="true" id="link2">
+				<xp:this.text><![CDATA[#{javascript:var v=getComponent('dumpObject2').isRendered()
+return v ? "Hide Document" : "Show Document"}]]></xp:this.text>
+				<xp:eventHandler event="onclick" submit="true" refreshMode="partial" refreshId="dbgPanel">
+					<xp:this.action><![CDATA[#{javascript:getComponent('dumpObject2').toggleRendered()}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:link>
+			&#160;&#160;
+			<xe:dumpObject id="dumpObject1" objectNames="workflowContext" rendered="false">
+			</xe:dumpObject>
+			<xe:dumpObject id="dumpObject2"
+				objectNames="#{javascript:compositeData.propertyFormName}"
+				rendered="false">
+			</xe:dumpObject>
+			<xp:br></xp:br>
+			</xp:panel>
+			</xp:view>

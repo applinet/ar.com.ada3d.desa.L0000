@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.9" replicaid="832581C5006FCB3B" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="17a" sequence="117" unid="28943E0C81823595832581A1006BA967">
+<created><datetime dst="true">20170920T173557,19-02</datetime></created>
+<modified><datetime dst="true">20171026T182106,16-02</datetime></modified>
+<revised><datetime dst="true">20171026T181138,74-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171026T182106,16-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171026T182106,16-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=ADMINISTRADOR DOMINO/O=SASA</name><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$POID"><datetime dst="true">20171026T144150,43-02</datetime></item>
+<item name="$TITLE" sign="true"><text>MenuTools.jss</text></item>
+<item name="$Flags"><text>.5834Q</text></item>
+<item name="$PublicAccess" sign="true"><text>1</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+</note>

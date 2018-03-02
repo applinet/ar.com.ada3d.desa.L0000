@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="35e" sequence="157" unid="8C7A8BAAB7276428832581D2007C3AF0">
+<created><datetime dst="true">20171108T203655,52-02</datetime></created>
+<modified><datetime dst="true">20171110T133340,81-02</datetime></modified>
+<revised><datetime dst="true">20171110T111333,61-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171110T133340,81-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171110T133340,81-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$Flags"><text>gC~4K</text></item>
+<item name="$TITLE" sign="true"><text>frmConfigUsr.xsp</text></item>
+
+
+
+
+
+<item name="$FileNames" sign="true"><text>frmConfigUsr.xsp</text></item>
+<item name="$Comment" sign="true"><text>Formulario de Usuarios</text></item>
+<item name="$DesignerVersion"><text>9.0.1</text></item>
+
+
+
+</note>

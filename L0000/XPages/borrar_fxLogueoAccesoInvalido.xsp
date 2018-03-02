@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:label value="El usuario tiene acceso al servidor" id="label1" style="color:rgb(255,128,128);font-size:22pt;text-decoration:underline;font-weight:bold"></xp:label>
+	<xp:br></xp:br>
+	<xp:br></xp:br><xp:label value="El perfil de usuario en la administracion no existe o está inhabilitado" id="label2" style="color:rgb(255,128,128);font-size:22pt;text-decoration:underline;font-weight:bold"></xp:label>
+	<xp:br></xp:br>
+	<xp:br></xp:br><xp:label value="El usuario quiere acceder a una administracion que no es la suya" id="label3" style="color:rgb(255,128,128);font-size:22pt;text-decoration:underline;font-weight:bold"></xp:label>
+
+	<xp:br></xp:br>
+	<xp:br></xp:br><xp:label value="El usuario quiere acceder a una pagina que no tiene menu habilitado" id="label4" style="color:rgb(255,128,128);font-size:22pt;text-decoration:underline;font-weight:bold"></xp:label></xp:view>

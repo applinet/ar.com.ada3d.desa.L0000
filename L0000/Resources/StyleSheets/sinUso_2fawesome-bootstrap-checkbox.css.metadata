@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="832581D4005579C9" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="296" sequence="21" unid="7ADEA42D180F73E2832581CA00528CBC">
+<created><datetime dst="true">20171031T130139,80-02</datetime></created>
+<modified><datetime dst="true">20171110T133339,87-02</datetime></modified>
+<revised><datetime dst="true">20171110T083456,82-02</datetime></revised>
+<lastaccessed><datetime dst="true">20171110T133339,87-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20171110T133339,87-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$MimeType" sign="true"><text>text/css</text></item>
+<item name="$Flags"><text>34C=Q</text></item>
+<item name="$MimeCharSet" sign="true"><text>UTF-8</text></item>
+
+
+<item name="$FileNames" sign="true"><text>awesome-bootstrap-checkbox.css</text></item>
+<item name="$TITLE" sign="true"><text>sinUso/awesome-bootstrap-checkbox.css</text></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item></note>
