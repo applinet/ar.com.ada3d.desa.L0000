@@ -218,6 +218,82 @@ public class QueryAS400 implements Serializable {
 	}
 
 	
+	/*
+	 * Realiza un Update al AS400 utilizando un documento de configuración que
+	 * envio el nombre por parámetros. Si le envío un doc en parametros utiliza
+	 * ese, sino el de parametros. Tener en cuenta que si envio un doc, de
+	 * cargar la biblioteca tal como la genera docDummy
+	 * 
+	 * @return: Verdadero si realizó el update, sino falso
+	 */
+	public boolean updateBatchAS(String param_clave, Document param_doc) {
+		Connection connection = null;
+		
+		if (!initConexion()) return false;
+		Document docTabla = JSFUtil.getDocConexiones_y_Tablas(param_clave);
+		if (docTabla == null)
+			return false;
+		CfgTablas configTabla = new CfgTablas(docTabla);
+
+		// INI - Siempre hay que hacer esto para que complete la biblioteca en
+		// el sql
+		if (param_doc == null) {
+			// Invento un doc y le paso la biblioteca de la base que estoy
+			Document docDummy = JSFUtil.getDocDummy();
+			docDummy.appendItemValue("biblioteca", JSFUtil.getBiblioteca("B"));
+			configTabla.setStrsSQL(docDummy);
+		} else {
+			// Al doc que tengo le agrego la biblioteca
+			param_doc.appendItemValue("biblioteca", JSFUtil.getBiblioteca("B"));
+			configTabla.setStrsSQL(param_doc);
+		}
+		// FIN - Siempre hay que hacer esto para que complete la biblioteca en
+		// el sql
+
+		
+		try {
+			System.out.println("1");
+			DriverManager
+					.registerDriver(new com.ibm.as400.access.AS400JDBCDriver());
+			System.out.println("2");
+			connection = DriverManager.getConnection(configDs.getUrlConexion(),
+					configDs.getUserWrite(), configDs.getPassWrite());
+			System.out.println("3");
+			
+			Statement stmt = connection.createStatement();
+			System.out.println("4");
+			
+			//if (configTabla.getMsgConsola().equals("1"))
+				//System.out.println(configTabla.getStrsSQL());
+			
+			connection.setAutoCommit(false);
+			
+			String insertEmp1 = "UPDATE L8669B.PH_E01 SET E391 = 125 WHERE EDIF IN ('VE$')";
+			String insertEmp2 = "UPDATE L8669B.PH_E01 SET E391 = 126 WHERE EDIF IN ('VE>')";
+			String insertEmp3 = "UPDATE L8669B.PH_E01 SET E391 = 127 WHERE EDIF IN ('VE:')";
+			System.out.println("5");
+			stmt.addBatch(insertEmp1);//inserting Query in stmt
+			stmt.addBatch(insertEmp2);
+			stmt.addBatch(insertEmp3);
+			stmt.executeBatch();
+			connection.commit();
+			return true;
+		
+		} catch (SQLException e) {
+			System.out.println("**ERROR UPDATE ** (param_clave:" + param_clave
+					+ ") - " + e.getMessage());
+			return false;
+		}
+		
+		finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
+	
 	public static void close(Connection connection) {
 		try {
 			if (connection != null) {

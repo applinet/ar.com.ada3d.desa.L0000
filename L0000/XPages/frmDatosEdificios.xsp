@@ -9,7 +9,7 @@
 			clientSide="true">
 		</xp:script>
 	</xp:this.resources>
-
+	<xc:ccFxPleaseWaitStandBy></xc:ccFxPleaseWaitStandBy>
 
 
 
@@ -303,8 +303,8 @@ if (!msgValidacion.equals("")){
 					
 					<xe:formRow id="rowInteresPunitorioDeudores" 
 						label="Interés punitorio a unidades deudoras" labelPosition="left">
-						<xp:inputText id="edf_importeInteresPunitorioDeudores" 
-							value="#{edfObj.edf_importeInteresPunitorioDeudores}"
+						<xp:inputText id="edf_interesPunitorioDeudores" 
+							value="#{edfObj.edf_interesPunitorioDeudores}"
 							disabled="#{edfObj.edf_isReadMode}" style="text-align:right; width:60.0px; display: inline;">
 							<xp:this.converter>
 								<xp:convertNumber
@@ -326,8 +326,8 @@ if (!msgValidacion.equals("")){
 	
 					<xe:formRow id="rowRecargoSegundoVencimiento"
 						label="Recargo para el 2° vto de expensas" labelPosition="left">
-						<xp:inputText id="edf_importeRecargoSegundoVencimiento"
-							value="#{edfObj.edf_importeRecargoSegundoVencimiento}" disabled="#{edfObj.edf_isReadMode}"
+						<xp:inputText id="edf_interesRecargoSegundoVencimiento"
+							value="#{edfObj.edf_interesRecargoSegundoVencimiento}" disabled="#{edfObj.edf_isReadMode}"
 							style="text-align:right; width:60.0px; display: inline;">
 							<xp:this.converter>
 								<xp:convertNumber
@@ -352,10 +352,15 @@ if (!msgValidacion.equals("")){
 						<xp:inputText
 							id="edf_fechaPrimerVencimientoRecibos"
 							value="#{edfObj.edf_fechaPrimerVencimientoRecibos}"
-							disabled="#{edfObj.edf_isReadMode or !(edfObj.edf_importeInteresPunitorioDeudores gt 0)}">
+							disabled="#{edfObj.edf_isReadMode}" required="true">
 							<xp:this.converter>
 								<xp:convertDateTime type="date"></xp:convertDateTime>
 							</xp:this.converter>
+							<xp:this.validators>
+								<xp:validateRequired
+									message="La fecha de 1er. vto es obligatoria">
+								</xp:validateRequired>
+							</xp:this.validators>
 							<xp:dateTimeHelper></xp:dateTimeHelper>
 						</xp:inputText>
 					</xe:formRow>
@@ -365,7 +370,7 @@ if (!msgValidacion.equals("")){
 						<xp:inputText
 							id="edf_fechaSegundoVencimientoRecibos"
 							value="#{edfObj.edf_fechaSegundoVencimientoRecibos}"
-							disabled="#{edfObj.edf_isReadMode or !(edfObj.edf_importeRecargoSegundoVencimiento gt 0)}">
+							disabled="#{edfObj.edf_isReadMode or !(edfObj.edf_interesRecargoSegundoVencimiento gt 0)}">
 							<xp:this.converter>
 								<xp:convertDateTime type="date"></xp:convertDateTime>
 							</xp:this.converter>

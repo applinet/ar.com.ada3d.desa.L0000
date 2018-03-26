@@ -23,7 +23,7 @@ for (var i = 0; i < listaEdificios.length; i++) {
 	// Agrego la metadata por cada entrada al array:
 	var codigoEdificio:string = listaEdificios[i].split("|")[1].trim();
 	var direccionEdificio:string = listaEdificios[i].split("|")[0].trim();
-	if(listaEdificios[i].toLowerCase().contains(startValue)){
+	if(listaEdificios[i].toLowerCase().contains(startValue.toLowerCase())){
 		result += '<li><span class="informal"><p style="color:red">'+'Dirección: '+ direccionEdificio
 		+ '</p></span><span class="informal">Código: </span>' + codigoEdificio
 		+ '<span class="informal"></li>';		 

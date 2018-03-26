@@ -14,10 +14,11 @@
 
 
 	<xp:this.afterPageLoad><![CDATA[#{javascript:if (!userBean.accessRoles.toString().contains('[usrInitial]')){
-	if	(!sessionScope.edificioSelected)
-		 sessionScope.edificioSelected = edificioBean.getListaEdificiosTrabajo().get(0).edf_codigo;
+	if	(!sessionScope.edificioSelected){
+		sessionScope.edificioSelected = edificioBean.getListaEdificiosTrabajo().get(0).edf_codigo;
+	}	 
 }		}]]></xp:this.afterPageLoad>
-	
+
 	<xc:ccRolDesarrollo_Debug>
 		<xc:this.propertyFormName><![CDATA[#{javascript:"docUsuario"}]]></xc:this.propertyFormName>
 	</xc:ccRolDesarrollo_Debug>

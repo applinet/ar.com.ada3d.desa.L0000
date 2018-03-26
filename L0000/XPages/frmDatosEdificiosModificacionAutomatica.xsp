@@ -11,13 +11,19 @@
 			<xp:panel id="PNL_container" xp:key="facetMiddle">
 
 			<xe:widgetContainer id="widgetContainer1"
-				titleBarText="Modificación automática, para todos los edificios (#{edificioBean.cantidadTotalEdificiosTrabajo})"
+				titleBarText="Modificación automática, para los #{edificioBean.cantidadTotalEdificiosTrabajo} edificios."
 				collapsible="true">
 				<xe:this.dropDownNodes>
-					<xe:basicLeafNode label="Confirmar cambios">
+					<xe:basicLeafNode label="Confirmar cambios" rendered="#{javascript:edificioBean.isMasivoActualizado()}">
 						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnConfirmarMasivo}").click();]]></xe:this.onClick>
 					</xe:basicLeafNode>
-					<xe:basicLeafNode label="Restaurar a estado original">
+					<xe:basicLeafNode
+						label="Aplicar todos los valores en grilla">
+						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarTodoMasivo}").click();]]></xe:this.onClick>
+					</xe:basicLeafNode>
+					<xe:basicLeafNode
+						label="Restaurar al estado inicial"
+						rendered="#{javascript:edificioBean.isMasivoActualizado()}">
 						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnRestaurarMasivo}").click();]]></xe:this.onClick>
 					</xe:basicLeafNode>
 				</xe:this.dropDownNodes>
@@ -27,17 +33,19 @@
 							<xe:widgetContainer id="widgetContainer2"
 								titleBarText="Interés Punitorio">
 								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicar1}").click();]]></xe:this.onClick>
+									<xe:basicLeafNode label="Aplicar interés punitorio">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarInteresPunitorioDeudoresMasivo}").click();]]></xe:this.onClick>
 									</xe:basicLeafNode>
 								</xe:this.dropDownNodes>
 								<xp:inputText
-									id="importeInteresPunitorioDeudoresMasivo"
-									style="text-align:right; width:100.0px; display: inline;">
-									<xp:eventHandler event="onkeypress"	submit="false">
+									id="interesPunitorioDeudoresMasivo"
+									style="text-align:right; width:100.0px; display: inline;"
+									tabindex="1">
+									<xp:eventHandler event="onkeypress"
+										submit="false">
 										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
-    document.getElementById("#{id:btnAplicar1}").click();
+    document.getElementById("#{id:btnAplicarInteresPunitorioDeudoresMasivo}").click();
     return true;
 }
 							                    ]]>
@@ -63,17 +71,17 @@ if (key == 13) {
 							<xe:widgetContainer id="widgetContainer4"
 								titleBarText="Fecha 1° Vto.">
 								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicar2}").click();]]></xe:this.onClick>
+									<xe:basicLeafNode label="Aplicar 1° vto.">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaPrimerVtoMasivo}").click();]]></xe:this.onClick>
 									</xe:basicLeafNode>
 								</xe:this.dropDownNodes>
 								<xp:inputText
-									id="fechaPrimerVtoMasivo">
+									id="fechaPrimerVtoMasivo" tabindex="2">
 									<xp:eventHandler event="onkeypress"
 										submit="false">
 										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
-    document.getElementById("#{id:btnAplicar2}").click();
+    document.getElementById("#{id:btnAplicarFechaPrimerVtoMasivo}").click();
     return true;
 }
 							                    ]]>
@@ -95,20 +103,21 @@ if (key == 13) {
 						</xp:td>
 						<xp:td style="width:20.0%">
 							<xe:widgetContainer id="widgetContainer3"
-								titleBarText="Interés 2° Vto.">
+								titleBarText="Recargo 2° Vto.">
 								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicar3}").click();]]></xe:this.onClick>
+									<xe:basicLeafNode label="Aplicar recargo 2° vto">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
 									</xe:basicLeafNode>
 								</xe:this.dropDownNodes>
 								<xp:inputText
 									id="recargoSegundoVencimientoMasivo"
-									style="text-align:right; width:100.0px; display: inline;">
+									style="text-align:right; width:100.0px; display: inline;"
+									tabindex="3">
 									<xp:eventHandler event="onkeypress"
 										submit="false">
 										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
-    document.getElementById("#{id:btnAplicar3}").click();
+    document.getElementById("#{id:btnAplicarRecargoSegundoVencimientoMasivo}").click();
     return true;
 }
 							                    ]]>
@@ -134,17 +143,20 @@ if (key == 13) {
 							<xe:widgetContainer id="widgetContainer5"
 								titleBarText="Fecha 2° Vto.">
 								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicar4}").click();]]></xe:this.onClick>
+									<xe:basicLeafNode label="Aplicar 2° vto.">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaSegundoVtoMasivo}").click();]]></xe:this.onClick>
+									</xe:basicLeafNode>
+									<xe:basicLeafNode label="Eliminar fecha 2° vto">
+										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnEliminarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
 									</xe:basicLeafNode>
 								</xe:this.dropDownNodes>
 								<xp:inputText
-									id="fechaSegundoVtoMasivo">
+									id="fechaSegundoVtoMasivo" tabindex="4">
 									<xp:eventHandler event="onkeypress"
 										submit="false">
 										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
-    document.getElementById("#{id:btnAplicar4}").click();
+    document.getElementById("#{id:btnAplicarFechaSegundoVtoMasivo}").click();
     return true;
 }
 							                    ]]>
@@ -206,16 +218,16 @@ if (key == 13) {
 						</xp:text>
 					</xp:column>
 					<xp:column
-						id="edf_importeInteresPunitorioDeudoresColumn"
+						id="edf_interesPunitorioDeudoresColumn"
 						style="text-align:center">
 						<xp:this.facets>
-							<xp:label value="Interés 1er Vto"
+							<xp:label value="Interés Punitorio"
 								id="label5" xp:key="header" style="font-weight:bold">
 							</xp:label>
 						</xp:this.facets>
 						<xp:text escape="true"
-							value="#{unEdificio.edf_importeInteresPunitorioDeudores}"
-							id="edf_importeInteresPunitorioDeudores">
+							value="#{unEdificio.edf_interesPunitorioDeudores}"
+							id="edf_interesPunitorioDeudores">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE12 ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
 						</xp:text>
 						<xp:label value="%" id="Signo1">
@@ -236,16 +248,16 @@ if (key == 13) {
 						</xp:text>
 					</xp:column>
 					<xp:column
-						id="edf_importeRecargoSegundoVencimientoColumn"
+						id="edf_interesRecargoSegundoVencimientoColumn"
 						style="text-align:center">
 						<xp:this.facets>
-							<xp:label value="Interés 2do Vto"
+							<xp:label value="Recargo 2do Vto"
 								id="label7" xp:key="header" style="font-weight:bold">
 							</xp:label>
 						</xp:this.facets>
 						<xp:text escape="true"
-							value="#{unEdificio.edf_importeRecargoSegundoVencimiento}"
-							id="edf_importeRecargoSegundoVencimiento">
+							value="#{unEdificio.edf_interesRecargoSegundoVencimiento}"
+							id="edf_interesRecargoSegundoVencimiento">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE08A ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
 						</xp:text>
 						<xp:label value="%" id="Signo2">
@@ -267,25 +279,81 @@ if (key == 13) {
 					</xp:column>
 				</xp:dataTable>
 				<div id="divHiddenAplicar" style="display: none;">
-					<xp:button value="btnIntereses1" id="btnAplicar1">
+					<xp:button value="btnAplicarInteresPunitorioDeudoresMasivo" id="btnAplicarInteresPunitorioDeudoresMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
-							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("importeInteresPunitorioDeudoresMasivo");}]]></xp:this.action>
+							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("interesPunitorioDeudoresMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnVto1" id="btnAplicar2">
+					<xp:button value="btnAplicarFechaPrimerVtoMasivo" id="btnAplicarFechaPrimerVtoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaPrimerVtoMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnIntereses2" id="btnAplicar3">
+					<xp:button value="btnAplicarRecargoSegundoVencimientoMasivo" id="btnAplicarRecargoSegundoVencimientoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("recargoSegundoVencimientoMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnVto1" id="btnAplicar4">
+					<xp:button value="btnEliminarRecargoSegundoVencimientoMasivo" id="btnEliminarRecargoSegundoVencimientoMasivo">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = edificioBean.eliminarInteresFechasSegundoVto("fechaSegundoVtoMasivo");
+if(msgValidacion.isEmpty()){
+	viewScope.MessageType="S";
+	viewScope.MessageText = [];
+	viewScope.MessageText.push(["Se aplicaron los cambios solicitados."]);
+	viewScope.MessageText.push(["Para guardar estos cambios presione 'Confirmar cambios'"]);
+	getComponent("fechaSegundoVtoMasivo").setValue('');
+}else{
+	viewScope.MessageType="W";
+	viewScope.MessageText = [];
+	for (i=0;i<msgValidacion.size();i++) {
+		viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
+	}
+	getComponent("fechaSegundoVtoMasivo").setValue('');
+	view.postScript("window.scrollTo(0,0)")
+}
+}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					<xp:button value="btnAplicarTodoMasivo" id="btnAplicarTodoMasivo">
+						<xp:eventHandler event="onclick" submit="true"
+							refreshMode="partial" refreshId="PNL_container">
+							<xp:this.action><![CDATA[#{javascript:var camposConDatos:java.util.ArrayList = new java.util.ArrayList();
+camposConDatos.add(getComponent("interesPunitorioDeudoresMasivo").getValue());
+camposConDatos.add(getComponent("fechaPrimerVtoMasivo").getValue());
+camposConDatos.add(getComponent("recargoSegundoVencimientoMasivo").getValue());
+camposConDatos.add(getComponent("fechaSegundoVtoMasivo").getValue());
+ 
+var msgValidacion:java.util.ArrayList = edificioBean.strValidacionAplicarTodoMasivo(camposConDatos);
+if(msgValidacion.isEmpty()){
+	viewScope.MessageType="S";
+	viewScope.MessageText = [];
+	viewScope.MessageText.push(["Se aplicaron los cambios solicitados."]);
+	viewScope.MessageText.push(["Para guardar estos cambios presione 'Confirmar cambios'"]);
+	if(getComponent("interesPunitorioDeudoresMasivo").getValue() != null) getComponent("interesPunitorioDeudoresMasivo").setValue('');	
+	if(getComponent("fechaPrimerVtoMasivo").getValue() != null) getComponent("fechaPrimerVtoMasivo").setValue('');	
+	if(getComponent("recargoSegundoVencimientoMasivo").getValue() != null) getComponent("recargoSegundoVencimientoMasivo").setValue('');	
+	if(getComponent("fechaSegundoVtoMasivo").getValue() != null) getComponent("fechaSegundoVtoMasivo").setValue('');	
+}else{
+	viewScope.MessageType="W";
+	viewScope.MessageText = [];
+	for (i=0 ; i<msgValidacion.size() ; i++) {
+		viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
+	}
+	if(getComponent("interesPunitorioDeudoresMasivo").getValue() != null) getComponent("interesPunitorioDeudoresMasivo").setValue('');	
+	if(getComponent("fechaPrimerVtoMasivo").getValue() != null) getComponent("fechaPrimerVtoMasivo").setValue('');	
+	if(getComponent("recargoSegundoVencimientoMasivo").getValue() != null) getComponent("recargoSegundoVencimientoMasivo").setValue('');	
+	if(getComponent("fechaSegundoVtoMasivo").getValue() != null) getComponent("fechaSegundoVtoMasivo").setValue('');	
+	view.postScript("window.scrollTo(0,0)")
+}}]]></xp:this.action>
+						</xp:eventHandler>
+					</xp:button>
+					
+					<xp:button value="btnAplicarFechaSegundoVtoMasivo" id="btnAplicarFechaSegundoVtoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaSegundoVtoMasivo");}]]></xp:this.action>

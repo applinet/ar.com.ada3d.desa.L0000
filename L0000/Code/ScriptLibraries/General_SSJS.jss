@@ -734,6 +734,7 @@ function clearMap( map:Map ){
 }
 
 function btnAplicarMasivo(strKey:String){
+	
 	if(getComponent(strKey).getValue() == null){
 		viewScope.MessageType="E";
 		viewScope.MessageText="Debe ingresar un valor";

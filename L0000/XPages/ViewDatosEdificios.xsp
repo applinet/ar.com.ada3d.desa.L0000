@@ -59,7 +59,7 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 						</xp:link>
 					</xp:column>
 
-					<xp:column id="edf_codigoVisualColumn">
+					<xp:column id="edf_codigoVisualColumn" style="text-align:center">
 						<xp:this.facets>
 							<xp:label value="Codigo Reemplazo"
 								id="label3" xp:key="header" style="font-weight:bold">
@@ -69,7 +69,7 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 							value="#{unEdificio.edf_codigoVisual}" id="edf_codigoVisual">
 						</xp:text>
 					</xp:column>
-					<xp:column id="edf_fechaProximaLiquidacionColumn">
+					<xp:column id="edf_fechaProximaLiquidacionColumn" style="text-align:center">
 						<xp:this.facets>
 							<xp:label value="Próxima Liquidación"
 								id="label4" xp:key="header" style="font-weight:bold">
@@ -81,21 +81,21 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 						</xp:text>
 					</xp:column>
 
-					<xp:column
-						id="edf_importeInteresPunitorioDeudoresColumn">
+					<xp:column style="text-align:center"
+						id="edf_interesPunitorioDeudoresColumn">
 						<xp:this.facets>
 							<xp:label value="Interés Punitorio"
 								id="label5" xp:key="header" style="font-weight:bold">
 							</xp:label>
 						</xp:this.facets>
 						<xp:text escape="true"
-							value="#{unEdificio.edf_importeInteresPunitorioDeudores}"
-							id="edf_importeInteresPunitorioDeudores">
+							value="#{unEdificio.edf_interesPunitorioDeudores}"
+							id="edf_interesPunitorioDeudores">
 						</xp:text>
 						<xp:label value="%" id="Signo1"></xp:label>
 					</xp:column>
 
-					<xp:column
+					<xp:column style="text-align:center"
 						id="edf_fechaPrimerVencimientoRecibosColumn">
 						<xp:this.facets>
 							<xp:label value="1er Vto" id="label6"
@@ -108,20 +108,20 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 
 						</xp:text>
 					</xp:column>
-					<xp:column
-						id="edf_importeRecargoSegundoVencimientoColumn">
+					<xp:column style="text-align:center"
+						id="edf_interesRecargoSegundoVencimientoColumn">
 						<xp:this.facets>
-							<xp:label value="Interés 2do Vto"
+							<xp:label value="Recargo 2do Vto"
 								id="label7" xp:key="header" style="font-weight:bold">
 							</xp:label>
 						</xp:this.facets>
 						<xp:text escape="true"
-							value="#{unEdificio.edf_importeRecargoSegundoVencimiento}"
-							id="edf_importeRecargoSegundoVencimiento">
+							value="#{unEdificio.edf_interesRecargoSegundoVencimiento}"
+							id="edf_interesRecargoSegundoVencimiento">
 						</xp:text>
 						<xp:label value="%" id="Signo2"></xp:label>
 					</xp:column>
-					<xp:column
+					<xp:column style="text-align:center"
 						id="edf_fechaSegundoVencimientoRecibosColumn">
 						<xp:this.facets>
 							<xp:label value="2do Vto" id="label8"

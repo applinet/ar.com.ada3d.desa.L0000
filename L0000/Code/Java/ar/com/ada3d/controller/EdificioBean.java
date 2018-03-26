@@ -143,10 +143,7 @@ public class EdificioBean implements Serializable {
 	 */
 	private void AddEdificiosAs400() {
 		DocUsr docUsuario = (DocUsr) JSFUtil.resolveVariable("DocUsr");
-		
-		//Para convertir a Array de un Vector<Object>
 		ArrayList<String> tempEdificiosSinAcceso = docUsuario.getEdificiosNoAccessLista();		
-		
 		if (!(listaEdificios == null)){
 			listaEdificios.clear();
 			listaEdificiosTrabajo.clear();
@@ -169,7 +166,6 @@ public class EdificioBean implements Serializable {
 			if (listaEdificiosTrabajo == null) {
 				listaEdificiosTrabajo = new ArrayList<Edificio>();
 			}
-					
 			myEdificio = actualizoUnEdificioAs400( myEdificio, strLinea);
 			
 			listaEdificios.add(myEdificio);
@@ -233,6 +229,7 @@ public class EdificioBean implements Serializable {
 				strValorCuotaFija = strLinea.split("\\|")[posicionCuotaFija].trim();
 
 				//Defino el tipo individual de prorrateo, pero si el valor es 0 es gasto
+				
 				if (strValorCuotaFija.equals("0")){
 					myProrrateo.setPrt_tipo("G");
 				}else if (strTipo.equals("P")){
@@ -244,7 +241,6 @@ public class EdificioBean implements Serializable {
 				}else{
 					myProrrateo.setPrt_tipo("G");
 				}
-				
 				listaProrrateosEdificio.add(myProrrateo);
 			}
 		}
@@ -433,7 +429,6 @@ public class EdificioBean implements Serializable {
 		}else{
 			strTempTipo = "G";	
 		}	
-	    
 		myEdificio.setListaProrrateos(cargaProrrateoEdificio(strLinea, strTempTipo));
 		//Creo el combo de fecha prorrateo si es cuota fija
 		if(strTipo.equals("") || strTipo.equals("N")){ //blanco puede ser por gastos
@@ -464,12 +459,13 @@ public class EdificioBean implements Serializable {
 			}
 		}
 		
-		
-		myEdificio.setEdf_importeInteresPunitorioDeudores( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[15].trim(), Locale.US, 1)));
-		myEdificio.setEdf_importeRecargoSegundoVencimiento( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[16].trim(), Locale.UK, 1)));
-				
-		myEdificio.setEdf_fechaPrimerVencimientoRecibos(ar.com.ada3d.utilidades.Conversores.StringToDate("ddMMyy", strLinea.split("\\|")[17].trim()));
-		myEdificio.setEdf_fechaSegundoVencimientoRecibos(ar.com.ada3d.utilidades.Conversores.StringToDate("ddMMyy", strLinea.split("\\|")[18].trim()));
+		myEdificio.setEdf_interesPunitorioDeudores( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[15].trim(), Locale.US, 1)));
+		myEdificio.setEdf_interesRecargoSegundoVencimiento( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[16].trim(), Locale.UK, 1)));
+
+		if(!strLinea.split("\\|")[17].trim().equals("0")) //la fecha si es nula viene un cero
+			myEdificio.setEdf_fechaPrimerVencimientoRecibos(ar.com.ada3d.utilidades.Conversores.StringToDate("ddMMyy", strLinea.split("\\|")[17].trim()));
+		if(!strLinea.split("\\|")[18].trim().equals("0")) //la fecha si es nula viene un cero
+			myEdificio.setEdf_fechaSegundoVencimientoRecibos(ar.com.ada3d.utilidades.Conversores.StringToDate("ddMMyy", strLinea.split("\\|")[18].trim()));
 		
 		myEdificio.setEdf_modalidadInteresesPunitorios(strLinea.split("\\|")[19].trim());
 		myEdificio.setEdf_cuit(strLinea.split("\\|")[20].trim());
@@ -520,10 +516,14 @@ public class EdificioBean implements Serializable {
 		docDummy.appendItemValue("CTFJ2", "0");
 		docDummy.appendItemValue("CTFJ3", "0");
 		docDummy.appendItemValue("CTFJ4", "0");
-		docDummy.appendItemValue("E12", ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(prm_edificio.getEdf_importeInteresPunitorioDeudores(),1));
-		docDummy.appendItemValue("E08A", ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(prm_edificio.getEdf_importeRecargoSegundoVencimiento(),1));
+		docDummy.appendItemValue("E12", ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(prm_edificio.getEdf_interesPunitorioDeudores(),1));
+		docDummy.appendItemValue("E08A", ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(prm_edificio.getEdf_interesRecargoSegundoVencimiento(),1));
 		docDummy.appendItemValue("VTOEX1", ar.com.ada3d.utilidades.Conversores.DateToString(prm_edificio.getEdf_fechaPrimerVencimientoRecibos(), "ddMMyy"));
-		docDummy.appendItemValue("VTOEX2", ar.com.ada3d.utilidades.Conversores.DateToString(prm_edificio.getEdf_fechaSegundoVencimientoRecibos(), "ddMMyy"));
+		if(prm_edificio.getEdf_fechaSegundoVencimientoRecibos() == null){
+			docDummy.appendItemValue("VTOEX2", "0");
+		}else{
+			docDummy.appendItemValue("VTOEX2", ar.com.ada3d.utilidades.Conversores.DateToString(prm_edificio.getEdf_fechaSegundoVencimientoRecibos(), "ddMMyy"));
+		}
 		
 		
 		//Recorro los prorrateos para cargar Cuota Fija o Presupuesto
@@ -533,7 +533,12 @@ public class EdificioBean implements Serializable {
 			}
 		}
 		//Estado blanco de AS400 yo lo tengo como B. Se reemplaza
-		docDummy.appendItemValue("ESTADO2", prm_edificio.getEdf_cuotaFijaDia().equals("B")? "" : prm_edificio.getEdf_cuotaFijaDia());
+		if(prm_edificio.getEdf_cuotaFijaDia() == null){
+			docDummy.appendItemValue("ESTADO2", "");
+		}else{	
+			docDummy.appendItemValue("ESTADO2", prm_edificio.getEdf_cuotaFijaDia().equals("B")  ? "" : prm_edificio.getEdf_cuotaFijaDia());
+			
+		}
 		docDummy.appendItemValue("E13A", prm_edificio.getEdf_modalidadInteresesPunitorios());
 		
 		for (Porcentual myPorcentual : prm_edificio.getListaPorcentuales()){
@@ -607,7 +612,6 @@ public class EdificioBean implements Serializable {
 		}
 		//FIN - Codigo Visual(reemplazo)
 
-		
 		//La direccion + localidad max. 27 long.
 		strTemp = prm_edificio.getEdf_direccion() + "-" + prm_edificio.getEdf_localidad();
 		if(strTemp.length() > 27){
@@ -620,50 +624,117 @@ public class EdificioBean implements Serializable {
 		for(Prorrateo myProrrateo : prm_edificio.getListaProrrateos()){
 			tempArrayCuotaFijaDia.add(myProrrateo.getPrt_tipo());
 		}
-		String tempCuotaFijaDia = prm_edificio.getEdf_cuotaFijaDia();
-		if(tempCuotaFijaDia.equals("P")){//Chequeo si cambio realmente a P
-			if(tempArrayCuotaFijaDia.contains("C") || tempArrayCuotaFijaDia.contains("B")){
-				listAcumulaErrores.add("prt_tipo~No puede seleccionar PRESUPUESTO si existe una CUOTA FIJA.");
-			}
-		}else if(tempCuotaFijaDia.equals("C") || tempCuotaFijaDia.equals("B")){//Chequeo si cambio realmente a C
-			if(tempArrayCuotaFijaDia.contains("P")){
-				listAcumulaErrores.add("prt_tipo~No puede seleccionar CUOTA FIJA si existe un PRESUPUESTO .");
-			}
-		}
-		
-		//El título de cada valor a prorratear max. 11 long. 
-		
-		
-		//Fecha primer y segundo vencimiento
-		if(prm_edificio.getEdf_importeInteresPunitorioDeudores().compareTo(BigDecimal.ZERO) > 0){
-			Calendar calMin = Calendar.getInstance();
-			calMin.setTime(prm_edificio.getEdf_fechaProximaLiquidacion());
-			calMin.add(Calendar.DATE, 1);
-			
-			Calendar calNew = Calendar.getInstance();
-			calNew.setTime(prm_edificio.getEdf_fechaPrimerVencimientoRecibos());
-			
-			if (calNew.before(calMin)) {
-				listAcumulaErrores.add("edf_fechaPrimerVencimientoRecibos~La fecha de primer vto. no puede ser menor a " + ar.com.ada3d.utilidades.Conversores.DateToString(calMin.getTime(), "dd/MM/yyyy" ));
-			}
-			
-			if(prm_edificio.getEdf_importeRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0){
-				calMin.setTime(prm_edificio.getEdf_fechaPrimerVencimientoRecibos());
-				calMin.add(Calendar.DATE, 1);
-				calNew.setTime(prm_edificio.getEdf_fechaSegundoVencimientoRecibos());
-				if (calNew.before(calMin)) {
-					listAcumulaErrores.add("edf_fechaSegundoVencimientoRecibos~La fecha de 2° vto. debe ser mayor al 1° vto ");
+		if(prm_edificio.getEdf_cuotaFijaDia() != null){
+			String tempCuotaFijaDia = prm_edificio.getEdf_cuotaFijaDia();
+			if(tempCuotaFijaDia.equals("P")){//Chequeo si cambio realmente a P
+				if(tempArrayCuotaFijaDia.contains("C") || tempArrayCuotaFijaDia.contains("B")){
+					listAcumulaErrores.add("prt_tipo~No puede seleccionar PRESUPUESTO si existe una CUOTA FIJA.");
 				}
-			}
-			
-			
+			}else if(tempCuotaFijaDia.equals("C") || tempCuotaFijaDia.equals("B")){//Chequeo si cambio realmente a C
+				if(tempArrayCuotaFijaDia.contains("P")){
+					listAcumulaErrores.add("prt_tipo~No puede seleccionar CUOTA FIJA si existe un PRESUPUESTO .");
+				}
+			}			
 		}
 		
+		//El título de cada valor a prorratear max. 11 long.
 		
+		//valido fecha 1er vto, si devuelve un string es que existe un error
+		String tempAcumulaErrores = strAcumulaErroresFechaPrimer(prm_edificio);
+		if (!tempAcumulaErrores.equals("")){
+			listAcumulaErrores.add(tempAcumulaErrores);
+		}
+
+		//valido fecha 1er vto, si devuelve un string es que existe un error
+		tempAcumulaErrores = strAcumulaErroresFechaSegundo(prm_edificio);
+		if (!tempAcumulaErrores.equals("")){
+			listAcumulaErrores.add(tempAcumulaErrores);
+		}
+
 		return listAcumulaErrores;
 		
 	}
 
+	
+	/**
+	 * Validacion fecha 1° vto, tambien aplica a masivos
+	 * @return: un texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 */
+	private String strAcumulaErroresFechaPrimer(Edificio prm_edificio){
+		String strAcumulaErrores = "";
+		if (prm_edificio.getEdf_interesPunitorioDeudores() == null)
+			prm_edificio.setEdf_interesPunitorioDeudores(new BigDecimal(0));
+		//Defino fechas de ayuda
+		Calendar calProxLiquidacionMasUno = Calendar.getInstance();
+		calProxLiquidacionMasUno.setTime(prm_edificio.getEdf_fechaProximaLiquidacion());
+		calProxLiquidacionMasUno.add(Calendar.DATE, 1);
+		Calendar calPrimerVto = Calendar.getInstance();
+		
+		//ACA
+		//La fecha 1er vto no debe nunca estar null y la comparo con prox liquidacion
+		if(prm_edificio.getEdf_fechaPrimerVencimientoRecibos() != null){
+			calPrimerVto.setTime(prm_edificio.getEdf_fechaPrimerVencimientoRecibos());
+			if (calPrimerVto.before(calProxLiquidacionMasUno)) {
+				strAcumulaErrores = "edf_fechaPrimerVencimientoRecibos~" + prm_edificio.getEdf_codigo() + ". La fecha de primer vto. no puede ser menor a " + ar.com.ada3d.utilidades.Conversores.DateToString(calProxLiquidacionMasUno.getTime(), "dd/MM/yyyy" );
+			}else if(prm_edificio.getEdf_fechaSegundoVencimientoRecibos() != null){
+				Calendar calSegundoVto = Calendar.getInstance();
+				calSegundoVto.setTime(prm_edificio.getEdf_fechaSegundoVencimientoRecibos());
+				if(calPrimerVto.after(calSegundoVto)){
+					strAcumulaErrores = "edf_fechaPrimerVencimientoRecibos~" + prm_edificio.getEdf_codigo() + ". La fecha de segundo vto. no permite modificar la fecha de primer vto.";
+				}
+			}
+		}else{
+			strAcumulaErrores = "edf_fechaPrimerVencimientoRecibos~La fecha de primer vto. es un campo obligatorio.";
+		}
+		
+		
+		
+		
+		
+		
+		return strAcumulaErrores;
+	}
+	
+	
+	/**
+	 * Validacion fecha 2° vto, tambien aplica a masivos
+	 * @return: un texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 */
+	private String strAcumulaErroresFechaSegundo(Edificio prm_edificio){
+		String strAcumulaErrores = "";
+		if (prm_edificio.getEdf_interesRecargoSegundoVencimiento() == null)
+			prm_edificio.setEdf_interesRecargoSegundoVencimiento(new BigDecimal(0));
+		//Si la fecha de segundo vto viene debe ser mayor que 1er vto
+		if(prm_edificio.getEdf_fechaSegundoVencimientoRecibos() != null){
+			if(prm_edificio.getEdf_fechaPrimerVencimientoRecibos() != null){
+				Calendar calPrimerVto = Calendar.getInstance();
+				calPrimerVto.setTime(prm_edificio.getEdf_fechaPrimerVencimientoRecibos());
+				Calendar calSegundoVto = Calendar.getInstance();
+				calSegundoVto.setTime(prm_edificio.getEdf_fechaSegundoVencimientoRecibos());
+				calSegundoVto.set(Calendar.HOUR_OF_DAY, 0);
+				calSegundoVto.set(Calendar.MINUTE, 0);
+				calSegundoVto.set(Calendar.SECOND, 0);
+				calSegundoVto.set(Calendar.MILLISECOND, 0);
+				
+				
+				if (calSegundoVto.before(calPrimerVto) || calSegundoVto.equals(calPrimerVto)){ 
+					strAcumulaErrores = "edf_fechaSegundoVencimientoRecibos~" + prm_edificio.getEdf_codigo() + ". La fecha de 2° vto. debe ser mayor al 1° vto ";
+				}else if (calPrimerVto.after(calSegundoVto) || calPrimerVto.equals(calSegundoVto)){ 
+					strAcumulaErrores = "edf_fechaSegundoVencimientoRecibos~" + prm_edificio.getEdf_codigo() + ". La fecha de 1° vto. no puede ser mayor al 2° vto ";
+				}
+			}
+			if(prm_edificio.getEdf_interesRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) == 0)//El interes es cero y tengo fecha 2| vto
+				prm_edificio.setEdf_fechaSegundoVencimientoRecibos(null);	
+			
+			
+		}else{ //No hay fecha 2do vto, no debe existir recargo 2do
+			if(prm_edificio.getEdf_interesRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0){
+				strAcumulaErrores = "edf_fechaSegundoVencimientoRecibos~" + prm_edificio.getEdf_codigo() + ". Si agrega un porcentaje en 2° vto. debe agregar tambien una fecha de 2° vto ";
+			}
+		}
+		return strAcumulaErrores;
+	}
+	
 	
 	/**
 	 * Validación cuando se modifica de forma masiva los edificios. 
@@ -697,16 +768,27 @@ public class EdificioBean implements Serializable {
 				//Valido que no este lockeado
 				
 				if( (lock.isLocked("edf_" + myEdificio.getEdf_codigo()) && lock.getLock("edf_" + myEdificio.getEdf_codigo()).equals(strUsuario) ) || !lock.isLocked("edf_" + myEdificio.getEdf_codigo())  ){
-					if (prm_campo.equals("importeInteresPunitorioDeudoresMasivo")){
-						myEdificio.setEdf_importeInteresPunitorioDeudores(valor);
+					if (prm_campo.equals("interesPunitorioDeudoresMasivo")){
+						myEdificio.setEdf_interesPunitorioDeudores(valor);
 						myEdificio.setEdf_importeMasivoE12(valor);
+						lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+						isMasivoActualizado = true;
 					}
+					BigDecimal tempValor = myEdificio.getEdf_interesRecargoSegundoVencimiento();
 					if (prm_campo.equals("recargoSegundoVencimientoMasivo")){
-						myEdificio.setEdf_importeRecargoSegundoVencimiento(valor);
-						myEdificio.setEdf_importeMasivoE08A(valor);
+						myEdificio.setEdf_interesRecargoSegundoVencimiento(valor);
+						if (strAcumulaErroresFechaSegundo(myEdificio).equals("")){
+							myEdificio.setEdf_importeMasivoE08A(valor);
+							lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+							isMasivoActualizado = true;
+							if(valor.compareTo(BigDecimal.ZERO) == 0) //elimino la fecha 2° vto
+								myEdificio.setEdf_fechaSegundoVencimientoRecibos(null);
+							
+						}else{
+							listAcumulaErrores.add(strAcumulaErroresFechaSegundo(myEdificio));
+							myEdificio.setEdf_interesRecargoSegundoVencimiento(tempValor);
+						}
 					}
-					lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
-					isMasivoActualizado = true;
 						
 				}else{
 					listAcumulaErrores.add(prm_campo + "~El edificio " + myEdificio.getEdf_codigo() + " no se pudo actualizar ya que está siendo modificado por: " + lock.getLock("edf_" + myEdificio.getEdf_codigo()).substring(4) );
@@ -724,16 +806,13 @@ public class EdificioBean implements Serializable {
 				if( (lock.isLocked("edf_" + myEdificio.getEdf_codigo()) && lock.getLock("edf_" + myEdificio.getEdf_codigo()).equals(strUsuario) ) || !lock.isLocked("edf_" + myEdificio.getEdf_codigo())  ){
 
 					//Voy a validar las fechas ingresadas en cada edificio
-
-					Calendar calMin = Calendar.getInstance();
-					calMin.setTime(myEdificio.getEdf_fechaProximaLiquidacion());
-					calMin.add(Calendar.DATE, 1);
-					Calendar calMax = Calendar.getInstance();
-					calMax.setTime(myEdificio.getEdf_fechaSegundoVencimientoRecibos());
+					//Defino fechas de ayuda
+					Calendar calProxLiquidacionMasUno = Calendar.getInstance();
+					calProxLiquidacionMasUno.setTime(myEdificio.getEdf_fechaProximaLiquidacion());
+					calProxLiquidacionMasUno.add(Calendar.DATE, 1);
 					
-					//1° Vto
-					if(myEdificio.getEdf_importeInteresPunitorioDeudores().compareTo(BigDecimal.ZERO) > 0 && prm_campo.equals("fechaPrimerVtoMasivo")){
-						
+					//La fecha 1er vto no debe nunca estar null y la comparo con prox liquidacion
+					if(myEdificio.getEdf_fechaPrimerVencimientoRecibos() != null && prm_campo.equals("fechaPrimerVtoMasivo")){
 						Calendar calNew = Calendar.getInstance();
 						calNew.setTime((Date) prm_valor);
 						calNew.set(Calendar.HOUR_OF_DAY, 0);
@@ -741,12 +820,43 @@ public class EdificioBean implements Serializable {
 						calNew.set(Calendar.SECOND, 0);
 						calNew.set(Calendar.MILLISECOND, 0);
 						
-						if(myEdificio.getEdf_codigo().equals("VE$")){
-							System.out.println("calNew:" + ar.com.ada3d.utilidades.Conversores.DateToString(calNew.getTime(), "dd/MM/yyyy") );
-							System.out.println("calMax:" + ar.com.ada3d.utilidades.Conversores.DateToString(calMax.getTime(), "dd/MM/yyyy") );
-							System.out.println("is after" + calNew.after(calMax));
+						if (calNew.before(calProxLiquidacionMasUno)) {
+							arrAcumulaErrorCodigoEdificio.add(myEdificio.getEdf_codigo());
+						}else if(myEdificio.getEdf_fechaSegundoVencimientoRecibos() != null){
+							Calendar calSegundoVto = Calendar.getInstance();
+							calSegundoVto.setTime(myEdificio.getEdf_fechaSegundoVencimientoRecibos());
+							if(calNew.after(calSegundoVto)){
+								arrAcumulaErrorCodigoEdificio.add(myEdificio.getEdf_codigo());
+							}
 						}
-						if (calNew.before(calMin) || calNew.equals(calMin) || calNew.equals(calMax) || (calNew.after(calMax) && myEdificio.getEdf_importeRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0)) {
+						
+					}	
+						
+					
+					
+					
+					
+					
+				
+					
+					//1° Vto
+					if(prm_campo.equals("fechaPrimerVtoMasivo")){
+						Date oldFecha1erVto = myEdificio.getEdf_fechaPrimerVencimientoRecibos();
+						myEdificio.setEdf_fechaPrimerVencimientoRecibos((Date) prm_valor);
+						//valido fecha 1er vto, si devuelve un string es que existe un error
+						String tempAcumulaErrores = strAcumulaErroresFechaPrimer(myEdificio);
+						if (tempAcumulaErrores.equals("")){
+							myEdificio.setEdf_fechaMasivoVTOEX1((Date) prm_valor);
+							lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+							countEdificiosModificados = countEdificiosModificados + 1;
+							isMasivoActualizado = true;
+						}else{
+							myEdificio.setEdf_fechaPrimerVencimientoRecibos(oldFecha1erVto);
+							arrAcumulaErrorCodigoEdificio.add(myEdificio.getEdf_codigo());
+						}
+						
+						/*
+						if (calNew.before(calProxLiquidacionMasUno) || calNew.equals(calSegundoVto) || (calNew.after(calSegundoVto) && myEdificio.getEdf_interesRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0)) {
 							arrAcumulaErrorCodigoEdificio.add(myEdificio.getEdf_codigo());
 							//listAcumulaErrores.add(prm_campo + "~Edificio " + myEdificio.getEdf_codigo() + " la fecha de primer vto. no puede ser menor a " + ar.com.ada3d.utilidades.Conversores.DateToString(calMin.getTime(), "dd/MM/yyyy" ));
 						}else{
@@ -755,14 +865,12 @@ public class EdificioBean implements Serializable {
 							lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
 							countEdificiosModificados = countEdificiosModificados + 1;
 							isMasivoActualizado = true;
-						}
-					}else if(myEdificio.getEdf_importeInteresPunitorioDeudores().compareTo(BigDecimal.ZERO) == 0 && prm_campo.equals("fechaPrimerVtoMasivo")){
-						listAcumulaErrores.add(prm_campo + "~El % de interés del edificio " + myEdificio.getEdf_codigo() + " es cero. No se modificó la fecha indicada(" + tempFecha + ")." );
+						}*/
 					}
 					
 					//2° Vto
-					if(myEdificio.getEdf_importeRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0 && prm_campo.equals("fechaSegundoVtoMasivo")){
-						calMin.setTime(myEdificio.getEdf_fechaPrimerVencimientoRecibos());
+					if(myEdificio.getEdf_interesRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) > 0 && prm_campo.equals("fechaSegundoVtoMasivo")){
+						calProxLiquidacionMasUno.setTime(myEdificio.getEdf_fechaPrimerVencimientoRecibos());
 						Calendar calNew = Calendar.getInstance();
 						calNew.setTime((Date) prm_valor);
 						calNew.set(Calendar.HOUR_OF_DAY, 0);
@@ -770,7 +878,7 @@ public class EdificioBean implements Serializable {
 						calNew.set(Calendar.SECOND, 0);
 						calNew.set(Calendar.MILLISECOND, 0);
 						
-						if (calNew.before(calMin) || calNew.equals(calMin)) {
+						if (calNew.before(calProxLiquidacionMasUno) || calNew.equals(calProxLiquidacionMasUno)) {
 							arrAcumulaErrorCodigoEdificio.add(myEdificio.getEdf_codigo());
 							//listAcumulaErrores.add(prm_campo + "~Edificio " + myEdificio.getEdf_codigo() + " la fecha de 2° vto. debe ser mayor al 1° vto ");
 						}else{
@@ -780,7 +888,7 @@ public class EdificioBean implements Serializable {
 							countEdificiosModificados = countEdificiosModificados + 1;
 							isMasivoActualizado = true;
 						}
-					}else if(myEdificio.getEdf_importeRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) == 0 && prm_campo.equals("fechaSegundoVtoMasivo")){
+					}else if(myEdificio.getEdf_interesRecargoSegundoVencimiento().compareTo(BigDecimal.ZERO) == 0 && prm_campo.equals("fechaSegundoVtoMasivo")){
 						listAcumulaErrores.add(prm_campo + "~El % de interés del edificio " + myEdificio.getEdf_codigo() + " es cero. No se modificó la fecha indicada(" + tempFecha + ")." );
 					}
 					
@@ -802,6 +910,169 @@ public class EdificioBean implements Serializable {
 		
 		return listAcumulaErrores;
 	}
+	
+	
+	
+	/**
+	 * Validacion con varios campos completos en pantalla
+	 * Se duplica la validacion ya que si lo hago por edificio tarda una eternidad
+	 * @param los campos que se completaron en pantalla, sino el lugar viene null
+	 * @return un array de texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 */
+	public ArrayList<String> strValidacionAplicarTodoMasivo(ArrayList<Object> prm_campos){
+		ArrayList<String> listAcumulaErrores = new ArrayList<String>(); // return
+		
+		//Chequeo que venga algun dato, si vienen todos nulos error
+		boolean booContinuar = false;
+		for (Object tempObj : prm_campos){
+			if(tempObj != null)
+				booContinuar = true;
+		}
+		if(!booContinuar){
+			listAcumulaErrores.add("interesPunitorioDeudoresMasivo~No se ha ingresado ningún dato por aplicar");
+			return listAcumulaErrores;
+		}
+		
+		
+		DocLock lock = (DocLock) JSFUtil.resolveVariable("DocLock");
+		String strUsuario = JSFUtil.getSession().getEffectiveUserName();
+		
+		//Inicializo variables temporales para los 4 Campos 
+		BigDecimal tempNewInteresPunitorio = null;
+		Date tempNewFecha1erVto = null;
+		BigDecimal tempNewRecargoSegundoVencimiento = null;
+		Date tempNewFecha2doVto = null;
+		
+		//Inicializo variables temporales que guardo el valor original
+		Date oldFecha1erVto = null;
+		BigDecimal oldRecargoSegundoVencimiento = null;
+		Date oldFecha2doVto = null;
+		
+		for(int i=0; i<4; i++){
+			Object obj = prm_campos.get(i);
+			if (obj != null){
+				switch (i) {
+				case 0:
+					tempNewInteresPunitorio = new BigDecimal(obj.toString());
+					break;
+				case 1:
+					tempNewFecha1erVto = (Date) obj;
+					break;
+				case 2:
+					tempNewRecargoSegundoVencimiento = new BigDecimal(obj.toString());
+					break;
+				case 3:
+					tempNewFecha2doVto = (Date) obj;
+					break;
+				}
+			}
+		}
+				
+		
+		for(Edificio myEdificio : listaEdificiosTrabajo){
+			//Valido que no esté lockeado
+			if( (lock.isLocked("edf_" + myEdificio.getEdf_codigo()) && lock.getLock("edf_" + myEdificio.getEdf_codigo()).equals(strUsuario) ) || !lock.isLocked("edf_" + myEdificio.getEdf_codigo())  ){
+				
+				//Intereses punitorios
+				if(tempNewInteresPunitorio != null){
+					myEdificio.setEdf_interesPunitorioDeudores(tempNewInteresPunitorio);
+					myEdificio.setEdf_importeMasivoE12(tempNewInteresPunitorio);
+					lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+					isMasivoActualizado = true;
+				}
+				
+				//Fecha 1er vto
+				if(tempNewFecha1erVto != null){
+					oldFecha1erVto = myEdificio.getEdf_fechaPrimerVencimientoRecibos();
+					myEdificio.setEdf_fechaPrimerVencimientoRecibos(tempNewFecha1erVto);
+					
+					//valido fecha 1er vto, si devuelve un string es que existe un error
+					String tempAcumulaErrores = strAcumulaErroresFechaPrimer(myEdificio);
+					if (tempAcumulaErrores.equals("")){
+						myEdificio.setEdf_fechaMasivoVTOEX1(tempNewFecha1erVto);
+						lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+						isMasivoActualizado = true;
+					}else{
+						myEdificio.setEdf_fechaPrimerVencimientoRecibos(oldFecha1erVto);
+						listAcumulaErrores.add(tempAcumulaErrores);
+					}
+				}
+				
+				//Recargo 2do Vto
+				if(tempNewRecargoSegundoVencimiento != null){
+					oldRecargoSegundoVencimiento = myEdificio.getEdf_interesRecargoSegundoVencimiento();
+					myEdificio.setEdf_interesRecargoSegundoVencimiento(tempNewRecargoSegundoVencimiento);
+					
+					if(tempNewFecha2doVto != null){ // Tengo que anticipar la fecha porque van juntos
+						oldFecha2doVto = myEdificio.getEdf_fechaSegundoVencimientoRecibos();
+						myEdificio.setEdf_fechaSegundoVencimientoRecibos(tempNewFecha2doVto);
+					}
+					
+					//valido fecha 2do vto, ya que tambien valida el recargo, devuelve un string es que existe un error
+					String tempAcumulaErrores = strAcumulaErroresFechaSegundo(myEdificio);
+					if (tempAcumulaErrores.equals("")){
+						myEdificio.setEdf_importeMasivoE08A(tempNewRecargoSegundoVencimiento);
+						myEdificio.setEdf_fechaMasivoVTOEX2(tempNewFecha2doVto);
+						lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+						isMasivoActualizado = true;
+					}else{
+						myEdificio.setEdf_interesRecargoSegundoVencimiento(oldRecargoSegundoVencimiento);
+						myEdificio.setEdf_fechaSegundoVencimientoRecibos(oldFecha2doVto);
+						listAcumulaErrores.add(tempAcumulaErrores);
+					}
+					
+				}
+				
+				//Fecha 2do vto
+				if(tempNewFecha2doVto != null){
+					oldFecha2doVto = myEdificio.getEdf_fechaSegundoVencimientoRecibos();
+					myEdificio.setEdf_fechaSegundoVencimientoRecibos(tempNewFecha2doVto);
+
+					//valido fecha 2do vto, si devuelve un string es que existe un error
+					String tempAcumulaErrores = strAcumulaErroresFechaSegundo(myEdificio);
+					if (tempAcumulaErrores.equals("")){
+						myEdificio.setEdf_fechaMasivoVTOEX2(tempNewFecha2doVto);
+						lockearEdificio(myEdificio, JSFUtil.getSession().getEffectiveUserName());//lock de los que estoy modificando
+						isMasivoActualizado = true;
+					}else{
+						myEdificio.setEdf_fechaSegundoVencimientoRecibos(oldFecha2doVto);
+						listAcumulaErrores.add(tempAcumulaErrores);
+					}
+				}
+			}else{
+				listAcumulaErrores.add("~El edificio " + myEdificio.getEdf_codigo() + " no se pudo actualizar ya que está siendo modificado por: " + lock.getLock("edf_" + myEdificio.getEdf_codigo()).substring(4) );	
+			}
+		}
+		return listAcumulaErrores;
+	}
+	
+	
+	/**
+	 * Se pasa a null la fecha y el interés de 2° vto a cero. 
+	 * @usedIn: Boton btnEliminarRecargoSegundoVencimientoMasivo en el formulario de Modificacion Automática
+	 * @return: un texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 */
+	public ArrayList<String> eliminarInteresFechasSegundoVto(String prm_campo){
+		ArrayList<String> listAcumulaErrores = new ArrayList<String>();
+		DocLock lock = (DocLock) JSFUtil.resolveVariable("DocLock");
+		String strUsuario = JSFUtil.getSession().getEffectiveUserName();
+		for(Edificio myEdificio : listaEdificiosTrabajo){
+			if( (lock.isLocked("edf_" + myEdificio.getEdf_codigo()) && lock.getLock("edf_" + myEdificio.getEdf_codigo()).equals(strUsuario) ) || !lock.isLocked("edf_" + myEdificio.getEdf_codigo())  ){
+				myEdificio.setEdf_fechaSegundoVencimientoRecibos(null);
+				myEdificio.setEdf_interesRecargoSegundoVencimiento(new BigDecimal(0));
+				myEdificio.setEdf_importeMasivoE08A(new BigDecimal(0));
+				isMasivoActualizado = true;
+			}else{
+				listAcumulaErrores.add(prm_campo + "~El edificio " + myEdificio.getEdf_codigo() + " no se pudo actualizar ya que está siendo modificado por: " + lock.getLock("edf_" + myEdificio.getEdf_codigo()).substring(4) );
+				
+			}
+		}
+		return listAcumulaErrores;
+		
+	}
+	
+	
+	
 	
 	/**
 	 * Escribe en AS400 los datos modificados masivamente
@@ -853,7 +1124,7 @@ public class EdificioBean implements Serializable {
 						else if (tempE08A.equals(ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myEdificio.getEdf_importeMasivoE08A(),1))){
 							listaEdificiosE08A.add(myEdificio.getEdf_codigo());						
 						}else{
-							listSQL.add("PH_E01~SET E08A = " + tempE12 + " WHERE EDIF IN (" + listaEdificiosE08A.toString().replace("[","").replace("]","") + ")");
+							listSQL.add("PH_E01~SET E08A = " + tempE08A + " WHERE EDIF IN (" + listaEdificiosE08A.toString().replace("[","").replace("]","") + ")");
 							tempE08A = ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myEdificio.getEdf_importeMasivoE08A(),1);
 							listaEdificiosE08A.clear();//reinicio valores
 							listaEdificiosE08A.add(myEdificio.getEdf_codigo());
@@ -903,7 +1174,7 @@ public class EdificioBean implements Serializable {
 				listSQL.add("PH_E01~SET E12 = " + tempE12 + " WHERE EDIF IN (" + listaEdificiosE12.toString().replace("[","").replace("]","") + ")");
 			}
 			if(!listaEdificiosE08A.isEmpty()){
-				listSQL.add("PH_E01~SET E08A = " + tempE12 + " WHERE EDIF IN (" + listaEdificiosE08A.toString().replace("[","").replace("]","") + ")");
+				listSQL.add("PH_E01~SET E08A = " + tempE08A + " WHERE EDIF IN (" + listaEdificiosE08A.toString().replace("[","").replace("]","") + ")");
 			}
 			if(!listaEdificiosVTOEX1.isEmpty()){
 				listSQL.add("PH_DIFED~SET VTOEX1 = " + tempVTOEX1 + " WHERE EDIF IN (" + listaEdificiosVTOEX1.toString().replace("[","").replace("]","") + ")");
@@ -987,6 +1258,10 @@ public class EdificioBean implements Serializable {
 
 	public int getCantidadTotalEdificiosTrabajo() {
 		return listaEdificiosTrabajo.size();
+	}
+
+	public boolean isMasivoActualizado() {
+		return isMasivoActualizado;
 	}
 
 }

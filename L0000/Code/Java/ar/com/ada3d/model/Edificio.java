@@ -33,8 +33,8 @@ public class Edificio implements Serializable{
 	private String edf_cuotaFijaDia;
 	private List<SelectItem> edf_cuotaFijaDiaOpcionesCombo;
 	private String edf_imprimeTitulosEnLiquidacion;
-	private BigDecimal edf_importeInteresPunitorioDeudores;
-	private BigDecimal edf_importeRecargoSegundoVencimiento;
+	private BigDecimal edf_interesPunitorioDeudores;
+	private BigDecimal edf_interesRecargoSegundoVencimiento;
 	private Date edf_fechaPrimerVencimientoRecibos;
 	private Date edf_fechaSegundoVencimientoRecibos;
 	private String edf_modalidadInteresesPunitorios;
@@ -161,19 +161,19 @@ public class Edificio implements Serializable{
 			String edf_imprimeTitulosEnLiquidacion) {
 		this.edf_imprimeTitulosEnLiquidacion = edf_imprimeTitulosEnLiquidacion;
 	}
-	public BigDecimal getEdf_importeInteresPunitorioDeudores() {
-		return edf_importeInteresPunitorioDeudores;
+	public BigDecimal getEdf_interesPunitorioDeudores() {
+		return edf_interesPunitorioDeudores;
 	}
-	public void setEdf_importeInteresPunitorioDeudores(
-			BigDecimal edf_importeInteresPunitorioDeudores) {
-		this.edf_importeInteresPunitorioDeudores = edf_importeInteresPunitorioDeudores;
+	public void setEdf_interesPunitorioDeudores(
+			BigDecimal edf_interesPunitorioDeudores) {
+		this.edf_interesPunitorioDeudores = edf_interesPunitorioDeudores;
 	}
-	public BigDecimal getEdf_importeRecargoSegundoVencimiento() {
-		return edf_importeRecargoSegundoVencimiento;
+	public BigDecimal getEdf_interesRecargoSegundoVencimiento() {
+		return edf_interesRecargoSegundoVencimiento;
 	}
-	public void setEdf_importeRecargoSegundoVencimiento(
-			BigDecimal edf_importeRecargoSegundoVencimiento) {
-		this.edf_importeRecargoSegundoVencimiento = edf_importeRecargoSegundoVencimiento;
+	public void setEdf_interesRecargoSegundoVencimiento(
+			BigDecimal edf_interesRecargoSegundoVencimiento) {
+		this.edf_interesRecargoSegundoVencimiento = edf_interesRecargoSegundoVencimiento;
 	}
 	public Date getEdf_fechaPrimerVencimientoRecibos() {
 		return edf_fechaPrimerVencimientoRecibos;

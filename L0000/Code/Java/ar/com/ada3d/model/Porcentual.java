@@ -15,6 +15,7 @@ public class Porcentual implements Serializable{
 	private String porc_titulo;
 	private Integer porc_porcentaje;
 	private BigDecimal porc_importeHonorarios;
+	private BigDecimal porc_importeHonorariosMasivo;
 	private String porc_edf_codigo;
 
 	//Getters and Setters
@@ -42,6 +43,13 @@ public class Porcentual implements Serializable{
 	}
 	public void setPorc_importeHonorarios(BigDecimal porc_importeHonorarios) {
 		this.porc_importeHonorarios = porc_importeHonorarios;
+	}
+	public BigDecimal getPorc_importeHonorariosMasivo() {
+		return porc_importeHonorariosMasivo;
+	}
+	public void setPorc_importeHonorariosMasivo(
+			BigDecimal porc_importeHonorariosMasivo) {
+		this.porc_importeHonorariosMasivo = porc_importeHonorariosMasivo;
 	}
 	public String getPorc_edf_codigo() {
 		return porc_edf_codigo;

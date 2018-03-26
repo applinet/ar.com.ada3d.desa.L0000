@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824B004C654F" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="46e" sequence="11" unid="0B0341A4D65F9051832582490067CDFC">
+<created><datetime dst="true">20180307T165349,40-02</datetime></created>
+<modified><datetime dst="true">20180309T115432,25-02</datetime></modified>
+<revised><datetime dst="true">20180307T165853,15-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180309T115432,25-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180309T115432,25-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$Comment" sign="true"><text>*** PRUEBA - Consultas SQL ***</text></item>
+<item name="$Flags"><text>gC~4K</text></item>
+<item name="$TITLE" sign="true"><text>sql1.xsp</text></item>
+
+
+
+<item name="$FileNames" sign="true"><text>sql1.xsp</text></item>
+<item name="$DesignerVersion"><text>9.0.1</text></item>
+
+
+
+</note>
