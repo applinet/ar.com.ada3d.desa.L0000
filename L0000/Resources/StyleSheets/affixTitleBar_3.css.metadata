@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325825C0066FBF5" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="4aa" sequence="6" unid="A5BCE7E3D5C1F12B83258259004FF85F">
+<created><datetime dst="true">20180323T123329,27-02</datetime></created>
+<modified><datetime dst="true">20180326T164456,87-02</datetime></modified>
+<revised><datetime dst="true">20180326T162432,71-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180326T164456,87-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180326T164456,87-02</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
+<wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
+<item name="$MimeType" sign="true"><text>text/css</text></item>
+<item name="$Flags"><text>34C=Q</text></item>
+<item name="$MimeCharSet" sign="true"><text>UTF-8</text></item>
+
+
+<item name="$FileNames" sign="true"><text>affixPlaceBar0500.css</text></item>
+<item name="$TITLE" sign="true"><text>affixTitleBar_3.css</text></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item></note>

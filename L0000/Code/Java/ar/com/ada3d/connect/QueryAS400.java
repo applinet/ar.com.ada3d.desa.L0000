@@ -1,17 +1,19 @@
 package ar.com.ada3d.connect;
 
 import java.io.Serializable;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.openntf.domino.Document;
-
+import ar.com.ada3d.model.Porcentual;
 import ar.com.ada3d.utilidades.CfgDataSource;
 import ar.com.ada3d.utilidades.CfgTablas;
 import ar.com.ada3d.utilidades.JSFUtil;
@@ -80,7 +82,7 @@ public class QueryAS400 implements Serializable {
 		// el sql
 
 		Connection connection = null;
-
+		
 		ArrayList<String> returnArrlist = new ArrayList<String>(); // variable
 		// que
 		// devuelvo
@@ -98,10 +100,12 @@ public class QueryAS400 implements Serializable {
 			connection = DriverManager.getConnection(configDs.getUrlConexion(),
 					configDs.getUserRead(), configDs.getPassRead());
 			Statement stmt = connection.createStatement();
-
+			
+		
 			
 			ResultSet rs = stmt.executeQuery(configTabla.getStrsSQL());
 
+			
 			if (param_booDescColumnas) {
 				ResultSetMetaData rsmd = rs.getMetaData();
 				int columnCount = rsmd.getColumnCount();
@@ -124,7 +128,11 @@ public class QueryAS400 implements Serializable {
 					if (s.contains("@text_")) {
 						temp = temp + s.substring(6);
 					} else {
-						temp = temp + rs.getString(s).trim();
+						if(rs.getString(s) == null){
+							temp = temp + "";
+						}else{
+							temp = temp + rs.getString(s).trim();
+						}
 					}
 				}
 				if (configTabla.getMsgConsola().equals("1"))
@@ -218,17 +226,22 @@ public class QueryAS400 implements Serializable {
 	}
 
 	
-	/*
-	 * Realiza un Update al AS400 utilizando un documento de configuración que
+	/**
+	 * Realiza un Update al AS400 de Honorariosutilizando un documento de configuración que
 	 * envio el nombre por parámetros. Si le envío un doc en parametros utiliza
 	 * ese, sino el de parametros. Tener en cuenta que si envio un doc, de
 	 * cargar la biblioteca tal como la genera docDummy
-	 * 
+	 * @param clave que busca en la base de configuracion
+	 * @param documento dummy que evalua con el doc de configuracion
+	 * @param lista de porcentuales
 	 * @return: Verdadero si realizó el update, sino falso
 	 */
-	public boolean updateBatchAS(String param_clave, Document param_doc) {
+	public boolean updateBatchAS(String param_clave, Document param_doc,  List<Porcentual> prm_listaHonorariosEdificiosTrabajo) {
 		Connection connection = null;
-		
+		PreparedStatement pstmt_1 = null;
+		PreparedStatement pstmt_2 = null;
+		PreparedStatement pstmt_3 = null;
+		PreparedStatement pstmt_4 = null;
 		if (!initConexion()) return false;
 		Document docTabla = JSFUtil.getDocConexiones_y_Tablas(param_clave);
 		if (docTabla == null)
@@ -250,35 +263,88 @@ public class QueryAS400 implements Serializable {
 		// FIN - Siempre hay que hacer esto para que complete la biblioteca en
 		// el sql
 
+		if (configTabla.getMsgConsola().equals("1"))
+			System.out.println(configTabla.getStrsSQL());
 		
 		try {
-			System.out.println("1");
 			DriverManager
 					.registerDriver(new com.ibm.as400.access.AS400JDBCDriver());
-			System.out.println("2");
 			connection = DriverManager.getConnection(configDs.getUrlConexion(),
 					configDs.getUserWrite(), configDs.getPassWrite());
-			System.out.println("3");
 			
-			Statement stmt = connection.createStatement();
-			System.out.println("4");
+			ArrayList<String> tempControlPorcentual = new ArrayList<String>();
+			pstmt_1 = connection.prepareStatement(configTabla.getStrsSQL() + "E391=? WHERE EDIF=?");
+			pstmt_2 = connection.prepareStatement(configTabla.getStrsSQL() + "E392=? WHERE EDIF=?");
+			pstmt_3 = connection.prepareStatement(configTabla.getStrsSQL() + "E441=? WHERE EDIF=?");
+			pstmt_4 = connection.prepareStatement(configTabla.getStrsSQL() + "E442=? WHERE EDIF=?");
 			
-			//if (configTabla.getMsgConsola().equals("1"))
-				//System.out.println(configTabla.getStrsSQL());
+			for (Porcentual myPorcentual : prm_listaHonorariosEdificiosTrabajo){
+				switch (myPorcentual.getPorc_posicion()){
+				case 1:
+					pstmt_1.setString(1, ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myPorcentual.getPorc_importeHonorariosMasivo(), 2));
+					pstmt_1.setString(2, myPorcentual.getPorc_edf_codigo());
+					pstmt_1.addBatch();
+					if(!tempControlPorcentual.contains("1"))
+						tempControlPorcentual.add("1");
+					break; 
+				case 2:
+					pstmt_2.setString(1, ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myPorcentual.getPorc_importeHonorariosMasivo(), 2));
+					pstmt_2.setString(2, myPorcentual.getPorc_edf_codigo());
+					pstmt_2.addBatch();
+					if(!tempControlPorcentual.contains("2"))
+						tempControlPorcentual.add("2");
+					break; 
+				case 3:
+					pstmt_3.setString(1, ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myPorcentual.getPorc_importeHonorariosMasivo(), 2));
+					pstmt_3.setString(2, myPorcentual.getPorc_edf_codigo());
+					pstmt_3.addBatch();
+					if(!tempControlPorcentual.contains("3"))
+						tempControlPorcentual.add("3");
+					break; 
+				case 4:
+					pstmt_4.setString(1, ar.com.ada3d.utilidades.Conversores.bigDecimalToAS400(myPorcentual.getPorc_importeHonorariosMasivo(), 2));
+					pstmt_4.setString(2, myPorcentual.getPorc_edf_codigo());
+					pstmt_4.addBatch();
+					if(!tempControlPorcentual.contains("4"))
+						tempControlPorcentual.add("4");
+					break; 
+				}
+			}
 			
-			connection.setAutoCommit(false);
-			
-			String insertEmp1 = "UPDATE L8669B.PH_E01 SET E391 = 125 WHERE EDIF IN ('VE$')";
-			String insertEmp2 = "UPDATE L8669B.PH_E01 SET E391 = 126 WHERE EDIF IN ('VE>')";
-			String insertEmp3 = "UPDATE L8669B.PH_E01 SET E391 = 127 WHERE EDIF IN ('VE:')";
-			System.out.println("5");
-			stmt.addBatch(insertEmp1);//inserting Query in stmt
-			stmt.addBatch(insertEmp2);
-			stmt.addBatch(insertEmp3);
-			stmt.executeBatch();
+			int[] numUpdates = null;
+			if(tempControlPorcentual.contains("1")){
+				numUpdates = pstmt_1.executeBatch();
+				for (int i=0; i < numUpdates.length; i++) {
+					if (numUpdates[i] == Statement.SUCCESS_NO_INFO)
+						System.out.println("Execution_1 " + i +": unknown number of rows updated");
+				}
+			}
+			if(tempControlPorcentual.contains("2")){
+				numUpdates = pstmt_2.executeBatch();
+				for (int i=0; i < numUpdates.length; i++) {
+					if (numUpdates[i] == Statement.SUCCESS_NO_INFO)
+						System.out.println("Execution_2 " + i +": unknown number of rows updated");
+				}
+			}
+			if(tempControlPorcentual.contains("3")){
+				numUpdates = pstmt_3.executeBatch();
+				for (int i=0; i < numUpdates.length; i++) {
+					if (numUpdates[i] == Statement.SUCCESS_NO_INFO)
+						System.out.println("Execution_3 " + i +": unknown number of rows updated");
+				}
+			}
+			if(tempControlPorcentual.contains("4")){
+				numUpdates = pstmt_4.executeBatch();
+				for (int i=0; i < numUpdates.length; i++) {
+					if (numUpdates[i] == Statement.SUCCESS_NO_INFO)
+						System.out.println("Execution_4 " + i +": unknown number of rows updated");
+				}
+			}		
 			connection.commit();
+			
 			return true;
-		
+			
+			
 		} catch (SQLException e) {
 			System.out.println("**ERROR UPDATE ** (param_clave:" + param_clave
 					+ ") - " + e.getMessage());
@@ -287,6 +353,14 @@ public class QueryAS400 implements Serializable {
 		
 		finally {
 			try {
+				if (pstmt_1 != null)
+					pstmt_1.close();
+				if (pstmt_2 != null)
+					pstmt_2.close();
+				if (pstmt_3 != null)
+					pstmt_3.close();
+				if (pstmt_4 != null)
+					pstmt_4.close();
 				if (connection != null)
 					connection.close();
 			} catch (SQLException e) {

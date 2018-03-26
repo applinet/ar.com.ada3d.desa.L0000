@@ -91,6 +91,11 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 						<xp:text escape="true"
 							value="#{unEdificio.edf_interesPunitorioDeudores}"
 							id="edf_interesPunitorioDeudores">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 						<xp:label value="%" id="Signo1"></xp:label>
 					</xp:column>
@@ -118,6 +123,11 @@ context.redirectToPage("frmDatosEdificios.xsp")}]]></xp:this.action>
 						<xp:text escape="true"
 							value="#{unEdificio.edf_interesRecargoSegundoVencimiento}"
 							id="edf_interesRecargoSegundoVencimiento">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 						<xp:label value="%" id="Signo2"></xp:label>
 					</xp:column>

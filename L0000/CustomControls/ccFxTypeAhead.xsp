@@ -15,7 +15,7 @@
 			</xp:this.attrs>
 
 			<xp:typeAhead var="startValue" valueMarkup="true"
-				ignoreCase="true" mode="partial">
+				ignoreCase="true" mode="partial" minChars="2">
 				<xp:this.valueList>
 					<![CDATA[#{javascript:var result = "<ul>";
 var listaEdificios = edificioBean.getArraySrtringListaEdificios(true);

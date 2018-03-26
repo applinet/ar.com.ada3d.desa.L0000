@@ -16,7 +16,42 @@
 		Bootstrap customizations: here I define additional CSS style I need/
 		want in this application
 	-->
-	
+	<resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 1;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_3.css</href>
+    </resource>
+	<resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 2;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_3.css</href>
+    </resource>
+	<resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 3;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_3.css</href>
+    </resource>
+	<resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 4;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_5.css</href>
+    </resource>
+    <resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 5;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_5.css</href>
+    </resource>
+    <resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 6;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_6.css</href>
+    </resource>
+    <resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 7;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_6.css</href>
+    </resource>
+    <resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 8;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_6.css</href>
+    </resource>
+    <resource rendered="#{javascript:if(sessionScope.containsKey('menuList'))return sessionScope.get('menuList').get('Menu').size() == 9;}">
+        <content-type>text/css</content-type>
+        <href>affixTitleBar_6.css</href>
+    </resource>
 	<control>
 		<name>ViewRoot</name>
 		<property>

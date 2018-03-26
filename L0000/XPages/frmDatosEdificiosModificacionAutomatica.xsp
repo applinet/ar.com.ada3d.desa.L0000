@@ -1,191 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core"
 	xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	xmlns:xe="http://www.ibm.com/xsp/coreex" enableModifiedFlag="true">
+
 	<xp:this.resources>
 		<xp:styleSheet href="/xpDataTable.css"></xp:styleSheet>
-	</xp:this.resources>	
+		<xp:script src="\jQuery-Mask-Plugin-master\src\jquery.mask.js"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
+	<xp:scriptBlock id="scriptBlockMaskedJquery">
+		<xp:this.value><![CDATA[jQuery(function($){
+	x$("#{id:interesPunitorioDeudoresMasivo}").mask('000,0', {reverse: true});
+    x$("#{id:recargoSegundoVencimientoMasivo}").mask('0.000,0', {reverse: true});
+});    ]]></xp:this.value>
+	</xp:scriptBlock>
+
 	<xc:ccFxPleaseWaitStandBy></xc:ccFxPleaseWaitStandBy>
 	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
 		<xp:this.facets>
 			<xp:panel id="PNL_container" xp:key="facetMiddle">
 
-			<xe:widgetContainer id="widgetContainer1"
-				titleBarText="Modificación automática, para los #{edificioBean.cantidadTotalEdificiosTrabajo} edificios."
-				collapsible="true">
-				<xe:this.dropDownNodes>
-					<xe:basicLeafNode label="Confirmar cambios" rendered="#{javascript:edificioBean.isMasivoActualizado()}">
-						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnConfirmarMasivo}").click();]]></xe:this.onClick>
-					</xe:basicLeafNode>
-					<xe:basicLeafNode
-						label="Aplicar todos los valores en grilla">
-						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarTodoMasivo}").click();]]></xe:this.onClick>
-					</xe:basicLeafNode>
-					<xe:basicLeafNode
-						label="Restaurar al estado inicial"
-						rendered="#{javascript:edificioBean.isMasivoActualizado()}">
-						<xe:this.onClick><![CDATA[document.getElementById("#{id:btnRestaurarMasivo}").click();]]></xe:this.onClick>
-					</xe:basicLeafNode>
-				</xe:this.dropDownNodes>
-				<xp:table styleClass="table table-responsive">
-					<xp:tr valign="top">
-						<xp:td style="width:20.0%">
-							<xe:widgetContainer id="widgetContainer2"
-								titleBarText="Interés Punitorio">
-								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar interés punitorio">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarInteresPunitorioDeudoresMasivo}").click();]]></xe:this.onClick>
-									</xe:basicLeafNode>
-								</xe:this.dropDownNodes>
-								<xp:inputText
-									id="interesPunitorioDeudoresMasivo"
-									style="text-align:right; width:100.0px; display: inline;"
-									tabindex="1">
-									<xp:eventHandler event="onkeypress"
-										submit="false">
-										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
+
+
+				<xe:widgetContainer id="widgetContainer1"
+					titleBarText="Modificación automática, para los #{edificioBean.cantidadTotalEdificiosTrabajo} edificios."
+					collapsible="true" >
+					<xe:this.dropDownNodes>
+						<xe:basicLeafNode label="Confirmar cambios"
+							rendered="#{javascript:edificioBean.isMasivoActualizado()}">
+							<xe:this.onClick><![CDATA[document.getElementById("#{id:btnConfirmarMasivo}").click();]]></xe:this.onClick>
+						</xe:basicLeafNode>
+						<xe:basicLeafNode
+							label="Aplicar todos los valores en grilla">
+							<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarTodoMasivo}").click();]]></xe:this.onClick>
+						</xe:basicLeafNode>
+						<xe:basicLeafNode
+							label="Restaurar al estado inicial"
+							rendered="#{javascript:edificioBean.isMasivoActualizado()}">
+							<xe:this.onClick><![CDATA[document.getElementById("#{id:btnRestaurarMasivo}").click();]]></xe:this.onClick>
+						</xe:basicLeafNode>
+					</xe:this.dropDownNodes>
+					<xp:table styleClass="table table-responsive">
+						<xp:tr valign="top">
+							<xp:td style="width:20.0%">
+								<xe:widgetContainer
+									id="widgetContainer2" titleBarText="Interés Punitorio">
+									<xe:this.dropDownNodes>
+										<xe:basicLeafNode
+											label="Aplicar interés punitorio">
+											<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarInteresPunitorioDeudoresMasivo}").click();]]></xe:this.onClick>
+										</xe:basicLeafNode>
+									</xe:this.dropDownNodes>
+									<xp:inputText
+										id="interesPunitorioDeudoresMasivo"
+										style="text-align:right; width:100.0px; display: inline;"
+										tabindex="1">
+										<xp:eventHandler
+											event="onkeypress" submit="false">
+											<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
     document.getElementById("#{id:btnAplicarInteresPunitorioDeudoresMasivo}").click();
     return true;
 }
 							                    ]]>
-										</xp:this.script>
-									</xp:eventHandler>
-									<xp:this.attrs>
-										<xp:attr value="valor"
-											name="placeHolder">
-										</xp:attr>
-									</xp:this.attrs>
-									<xp:this.converter>
-										<xp:customConverter
-											getAsString="#{javascript:value.toString()}">
-											<xp:this.getAsObject><![CDATA[#{javascript:if(value != "")
-	parseFloat(value.replace(/,/g,"\."))}]]></xp:this.getAsObject>
-										</xp:customConverter>
-									</xp:this.converter>
-								</xp:inputText>
-								<xp:label value="%" id="label9"></xp:label>
-							</xe:widgetContainer>
-						</xp:td>
-						<xp:td style="width:20.0%">
-							<xe:widgetContainer id="widgetContainer4"
-								titleBarText="Fecha 1° Vto.">
-								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar 1° vto.">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaPrimerVtoMasivo}").click();]]></xe:this.onClick>
-									</xe:basicLeafNode>
-								</xe:this.dropDownNodes>
-								<xp:inputText
-									id="fechaPrimerVtoMasivo" tabindex="2">
-									<xp:eventHandler event="onkeypress"
-										submit="false">
-										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
+											</xp:this.script>
+										</xp:eventHandler>
+										<xp:this.attrs>
+											<xp:attr value="valor"
+												name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:this.converter>
+											<xp:customConverter
+												getAsString="#{javascript:value.toString()}">
+												<xp:this.getAsObject><![CDATA[#{javascript:if(value != "")
+	parseFloat(value.replace('.', '').replace(/,/g,"\."));
+}]]></xp:this.getAsObject>
+											</xp:customConverter>
+										</xp:this.converter>
+									</xp:inputText>
+									<xp:label value="%" id="label9"></xp:label>
+								</xe:widgetContainer>
+							</xp:td>
+							<xp:td style="width:20.0%">
+								<xe:widgetContainer
+									id="widgetContainer4" titleBarText="Fecha 1° Vto.">
+									<xe:this.dropDownNodes>
+										<xe:basicLeafNode
+											label="Aplicar 1° vto.">
+											<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaPrimerVtoMasivo}").click();]]></xe:this.onClick>
+										</xe:basicLeafNode>
+									</xe:this.dropDownNodes>
+									<xp:inputText
+										id="fechaPrimerVtoMasivo" tabindex="2">
+										<xp:eventHandler
+											event="onkeypress" submit="false">
+											<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
     document.getElementById("#{id:btnAplicarFechaPrimerVtoMasivo}").click();
     return true;
 }
 							                    ]]>
-										</xp:this.script>
-									</xp:eventHandler>
-									<xp:this.attrs>
-										<xp:attr value="dd/MM/aaaa"
-											name="placeHolder">
-										</xp:attr>
-									</xp:this.attrs>
-									<xp:this.converter>
-										<xp:convertDateTime
-											type="date">
-										</xp:convertDateTime>
-									</xp:this.converter>
-									<xp:dateTimeHelper></xp:dateTimeHelper>
-								</xp:inputText>
-							</xe:widgetContainer>
-						</xp:td>
-						<xp:td style="width:20.0%">
-							<xe:widgetContainer id="widgetContainer3"
-								titleBarText="Recargo 2° Vto.">
-								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar recargo 2° vto">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
-									</xe:basicLeafNode>
-								</xe:this.dropDownNodes>
-								<xp:inputText
-									id="recargoSegundoVencimientoMasivo"
-									style="text-align:right; width:100.0px; display: inline;"
-									tabindex="3">
-									<xp:eventHandler event="onkeypress"
-										submit="false">
-										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
+											</xp:this.script>
+										</xp:eventHandler>
+										<xp:this.attrs>
+											<xp:attr value="dd/MM/aaaa"
+												name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:this.converter>
+											<xp:convertDateTime
+												type="date">
+											</xp:convertDateTime>
+										</xp:this.converter>
+										<xp:dateTimeHelper></xp:dateTimeHelper>
+									</xp:inputText>
+								</xe:widgetContainer>
+							</xp:td>
+							<xp:td style="width:20.0%">
+								<xe:widgetContainer
+									id="widgetContainer3" titleBarText="Recargo 2° Vto.">
+									<xe:this.dropDownNodes>
+										<xe:basicLeafNode
+											label="Aplicar recargo 2° vto">
+											<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
+										</xe:basicLeafNode>
+									</xe:this.dropDownNodes>
+									<xp:inputText
+										id="recargoSegundoVencimientoMasivo"
+										style="text-align:right; width:100.0px; display: inline;"
+										tabindex="3">
+										<xp:eventHandler
+											event="onkeypress" submit="false">
+											<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
     document.getElementById("#{id:btnAplicarRecargoSegundoVencimientoMasivo}").click();
     return true;
 }
 							                    ]]>
-										</xp:this.script>
-									</xp:eventHandler>
-									<xp:this.attrs>
-										<xp:attr value="valor"
-											name="placeHolder">
-										</xp:attr>
-									</xp:this.attrs>
-									<xp:this.converter>
-										<xp:customConverter
-											getAsString="#{javascript:value.toString()}">
-											<xp:this.getAsObject><![CDATA[#{javascript:if(value != "")
-	parseFloat(value.replace(/,/g,"\."))}]]></xp:this.getAsObject>
-										</xp:customConverter>
-									</xp:this.converter>
-								</xp:inputText>
-								<xp:label value="%" id="label10"></xp:label>
-							</xe:widgetContainer>
-						</xp:td>
-						<xp:td style="width:20.0%">
-							<xe:widgetContainer id="widgetContainer5"
-								titleBarText="Fecha 2° Vto.">
-								<xe:this.dropDownNodes>
-									<xe:basicLeafNode label="Aplicar 2° vto.">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaSegundoVtoMasivo}").click();]]></xe:this.onClick>
-									</xe:basicLeafNode>
-									<xe:basicLeafNode label="Eliminar fecha 2° vto">
-										<xe:this.onClick><![CDATA[document.getElementById("#{id:btnEliminarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
-									</xe:basicLeafNode>
-								</xe:this.dropDownNodes>
-								<xp:inputText
-									id="fechaSegundoVtoMasivo" tabindex="4">
-									<xp:eventHandler event="onkeypress"
-										submit="false">
-										<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
+											</xp:this.script>
+										</xp:eventHandler>
+										<xp:this.attrs>
+											<xp:attr value="valor"
+												name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:this.converter>
+											<xp:customConverter
+												getAsString="#{javascript:value.toString()}">
+												<xp:this.getAsObject><![CDATA[#{javascript:if(value != "")
+	parseFloat(value.replace('.', '').replace(/,/g,"\."));}]]></xp:this.getAsObject>
+
+											</xp:customConverter>
+										</xp:this.converter>
+									</xp:inputText>
+									<xp:label value="%" id="label10"></xp:label>
+								</xe:widgetContainer>
+							</xp:td>
+							<xp:td style="width:20.0%">
+								<xe:widgetContainer
+									id="widgetContainer5" titleBarText="Fecha 2° Vto.">
+									<xe:this.dropDownNodes>
+										<xe:basicLeafNode
+											label="Aplicar 2° vto.">
+											<xe:this.onClick><![CDATA[document.getElementById("#{id:btnAplicarFechaSegundoVtoMasivo}").click();]]></xe:this.onClick>
+										</xe:basicLeafNode>
+										<xe:basicLeafNode
+											label="Eliminar fecha 2° vto">
+											<xe:this.onClick><![CDATA[document.getElementById("#{id:btnEliminarRecargoSegundoVencimientoMasivo}").click();]]></xe:this.onClick>
+										</xe:basicLeafNode>
+									</xe:this.dropDownNodes>
+									<xp:inputText
+										id="fechaSegundoVtoMasivo" tabindex="4">
+										<xp:eventHandler
+											event="onkeypress" submit="false">
+											<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
     document.getElementById("#{id:btnAplicarFechaSegundoVtoMasivo}").click();
     return true;
 }
 							                    ]]>
-										</xp:this.script>
-									</xp:eventHandler>
-									<xp:this.attrs>
-										<xp:attr value="dd/MM/aaaa"
-											name="placeHolder">
-										</xp:attr>
-									</xp:this.attrs>
-									<xp:this.converter>
-										<xp:convertDateTime
-											type="date">
-										</xp:convertDateTime>
-									</xp:this.converter>
-									<xp:dateTimeHelper></xp:dateTimeHelper>
-								</xp:inputText>
-							</xe:widgetContainer>
-						</xp:td>
-					</xp:tr>
-				</xp:table>
-				<xp:messages id="messages1"
-					styleClass="alert alert-error">
-				</xp:messages>
+											</xp:this.script>
+										</xp:eventHandler>
+										<xp:this.attrs>
+											<xp:attr value="dd/MM/aaaa"
+												name="placeHolder">
+											</xp:attr>
+										</xp:this.attrs>
+										<xp:this.converter>
+											<xp:convertDateTime
+												type="date">
+											</xp:convertDateTime>
+										</xp:this.converter>
+										<xp:dateTimeHelper></xp:dateTimeHelper>
+									</xp:inputText>
+								</xe:widgetContainer>
+							</xp:td>
+						</xp:tr>
+					</xp:table>
+					<xp:messages id="messages1"
+						styleClass="alert alert-error">
+					</xp:messages>
 
-				<xc:ccFxServerSideJsMessages></xc:ccFxServerSideJsMessages>
-			</xe:widgetContainer>
+					<xc:ccFxServerSideJsMessages></xc:ccFxServerSideJsMessages>
+				</xe:widgetContainer>
 
-			<xp:dataTable id="edificiosTable" var="unEdificio"
+				<xp:dataTable id="edificiosTable" var="unEdificio"
 					value="#{edificioBean.listaEdificiosTrabajo}" rows="1000"
 					styleClass="table table-responsive">
 					<xp:column id="edf_codigoColumn">
@@ -211,14 +233,16 @@ if (key == 13) {
 					</xp:column>
 					<xp:column id="edf_fechaProximaLiquidacionColumn">
 						<xp:this.facets>
-							<xp:label value="Próxima Liquidación" id="label4" xp:key="header" style="font-weight:bold"></xp:label>
+							<xp:label value="Próxima Liquidación"
+								id="label4" xp:key="header" style="font-weight:bold">
+							</xp:label>
 						</xp:this.facets>
 						<xp:text escape="true"
-							value="#{unEdificio.edf_fechaProximaLiquidacion}" id="edf_fechaProximaLiquidacion">
+							value="#{unEdificio.edf_fechaProximaLiquidacion}"
+							id="edf_fechaProximaLiquidacion">
 						</xp:text>
 					</xp:column>
-					<xp:column
-						id="edf_interesPunitorioDeudoresColumn"
+					<xp:column id="edf_interesPunitorioDeudoresColumn"
 						style="text-align:center">
 						<xp:this.facets>
 							<xp:label value="Interés Punitorio"
@@ -229,6 +253,11 @@ if (key == 13) {
 							value="#{unEdificio.edf_interesPunitorioDeudores}"
 							id="edf_interesPunitorioDeudores">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE12 ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 						<xp:label value="%" id="Signo1">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE12 ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
@@ -259,6 +288,11 @@ if (key == 13) {
 							value="#{unEdificio.edf_interesRecargoSegundoVencimiento}"
 							id="edf_interesRecargoSegundoVencimiento">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE08A ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.0;(#,##0.0)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 						<xp:label value="%" id="Signo2">
 							<xp:this.styleClass><![CDATA[#{unEdificio.edf_importeMasivoE08A ne null ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
@@ -279,25 +313,32 @@ if (key == 13) {
 					</xp:column>
 				</xp:dataTable>
 				<div id="divHiddenAplicar" style="display: none;">
-					<xp:button value="btnAplicarInteresPunitorioDeudoresMasivo" id="btnAplicarInteresPunitorioDeudoresMasivo">
+					<xp:button
+						value="btnAplicarInteresPunitorioDeudoresMasivo"
+						id="btnAplicarInteresPunitorioDeudoresMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("interesPunitorioDeudoresMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnAplicarFechaPrimerVtoMasivo" id="btnAplicarFechaPrimerVtoMasivo">
+					<xp:button value="btnAplicarFechaPrimerVtoMasivo"
+						id="btnAplicarFechaPrimerVtoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaPrimerVtoMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnAplicarRecargoSegundoVencimientoMasivo" id="btnAplicarRecargoSegundoVencimientoMasivo">
+					<xp:button
+						value="btnAplicarRecargoSegundoVencimientoMasivo"
+						id="btnAplicarRecargoSegundoVencimientoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("recargoSegundoVencimientoMasivo");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnEliminarRecargoSegundoVencimientoMasivo" id="btnEliminarRecargoSegundoVencimientoMasivo">
+					<xp:button
+						value="btnEliminarRecargoSegundoVencimientoMasivo"
+						id="btnEliminarRecargoSegundoVencimientoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = edificioBean.eliminarInteresFechasSegundoVto("fechaSegundoVtoMasivo");
@@ -319,7 +360,8 @@ if(msgValidacion.isEmpty()){
 }]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnAplicarTodoMasivo" id="btnAplicarTodoMasivo">
+					<xp:button value="btnAplicarTodoMasivo"
+						id="btnAplicarTodoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:var camposConDatos:java.util.ArrayList = new java.util.ArrayList();
@@ -352,8 +394,9 @@ if(msgValidacion.isEmpty()){
 }}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					
-					<xp:button value="btnAplicarFechaSegundoVtoMasivo" id="btnAplicarFechaSegundoVtoMasivo">
+
+					<xp:button value="btnAplicarFechaSegundoVtoMasivo"
+						id="btnAplicarFechaSegundoVtoMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:btnAplicarMasivo("fechaSegundoVtoMasivo");}]]></xp:this.action>
@@ -362,7 +405,7 @@ if(msgValidacion.isEmpty()){
 					<xp:button value="btnConfirmarMasivo"
 						id="btnConfirmarMasivo">
 						<xp:eventHandler event="onclick" submit="true"
-							refreshMode="partial" refreshId="PNL_container">
+							refreshMode="complete">
 							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = edificioBean.saveMasivoEdificios();
 if(!msgValidacion.isEmpty()){
 	viewScope.MessageType="E";
@@ -373,14 +416,15 @@ if(!msgValidacion.isEmpty()){
 }}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-					<xp:button value="btnRestaurarMasivo" id="btnRestaurarMasivo">
+					<xp:button value="btnRestaurarMasivo"
+						id="btnRestaurarMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="complete">
 							<xp:this.action><![CDATA[#{javascript:DocLock.removeAllMyLocks();
 	context.redirectToPage("frmDatosEdificiosModificacionAutomatica");}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>
-				</div>	
+				</div>
 			</xp:panel>
 		</xp:this.facets>
 	</xc:ccLayoutBootstrap>

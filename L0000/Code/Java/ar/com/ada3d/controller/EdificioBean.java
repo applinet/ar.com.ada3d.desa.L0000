@@ -2,7 +2,6 @@ package ar.com.ada3d.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.math.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -475,8 +474,8 @@ public class EdificioBean implements Serializable {
 		myEdificio.setListaPorcentuales(cargaPorcentualEdificio(strLinea));
 		
 		//TODO: falta saber que campo tomar del AS400
-		myEdificio.setEdf_importeFranqueo( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[15].trim(), Locale.US, 2)));
-		myEdificio.setEdf_importeMultaDeudores( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[15].trim(), Locale.US, 2)));
+		myEdificio.setEdf_importeFranqueo( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[26].trim(), Locale.US, 2)));
+		myEdificio.setEdf_importeMultaDeudores( new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[27].trim(), Locale.US, 2)));
 		
 		myEdificio.setEdf_isReadMode(true);
 		return myEdificio;
@@ -497,6 +496,9 @@ public class EdificioBean implements Serializable {
 				return;
 		}
 		lock.addLock("edf_" + prm_edificio.getEdf_codigo(), session.getEffectiveUserName());
+		//log de las actividades en la session
+		DocUsr docUsuario = (DocUsr) JSFUtil.resolveVariable("DocUsr");
+		docUsuario.setUltimaActividad(setLog("Ha editado el edificio " + prm_edificio.getEdf_codigo()));
 		prm_edificio.setEdf_isReadMode(false);
 		prm_edificio.setEdf_lockedBy(session.getEffectiveUserName());
 		
@@ -505,13 +507,15 @@ public class EdificioBean implements Serializable {
 	/**
 	 * Update de tablas AS400 con los datos del edificio
 	 */
-	public void saveEdificio(Edificio prm_edificio) {
+	public ArrayList<String> saveEdificio(Edificio prm_edificio) {
+		ArrayList<String> listAcumulaErroresAS400 = new ArrayList<String>();
 		Document docDummy = JSFUtil.getDocDummy();
 		docDummy.appendItemValue("Codigo", prm_edificio.getEdf_codigo());
 		docDummy.appendItemValue("DIRECC", prm_edificio.getEdf_direccion() + "-" + prm_edificio.getEdf_localidad());
 		docDummy.appendItemValue("CodigoVisual", prm_edificio.getEdf_codigoVisual());
 		docDummy.appendItemValue("frecuencia", prm_edificio.getEdf_frecuenciaLiquidacion());
 		docDummy.appendItemValue("imprimirTitulos", prm_edificio.getEdf_imprimeTitulosEnLiquidacion());
+		docDummy.appendItemValue("CUIT", prm_edificio.getEdf_cuit());
 		docDummy.appendItemValue("CTFJ1", "0");
 		docDummy.appendItemValue("CTFJ2", "0");
 		docDummy.appendItemValue("CTFJ3", "0");
@@ -561,20 +565,32 @@ public class EdificioBean implements Serializable {
 		
 		QueryAS400 query = new QueryAS400();
 		
+		DocUsr docUsuario = (DocUsr) JSFUtil.resolveVariable("DocUsr");
+		String errCode = ar.com.ada3d.utilidades.Conversores.DateToString(Calendar.getInstance().getTime(), docUsuario.getUserSec() + "ddMMyyHHmmss" );
 		if (query.updateAS("updateEdificiosPH_E01", docDummy)) {
 			if (!query.updateAS("updateEdificiosValoresCTFJ", docDummy)) {
-				if (!query.updateAS("updateEdificiosValoresCTFJ_insert", docDummy))						
-					throw new java.lang.Error("No se pudo actualizar la tabla PH_CTFJ.");
+				if (!query.updateAS("updateEdificiosValoresCTFJ_insert", docDummy))				
+					listAcumulaErroresAS400.add("btnSave~Por favor comuniquese con Sistemas Administrativos e informe el código de error: " + errCode);
+					System.out.println("ERROR: " + errCode + " METH:saveEdificio" + "_EDIF:" + prm_edificio.getEdf_codigo() + "_DESC: No se pudo actualizar la tabla PH_CTFJ.");
 			}
 			
 			if (!query.updateAS("updateEdificiosDIFED", docDummy)) {
-				throw new java.lang.Error("No se pudo actualizar la tabla PH_DIFED.");
+				listAcumulaErroresAS400.add("btnSave~Por favor comuniquese con Sistemas Administrativos e informe el código de error: " + errCode);
+				System.out.println("ERROR: " + errCode + " METH:saveEdificio" + "_EDIF:" + prm_edificio.getEdf_codigo() + "_DESC: No se pudo actualizar la tabla PH_DIFED.");
+			}
+			if (!query.updateAS("updateEdificiosCUIT", docDummy)) {
+				listAcumulaErroresAS400.add("btnSave~Por favor comuniquese con Sistemas Administrativos e informe el código de error: " + errCode);
+				System.out.println("ERROR: " + errCode + " METH:saveEdificio" + "_EDIF:" + prm_edificio.getEdf_codigo() + "_DESC: No se pudo actualizar la tabla PH_CUIT.");
 			}
 		}else{
-			throw new java.lang.Error("No se pudo actualizar la tabla PH_E01.");
+			listAcumulaErroresAS400.add("btnSave~Por favor comuniquese con Sistemas Administrativos e informe el código de error: " + errCode);
+			System.out.println("ERROR: " + errCode + " METH:saveEdificio" + "_EDIF:" + prm_edificio.getEdf_codigo() + "_DESC: No se pudo actualizar la tabla PH_E01.");
 		}
 		DocLock lock = (DocLock) JSFUtil.resolveVariable("DocLock");
 		lock.removeLock("edf_" + prm_edificio.getEdf_codigo());
+		//log de las actividades en la session
+		docUsuario.setUltimaActividad(setLog("Ha guardado los cambios del edificio " + prm_edificio.getEdf_codigo()));
+		return listAcumulaErroresAS400;
 	}
 	
 
@@ -754,14 +770,25 @@ public class EdificioBean implements Serializable {
 			
 		}else if(prm_valor instanceof Double || prm_valor instanceof Long){
 			
-			//Validacion de ambos campos de Intereses
-			
 			BigDecimal valor = new BigDecimal(prm_valor.toString());
-			if(valor.compareTo(new BigDecimal(9999)) == 1){
-				listAcumulaErrores.add(prm_campo + "~El % de interés no puede superar el 9999 %" );
-				return listAcumulaErrores;
+			//valor = valor.setScale(1, RoundingMode.HALF_EVEN);//redondeo si puso mas de 1 decimal --> no puede poner + decimales
+			BigDecimal maxInteresPunitorioDeudoresMasivo  = new BigDecimal("999.9");
+			BigDecimal maxInteresRecargoSegundoVencimiento  = new BigDecimal("9999.9");
+			//Validacion de ambos campos de Intereses tienen distinta longitud
+			if (prm_campo.equals("interesPunitorioDeudoresMasivo")){
+				// 4 posiciones AS400
+				if(valor.compareTo(maxInteresPunitorioDeudoresMasivo) == 1){
+					listAcumulaErrores.add(prm_campo + "~El % de interés no puede superar el 999,9 %" );
+					return listAcumulaErrores;
+				}
+			}else{
+				// 5 posiciones AS400
+				if(valor.compareTo(maxInteresRecargoSegundoVencimiento) == 1){
+					listAcumulaErrores.add(prm_campo + "~El % de interés no puede superar el 9.999,9 %" );
+					return listAcumulaErrores;
+				}
 			}
-			valor = valor.setScale(1, RoundingMode.HALF_EVEN);//redondeo si puso mas de 1 decimal
+			
 			for(Edificio myEdificio : listaEdificiosTrabajo){
 				//Actualizo el edificio
 				//myEdificio = actualizoUnEdificioAs400(myEdificio, "");
@@ -1229,6 +1256,11 @@ public class EdificioBean implements Serializable {
 	}
 	
 	
+	private String setLog(String log){
+		Calendar cal = Calendar.getInstance();
+		return ar.com.ada3d.utilidades.Conversores.DateToString(cal.getTime(), "dd/MM/yyyy HH:mm:ss") + " - " + log;
+		
+	}
 	
 	//*** Getters & Setters *****
 	

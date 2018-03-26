@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+
+	<xp:this.resources>
+
+		<xp:script src="\jQuery-Mask-Plugin-master\src\jquery.mask.js"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
+	<xp:scriptBlock id="scriptBlock1">
+		<xp:this.value><![CDATA[
+    jQuery(function($){
+        x$("#{id:phone}").mask("(999) 999-9999");
+    });
+ 
+    ]]></xp:this.value>
+	</xp:scriptBlock>
+
+	<xp:inputText id="phone"></xp:inputText>
+
+</xp:view>

@@ -37,8 +37,7 @@ for (var i = 0; i < listaEdificios.length; i++) {
 }
 
 return results;}]]></xe:this.createObject>
-			<xe:this.saveObject><![CDATA[#{javascript:print("saveObject");
-return value.dummyAction();}]]></xe:this.saveObject>
+			<xe:this.saveObject><![CDATA[#{javascript:return value.dummyAction();}]]></xe:this.saveObject>
 		</xe:objectData>
 
 	</xp:this.data>
@@ -440,9 +439,7 @@ return docUsuario.isEditable() }]]>
 						</xp:this.rendered>
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial">
-							<xp:this.action><![CDATA[#{javascript:print("btnSave Usuario");
-	
-	var isNew:boolean = docUsuario.isNewNote(); 
+							<xp:this.action><![CDATA[#{javascript:var isNew:boolean = docUsuario.isNewNote(); 
 	if (isNew){
 		if(userBean.accessRoles.toString().contains('[usrInitial]'))
 			docUsuario.setValue("usr_USRSEG_opt","1");

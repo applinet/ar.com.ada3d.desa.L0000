@@ -59,7 +59,6 @@ if (typeof hijackAndPublishPartialRefresh != 'function') {
     hijackAndPublishPartialRefresh = obj_hijackAndPublishPartialRefresh;
 }
 function StandbyDialog(){
-  
 this.StandbyDialog_Do;
 this.StandbyDialog_BodyOverFlow="";
 this.StandbyDialog_Obj;
@@ -68,7 +67,6 @@ this.bodyObj;
 this.StandbyDialog_Started=function() {
     try {
         if (this.StandbyDialog_Do == true) {
-            
              
             this.StandbyDialog_StoreField()
             setTimeout("if(StandbyDlg.StandbyDialog_Do==true){StandbyDlg.StandbyDialog_StoreField()}", 50);
@@ -82,6 +80,7 @@ this.StandbyDialog_Started=function() {
   
 this.StandbyDialog_StoreField=function() {
     if (document.activeElement) {
+    
         sessionStorage.setItem("StandbyDialog_Field", document.activeElement.id);
         this.StandbyDialog_Field = document.activeElement.id;
     }
@@ -91,7 +90,6 @@ this.StandbyDialog_StoreField=function() {
   
 this.StandbyDialog_Completed=function() {
     try {
-   
         StandbyDlg.StandbyDialog_Do = false
           
        $('#StandbyDialogModal').modal('hide')

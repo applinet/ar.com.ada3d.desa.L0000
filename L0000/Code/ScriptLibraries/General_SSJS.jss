@@ -662,8 +662,6 @@ function getListAccordion() {
             var col: NotesDocumentCollection = edoc.getResponses();
             curLevel = entry.getColumnIndentLevel();
             
-            print("entry:" + entryValue);
-            
             if (col.getCount() > 0) {
             	 //prep for new entry with response(s)
                 var difLevel = countLevel - curLevel;
@@ -682,7 +680,6 @@ function getListAccordion() {
             	
             	
             	list = list + "</div>";
-            	print("padre: " + entryValue + "countLevel:" + countLevel + " - curLevel:" + curLevel);
                 list = list + "<div class=\'panel-collapse collapse in\' id=\'collapse" + countCollapse + "\'>";
             	
             	  //increase counter
@@ -691,13 +688,10 @@ function getListAccordion() {
 			
                 if (curLevel == countLevel) {
                     list = list + "<div class=\'panel-body\'>" + entryValue + "<</div>";
-                    print("hijo: " + entryValue + "countLevel:" + countLevel + " - curLevel:" + curLevel);
                 } else if (curLevel < countLevel) {
-                	print("ESTO --- countLevel:" + countLevel + " - curLevel:" + curLevel);
                     var difLevel = countLevel - curLevel;
                     var closure = ""
                     for (var i = 0; i < (difLevel); i++) {
-                    	print("CLOSURE 2 difLevel:" + difLevel + " - curLevel:" + curLevel);
                         closure = closure + "</div></div>"
                     }
                     list = list + closure
@@ -756,5 +750,12 @@ function btnAplicarMasivo(strKey:String){
 		}
 		getComponent(strKey).setValue('');
 		view.postScript("window.scrollTo(0,0)")
+	}
+}
+
+function facesMsgValidation(msgValidacion:java.util.ArrayList){
+	var msg=new javax.faces.application.FacesMessage();
+	for (i=0;i<msgValidacion.size();i++) {
+		facesContext.addMessage(getComponent(msgValidacion.get(i).split("\~")[0]).getClientId(facesContext),msg(msgValidacion.get(i).split("\~")[1]));
 	}
 }

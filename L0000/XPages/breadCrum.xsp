@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.resources>
+		<xp:styleSheet href="/a2_docs.min.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xc:ccLayoutBootstrap property_TitleBarTitle="false"
+		property_hasTitleBar="false" property_ShowComboEdificio="false">
+		<xp:this.facets>
+			
+			<xp:panel styleClass="bs-callout bs-callout-danger"
+				xp:key="facetMiddle">
+				<h4>Ultimas modificaciones</h4>
+				
+				<p>
+					<xp:repeat id="repeat1" rows="30" var="collRpt"
+						indexVar="idxRpt" value="#{DocUsr.ultimaActividad}">
+						<xp:text escape="true" id="computedField1">
+							<xp:this.value><![CDATA[#{javascript:collRpt}]]></xp:this.value>
+						</xp:text>
+						<br />
+					</xp:repeat>
+
+				</p>
+			</xp:panel>
+			</xp:this.facets>
+	</xc:ccLayoutBootstrap>
+	
+</xp:view>

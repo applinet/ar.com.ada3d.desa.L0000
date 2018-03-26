@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="3c6" sequence="94" unid="BD27A6F255364EA6832582400061B86E">
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325825C0066FBF5" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="3be" sequence="356" unid="BD27A6F255364EA6832582400061B86E">
 <created><datetime dst="true">20180226T154722,06-02</datetime></created>
-<modified><datetime dst="true">20180302T100652,66-02</datetime></modified>
-<revised><datetime dst="true">20180301T200949,39-02</datetime></revised>
-<lastaccessed><datetime dst="true">20180302T100652,66-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20180302T100652,66-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst="true">20180326T164455,69-02</datetime></modified>
+<revised><datetime dst="true">20180316T082001,91-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180326T164455,69-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180326T164455,69-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name="$Comment"><text>*** PRUEBA - BORRAR ***</text></item>
 <item name="$TITLE"><text>frmDatosEdificiosModificacionAutomatica.xsp</text></item>
 <item name="$Flags"><text>gC~4KP</text></item>
 
@@ -16,6 +15,7 @@
 
 
 <item name="$FileNames" sign="true"><text>frmDatosEdificiosModificacionAutomatica.xsp</text></item>
+<item name="$Comment" sign="true"><text>Edificios intereses y fechas  Masivos</text></item>
 <item name="$DesignerVersion"><text>9.0.1</text></item>
 
 

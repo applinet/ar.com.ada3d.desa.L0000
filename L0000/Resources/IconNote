@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
- maintenanceversion='1.9' replicaid='8325824B004C654F'>
-<noteinfo noteid='112' unid='85255A0A0010A6F0852556F00072875B' sequence='390'>
+ maintenanceversion='1.9' replicaid='8325825C0066FBF5'>
+<noteinfo noteid='112' unid='85255A0A0010A6F0852556F00072875B' sequence='393'>
 <created><datetime dst='true'>19871019T165057,55-04</datetime></created>
-<modified><datetime dst='true'>20180309T115432,29-02</datetime></modified>
-<revised><datetime dst='true'>20180309T115432,28-02</datetime></revised>
-<lastaccessed><datetime dst='true'>20180309T115432,29-02</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20180309T115427,17-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst='true'>20180326T164532,92-02</datetime></modified>
+<revised><datetime dst='true'>20180326T164532,91-02</datetime></revised>
+<lastaccessed><datetime dst='true'>20180326T164532,92-02</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20180326T164452,25-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name><name>CN=ADA3D/O=SASA</name><name
 >CN=Notes Standard Control/O=SASA</name><name>CN=ADA3D/O=SASA</name><name
 >CN=Notes Standard Control/O=SASA</name></updatedby>
@@ -27,14 +27,15 @@ AAAAAAAAAAAAAAAAAAAAAAAAAA==
 </rawitemdata></item>
 <item name='$DefaultFrameset'><text>Principal</text></item>
 <item name='$DefaultXPage'><text>home.xsp</text></item>
-<item name='$LaunchXPageRunOnServer'><text>0</text></item>
-<item name='$FlagsNoRefresh'><text/></item>
 <item name='$TemplateServerName'><text>CN=Notes Standard Control/O=SASA</text></item>
 <item name='$LargeSummary'><text>0</text></item>
-<item name='$Flags'><text>fJz247qZFn!</text></item>
 <item name='$PIRCRefreshModTime'><datetime>20180227T101011,48-03</datetime></item>
 <item name='$TemplateModTime'><datetime>20180227T100825,88-03</datetime></item>
 <item name='$TemplateFileName'><text>c:\Program Files (x86)\IBM\Notes\Data\L8669_20180227.ntf</text></item>
 <item name='$Daos'><text>0</text></item>
-<item name='$TITLE'><text>L0000 Diseño Base</text></item></note>
+<item name='$Flags'><text>fJz247qZFn!</text></item>
+<item name='$LaunchXPageRunOnServer'><text>0</text></item>
+<item name='$FlagsNoRefresh'><text/></item>
+<item name='$TITLE'><text>L0000 Diseño Base
+#1L0000</text></item></note>
 

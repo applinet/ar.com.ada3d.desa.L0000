@@ -118,7 +118,7 @@ public class CfgTablas implements Serializable {
 	@SuppressWarnings("unchecked")
 	public void setStrsSQL(Document docTarget) {
 		Session s = JSFUtil.getSession();
-		
+		docTarget = docSinComillasSimples(docTarget);
 		try {
 			Vector vecResult;
 			 //System.out.println("setStrsSQL_tabla=" + this.getTabla());
@@ -141,5 +141,21 @@ public class CfgTablas implements Serializable {
 			XspOpenLogUtil.logError(e);
 		}
 
+	}
+	
+	/** Del documento docTarget si viene con una comilla simples me rompe el sql
+	 * Una manera de escapar eso es poner doble comillas simples que es lo que hace esta función
+	 * @param  docTarget antes de hacer el evaluate
+	 * @return el mismo docTarget con los campos escapados
+	 * */
+	private Document docSinComillasSimples(Document prm_docTarget){
+		if (prm_docTarget != null){
+			for (Item i : prm_docTarget.getItems()){
+				if (i.getValueString().contains("'"))
+					prm_docTarget.replaceItemValue(i.getName(), i.getValueString().replace("'", "''"));
+			}
+		}
+		return prm_docTarget;
+		
 	}
 }

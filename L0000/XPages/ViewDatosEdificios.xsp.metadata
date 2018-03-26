@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="3ee" sequence="20" unid="62E901B8CDC32CD9832582400061BAC9">
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325825C0066FBF5" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="3e2" sequence="36" unid="62E901B8CDC32CD9832582400061BAC9">
 <created><datetime dst="true">20180226T154728,09-02</datetime></created>
-<modified><datetime dst="true">20180302T100652,86-02</datetime></modified>
-<revised><datetime dst="true">20180302T093938,15-02</datetime></revised>
-<lastaccessed><datetime dst="true">20180302T100652,86-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20180302T100652,86-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst="true">20180326T164455,87-02</datetime></modified>
+<revised><datetime dst="true">20180316T082001,86-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180326T164455,87-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180326T164455,87-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
 <item name="$TITLE"><text>ViewDatosEdificios.xsp</text></item>
@@ -12,9 +12,10 @@
 
 
 
-<item name="$DesignerVersion"><text>9.0.1</text></item>
-
-
 <item name="$FileNames" sign="true"><text>ViewDatosEdificios.xsp</text></item>
+
+
+<item name="$Comment" sign="true"><text>Vista general de Edificios</text></item>
+<item name="$DesignerVersion"><text>9.0.1</text></item>
 
 </note>

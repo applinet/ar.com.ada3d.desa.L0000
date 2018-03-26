@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325824400428A77" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="3d2" sequence="10" unid="854C503FA10841BF832582400061B8FF">
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.9" replicaid="8325825C0066FBF5" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="3c6" sequence="13" unid="854C503FA10841BF832582400061B8FF">
 <created><datetime dst="true">20180226T154723,51-02</datetime></created>
-<modified><datetime dst="true">20180302T100652,72-02</datetime></modified>
-<revised><datetime dst="true">20180227T132307,28-02</datetime></revised>
-<lastaccessed><datetime dst="true">20180302T100652,72-02</datetime></lastaccessed>
-<addedtofile><datetime dst="true">20180302T100652,72-02</datetime></addedtofile></noteinfo>
+<modified><datetime dst="true">20180326T164455,73-02</datetime></modified>
+<revised><datetime dst="true">20180314T094118,49-02</datetime></revised>
+<lastaccessed><datetime dst="true">20180326T164455,73-02</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20180326T164455,73-02</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Notes Standard Control/O=SASA</name></updatedby>
 <wassignedby><name>CN=Notes Standard Control/O=SASA</name></wassignedby>
-<item name="$Comment"><text>*** PRUEBA - BORRAR ***</text></item>
 <item name="$TITLE"><text>fxDocLock.xsp</text></item>
 <item name="$Flags"><text>gC~4KP</text></item>
 
 
 
-
-
 <item name="$FileNames" sign="true"><text>fxDocLock.xsp</text></item>
+
+
+<item name="$Comment" sign="true"><text>Ver los lockeos</text></item>
 <item name="$DesignerVersion"><text>9.0.1</text></item>
 
 </note>

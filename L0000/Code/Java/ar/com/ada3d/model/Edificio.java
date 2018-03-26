@@ -34,7 +34,7 @@ public class Edificio implements Serializable{
 	private List<SelectItem> edf_cuotaFijaDiaOpcionesCombo;
 	private String edf_imprimeTitulosEnLiquidacion;
 	private BigDecimal edf_interesPunitorioDeudores;
-	private BigDecimal edf_interesRecargoSegundoVencimiento;
+	private BigDecimal edf_interesRecargoSegundoVencimiento; //5 posiciones AS400
 	private Date edf_fechaPrimerVencimientoRecibos;
 	private Date edf_fechaSegundoVencimientoRecibos;
 	private String edf_modalidadInteresesPunitorios;

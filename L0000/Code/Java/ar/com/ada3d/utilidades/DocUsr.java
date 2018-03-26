@@ -10,12 +10,13 @@ public class DocUsr implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private final HashMap<String, String> _map;
 	private ArrayList<String> edificiosNoAccessLista;
+	private ArrayList<String> ultimaActividad;
+
 
 
 	public DocUsr() {
 		//System.out.println("FPR - Constr. DocUsr");
-		this._map = new HashMap<String, String>();
-		
+		this._map = new HashMap<String, String>();		
 		updateDocUsr();
 	}
 
@@ -42,7 +43,7 @@ public class DocUsr implements Serializable{
 					this._map.put("userMaskName", docUsuario
 							.getItemValueString("usr_UserMaskName_des"));
 					this._map.put("userSequential", docUsuario
-							.getItemValueString("usr_UserSequential_nro"));
+							.getItemValueString("usr_UserSequential_des"));
 					this._map.put("userStatus", docUsuario
 							.getItemValueString("usr_Status_des"));
 					this._map.put("userSeg", docUsuario
@@ -126,8 +127,7 @@ public class DocUsr implements Serializable{
 		return ret;
 	}
 
-	@SuppressWarnings("unused")
-	private String getUserSec() {
+	public String getUserSec() {
 		String ret;
 		synchronized (this._map) {
 			ret = this._map.get("userSequential");
@@ -169,4 +169,18 @@ public class DocUsr implements Serializable{
 		this.edificiosNoAccessLista = edificiosNoAccessLista;
 	}
 
+	
+	public ArrayList<String> getUltimaActividad() {
+		return ultimaActividad;
+	}
+
+	public void setUltimaActividad(ArrayList<String> ultimaActividad) {
+		this.ultimaActividad = ultimaActividad;
+	}
+
+	public void setUltimaActividad(String ultimaActividad) {
+		if(this.ultimaActividad == null)
+			this.ultimaActividad = new ArrayList<String>();
+		this.ultimaActividad.add(0, ultimaActividad);
+	}
 }

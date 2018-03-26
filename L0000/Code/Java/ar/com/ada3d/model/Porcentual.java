@@ -14,8 +14,8 @@ public class Porcentual implements Serializable{
 	private Integer porc_posicion;
 	private String porc_titulo;
 	private Integer porc_porcentaje;
-	private BigDecimal porc_importeHonorarios;
-	private BigDecimal porc_importeHonorariosMasivo;
+	private BigDecimal porc_importeHonorarios; // 9 posiciones AS400
+	private BigDecimal porc_importeHonorariosMasivo; // 9 posiciones AS400
 	private String porc_edf_codigo;
 
 	//Getters and Setters

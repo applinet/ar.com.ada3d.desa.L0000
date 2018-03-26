@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.openntf.domino.Document;
+
 import lotus.domino.NotesException;
 
 import ar.com.ada3d.connect.QueryAS400;
@@ -19,7 +21,7 @@ public class PorcentualMasivoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public PorcentualMasivoBean() {
-		AddPorcentualAs400();
+		fillPorcentualAs400();
 	}
 
 	public List<Porcentual> listaHonorariosEdificiosTrabajo;
@@ -27,8 +29,11 @@ public class PorcentualMasivoBean implements Serializable {
 	private String tipoRedondeo;
 	
 	
-	//Agregar tomando del AS400
-	private void AddPorcentualAs400() {
+	/**
+	 * Completa la lista de porcentuales desde el AS400
+	 * Carga los valores en: listaHonorariosEdificiosTrabajo
+	 * */
+	private void fillPorcentualAs400() {
 		DocUsr docUsuario = (DocUsr) JSFUtil.resolveVariable("DocUsr");
 		ArrayList<String> tempEdificiosSinAcceso = docUsuario.getEdificiosNoAccessLista();
 		
@@ -74,6 +79,7 @@ public class PorcentualMasivoBean implements Serializable {
 		List<Porcentual> listaPorcentualesEdificio = new ArrayList<Porcentual>();
 		BigDecimal tempImporteHonorarios; //Para definir antes si es cero no va
 		int posicionPorcentaje = 1;
+		int posicionReal = 1;
 		int posicionHonorarios = 5;
 		for(int i=1; i<5; i++){ //Son 4 porcentuales por ahora
 			tempImporteHonorarios = new BigDecimal(ar.com.ada3d.utilidades.Conversores.stringToStringDecimal(strLinea.split("\\|")[posicionHonorarios].trim(), Locale.UK, 2));
@@ -81,8 +87,8 @@ public class PorcentualMasivoBean implements Serializable {
 			if(tempImporteHonorarios.compareTo(BigDecimal.ZERO) != 0 && !strLinea.split("\\|")[posicionPorcentaje].trim().equals("0")){ //				
 				myPorcentual = new Porcentual();
 				myPorcentual.setPorc_edf_codigo(strLinea.split("\\|")[0].trim());
-				myPorcentual.setPorc_posicion(i);
-				myPorcentual.setPorc_titulo("Honorarios % " + i);
+				myPorcentual.setPorc_posicion(posicionReal);
+				myPorcentual.setPorc_titulo("Honorarios % " + posicionReal);
 				myPorcentual.setPorc_porcentaje(Integer.parseInt(strLinea.split("\\|")[posicionPorcentaje].trim()));
 				myPorcentual.setPorc_importeHonorarios(tempImporteHonorarios);
 				myPorcentual.setPorc_importeHonorariosMasivo(tempImporteHonorarios);
@@ -90,11 +96,17 @@ public class PorcentualMasivoBean implements Serializable {
 				posicionHonorarios = posicionHonorarios + 1;
 				listaPorcentualesEdificio.add(myPorcentual);
 			}
+			posicionReal = posicionReal + 1;
 		}
 		
 		return listaPorcentualesEdificio;
 	}
 	
+	/**
+	 * En la vista de honorarios masivos actualiza los valores temporalen en pantalla
+	 * @param el % que tengo que aplicarle a cada honorario
+	 * @return un array de texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 * */
 	public ArrayList<String> modificoHonorariosMasivos(Object prm_valor){		
 		ArrayList<String> listAcumulaErrores = new ArrayList<String>();
 		DocLock lock = (DocLock) JSFUtil.resolveVariable("DocLock");
@@ -103,27 +115,37 @@ public class PorcentualMasivoBean implements Serializable {
 		if(prm_valor == null){
 			listAcumulaErrores.add("porcentajePorAplicar~Debe ingresar un valor.");	
 		}else if(prm_valor instanceof Double || prm_valor instanceof Long){
-			
+			BigDecimal maxImporteHonorarios  = new BigDecimal("9999999.99"); //Es el maximo aceptado por AS400 (5 posiciones AS400)
 			BigDecimal valor = new BigDecimal(prm_valor.toString());
-			if(valor.compareTo(new BigDecimal(9999)) == 1){ //Hasta 9999
-				listAcumulaErrores.add("porcentajePorAplicar~El % de aumento no puede superar el 9999 %" );
+			BigDecimal maxValor  = new BigDecimal("999.9");
+			BigDecimal minValor  = new BigDecimal("-99.9");
+			
+			if(valor.compareTo(maxValor) == 1){ //Hasta 999
+				listAcumulaErrores.add("porcentajePorAplicar~El % de aumento no puede superar el 999,9 %" );
 				return listAcumulaErrores;
 			}
-			if(valor.compareTo(new BigDecimal(-99)) == -1){ //Hasta -99
-				listAcumulaErrores.add("porcentajePorAplicar~El % de disminución no puede ser menor que 99 %" );
+			if(valor.compareTo(minValor) == -1){ //Hasta -99
+				listAcumulaErrores.add("porcentajePorAplicar~El % de disminución no puede ser menor que 99,9 %" );
 				return listAcumulaErrores;
 			}
-			//valor = valor.setScale(1, RoundingMode.HALF_EVEN);//redondeo si puso mas de 1 decimal
+			//valor = valor.setScale(1, RoundingMode.HALF_EVEN);//redondeo si puso mas de 1 decimal, ya no puede
 			BigDecimal tempCalculo;
 			int enteroTipoRedondeo = Integer.parseInt(tipoRedondeo);
 			
 			for (Porcentual myPorcentual : listaHonorariosEdificiosTrabajo){
 				if( (lock.isLocked("edf_" + myPorcentual.getPorc_edf_codigo()) && lock.getLock("edf_" + myPorcentual.getPorc_edf_codigo()).equals(strUsuario) ) || !lock.isLocked("edf_" + myPorcentual.getPorc_edf_codigo())  ){
 					tempCalculo = myPorcentual.getPorc_importeHonorarios().multiply(valor).divide(new BigDecimal(100));
-					tempCalculo = tempCalculo.setScale(enteroTipoRedondeo, RoundingMode.HALF_EVEN);//ajusto a 2 decimales
-					
-					myPorcentual.setPorc_importeHonorariosMasivo(myPorcentual.getPorc_importeHonorarios().add(tempCalculo));
-					isMasivoActualizado = true;
+					tempCalculo = myPorcentual.getPorc_importeHonorarios().add(tempCalculo); //Hago la suma con todos los decimales
+					tempCalculo = tempCalculo.setScale(enteroTipoRedondeo, RoundingMode.HALF_EVEN);//ajusto a los decimales solicitados
+					if(tempCalculo.compareTo(maxImporteHonorarios) == 1){ //Maximo permitido por AS400
+						listAcumulaErrores.add("porcentajePorAplicar~El valor máximo de honorarios es de 9.999.999,99. El edificio " + myPorcentual.getPorc_edf_codigo() + " como supera ese máximo, se visualiza con el máximo posible.");
+						if(myPorcentual.getPorc_importeHonorarios().compareTo(maxImporteHonorarios) != 0){
+							myPorcentual.setPorc_importeHonorariosMasivo(maxImporteHonorarios); 
+						}
+					}else{
+						myPorcentual.setPorc_importeHonorariosMasivo(tempCalculo.setScale(2, RoundingMode.HALF_EVEN)); //le agrego los 2 decimales al guardar
+						isMasivoActualizado = true;
+					}
 				}else{
 					listAcumulaErrores.add("porcentajePorAplicar~El edificio " + myPorcentual.getPorc_edf_codigo() + " no se pudo actualizar ya que está siendo modificado por: " + lock.getLock("edf_" + myPorcentual.getPorc_edf_codigo()).substring(4) );
 				}
@@ -132,17 +154,22 @@ public class PorcentualMasivoBean implements Serializable {
 		return(listAcumulaErrores);
 	}
 	
+	/**
+	 * En la vista de honorarios masivos guarda los valores temporalen en AS400
+	 * @return un array de texto con: idComponente con error ~ Mensaje a Mostrar en pantalla
+	 * */
 	public ArrayList<String> saveMasivoHonorarios(){
 		ArrayList<String> listAcumulaErrores = new ArrayList<String>();
-		String strSQL;
 		if(isMasivoActualizado){
 			
 			QueryAS400 query = new QueryAS400();
+			Document docDummy = JSFUtil.getDocDummy();
+			docDummy.appendItemValue("LISTA_EDIF", "SET");
 			
-			if (query.updateBatchAS("updateEdificiosPH_E01", null)) {
-				System.out.println("update ok");
+			if (query.updateBatchAS("updateMasivoHonorariosEdificiosBatch", docDummy, listaHonorariosEdificiosTrabajo)) {
+				System.out.println("saveMasivoHonorarios --> updateBatch ok");
 			}else{
-				throw new java.lang.Error("No se pudo actualizar la tabla PH_E01.");
+				listAcumulaErrores.add("No se pudo actualizar la tabla PH_E01.");
 			}
 /*			
 			DocLock lock = (DocLock) JSFUtil.resolveVariable("DocLock");
@@ -155,7 +182,6 @@ public class PorcentualMasivoBean implements Serializable {
 				
 			}
 	*/		
-			listAcumulaErrores.add("porcentajePorAplicar~Gabando.");
 		}
 		return listAcumulaErrores;
 	}

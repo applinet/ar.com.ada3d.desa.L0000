@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core"
 	xmlns:xc="http://www.ibm.com/xsp/custom"
-	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	xmlns:xe="http://www.ibm.com/xsp/coreex" enableModifiedFlag="true">
 	<xp:this.resources>
 		<xp:styleSheet href="/xpDataTable.css"></xp:styleSheet>
-	</xp:this.resources>	
+		<xp:script
+			src="\jQuery-Mask-Plugin-master/src/jquery.maskMoney.js"
+			clientSide="true">
+		</xp:script>
+	</xp:this.resources>
+
 	<xc:ccFxPleaseWaitStandBy></xc:ccFxPleaseWaitStandBy>
 	<xc:ccLayoutBootstrap property_ShowComboEdificio="false">
 		<xp:this.facets>
 			<xp:panel id="PNL_container" xp:key="facetMiddle">
-
+				<xp:scriptBlock id="scriptBlockMaskedJquery">
+					<xp:this.value><![CDATA[jQuery(function($){
+	x$("#{id:porcentajePorAplicar}").maskMoney( {thousands:'.', decimal:',', precision:1, allowNegative:true, suffix: ' %'});
+});    ]]></xp:this.value>
+				</xp:scriptBlock>
 				<xe:widgetContainer id="widgetContainer1"
 					titleBarText="Modificación automática, para los #{edificioBean.cantidadTotalEdificiosTrabajo} edificios"
-					collapsible="true">
+					collapsible="true"
+					dropDownRendered="#{porcentualMasivoBean.isMasivoActualizado}">
 					<xe:this.dropDownNodes>
 						<xe:basicLeafNode label="Confirmar cambios"
 							rendered="#{porcentualMasivoBean.isMasivoActualizado}">
@@ -38,15 +48,18 @@
 									</xe:this.dropDownNodes>
 									<xp:inputText
 										id="porcentajePorAplicar"
-										style="text-align:right; width:100.0px; display: inline;">
-
+										style="text-align:right; width:100.0px; display: inline;"
+										tabindex="1" maxlength="7">
 										<xp:eventHandler
 											event="onkeypress" submit="false">
 											<xp:this.script><![CDATA[var key = thisEvent.keyCode || thisEvent.which;
 if (key == 13) {
     document.getElementById("#{id:btnAplicarMasivo}").click();
+    thisEvent.preventDefault();
+    thisEvent.stopPropagation(); 
     return true;
-}				                    ]]>
+}
+							                    ]]>
 											</xp:this.script>
 										</xp:eventHandler>
 										<xp:this.attrs>
@@ -58,16 +71,16 @@ if (key == 13) {
 											<xp:customConverter
 												getAsString="#{javascript:value.toString()}">
 												<xp:this.getAsObject><![CDATA[#{javascript:if(value != "")
-	parseFloat(value.replace(/,/g,"\."))}]]></xp:this.getAsObject>
+	parseFloat(value.replace('.', '').replace(/,/g,"\."));}]]></xp:this.getAsObject>
 											</xp:customConverter>
 										</xp:this.converter>
 									</xp:inputText>
-									<xp:label value="%" id="label9"></xp:label>
 									<xp:label value="Redondear a ceros:"
 										id="label10"
 										style="text-align:right; display: inline;margin-left:5.0%">
 									</xp:label>
-									<xp:comboBox id="comboBox1" value="#{porcentualMasivoBean.tipoRedondeo}"
+									<xp:comboBox id="tipoRedondeo"
+										value="#{porcentualMasivoBean.tipoRedondeo}"
 										style="text-align:right; width:200.0px; display: inline;">
 										<xp:selectItem
 											itemLabel="Según cálculo" itemValue="2">
@@ -84,7 +97,7 @@ if (key == 13) {
 										<xp:selectItem
 											itemLabel="Cuatro últimas cifras" itemValue="-2">
 										</xp:selectItem>
-										
+
 										<xp:eventHandler
 											event="onchange" submit="false">
 											<xp:this.script><![CDATA[if(document.getElementById("#{id:porcentajePorAplicar}").value != null && document.getElementById("#{id:porcentajePorAplicar}").value != '' )
@@ -93,6 +106,7 @@ if (key == 13) {
 									</xp:comboBox>
 								</xe:widgetContainer>
 							</xp:td>
+							<xp:td style="width:20.0%"></xp:td>
 						</xp:tr>
 					</xp:table>
 					<xp:messages id="messages1"
@@ -128,7 +142,7 @@ if (key == 13) {
 						</xp:text>
 					</xp:column>
 					<xp:column id="porc_importeHonorariosColumn"
-						style="text-align:center">
+						style="text-align:right">
 						<xp:this.facets>
 							<xp:label value="Honorario Anterior"
 								id="labelPorc_importeHonorarios" xp:key="header"
@@ -138,10 +152,15 @@ if (key == 13) {
 						<xp:text escape="true"
 							value="#{unPorcentual.porc_importeHonorarios}"
 							id="porc_importeHonorarios">
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.00;(#,##0.00)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 					</xp:column>
 					<xp:column id="porc_porcentajeColumn"
-						style="text-align:center">
+						style="text-align:right">
 						<xp:this.facets>
 							<xp:label value="Honorario Actual"
 								id="labelPorc_importeHonorariosMasivo" xp:key="header"
@@ -151,40 +170,47 @@ if (key == 13) {
 						<xp:text escape="true"
 							value="#{unPorcentual.porc_importeHonorariosMasivo}"
 							id="porc_importeHonorariosMasivo">
-							<xp:this.styleClass><![CDATA[#{javascript:porcentualMasivoBean.isMasivoActualizado ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
+							<xp:this.styleClass><![CDATA[#{unPorcentual.porc_importeHonorariosMasivo ne unPorcentual.porc_importeHonorarios ? "edificioMasivoCambiado" : ""}]]></xp:this.styleClass>
+							<xp:this.converter>
+								<xp:convertNumber
+									pattern="#,##0.00;(#,##0.00)">
+								</xp:convertNumber>
+							</xp:this.converter>
 						</xp:text>
 					</xp:column>
 				</xp:dataTable>
+
+
 				<div id="divHiddenAplicar" style="display: none;">
-					<xp:button value="btnAplicarMasivo"
+					<xp:button value="HidenbtnAplicarMasivo"
 						id="btnAplicarMasivo">
 						<xp:eventHandler event="onclick" submit="true"
 							refreshMode="partial" refreshId="PNL_container">
 							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = porcentualMasivoBean.modificoHonorariosMasivos(getComponent("porcentajePorAplicar").getValue());
-//getComponent("porcentajePorAplicar").getValue()
 if(msgValidacion.isEmpty()){
 	viewScope.MessageType="S";
 	viewScope.MessageText = [];
-	viewScope.MessageText.push(["Se aplicaron los cambios solicitados."]);
+	viewScope.MessageText.push(["Se muestra en pantalla como quedarían los honorarios con el " + getComponent("porcentajePorAplicar").getValue() +" %"]);
 	viewScope.MessageText.push(["Para guardar estos cambios presione 'Confirmar cambios'"]);
-	//getComponent("porcentajePorAplicar").setValue('');
+	getComponent("porcentajePorAplicar").setValue('');
 }else{
 	viewScope.MessageType="W";
 	viewScope.MessageText = [];
 	for (i=0;i<msgValidacion.size();i++) {
 		viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
 	}
-	//getComponent("porcentajePorAplicar").setValue('');
+	getComponent("porcentajePorAplicar").setValue('');
 	view.postScript("window.scrollTo(0,0)")
 }
 
 }]]></xp:this.action>
+
 						</xp:eventHandler>
 					</xp:button>
 					<xp:button value="btnConfirmarMasivo"
 						id="btnConfirmarMasivo">
 						<xp:eventHandler event="onclick" submit="true"
-							refreshMode="partial" refreshId="PNL_container">
+							refreshMode="complete">
 							<xp:this.action><![CDATA[#{javascript:var msgValidacion:java.util.ArrayList = porcentualMasivoBean.saveMasivoHonorarios();
 if(!msgValidacion.isEmpty()){
 	viewScope.MessageType="E";
@@ -192,6 +218,8 @@ if(!msgValidacion.isEmpty()){
 	for (i=0;i<msgValidacion.size();i++) {
 		viewScope.MessageText.push([msgValidacion.get(i).split("\~")[1]]);
 	}
+}else{
+	context.redirectToPage("frmDatosEdificiosHonorariosModificacionAutomatica");
 }}]]></xp:this.action>
 						</xp:eventHandler>
 					</xp:button>

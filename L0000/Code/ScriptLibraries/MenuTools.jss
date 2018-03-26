@@ -77,10 +77,12 @@ var menuTools = {
         return result;
         
     }   
+	
 
 
 
-}
+};
+
 
 /*Devuelve un java vector con los menues autorizados del usuario actual logueado*/
 function getCodigoMenuSelected():java.util.Vector{
